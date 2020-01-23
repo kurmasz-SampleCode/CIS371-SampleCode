@@ -19,7 +19,6 @@ sub find_on_machine {
 
     my $output = `ssh $machine who | grep $person`;
 
-
     if ($output) {
         $results{$machine} = "yes";
     }
@@ -28,7 +27,8 @@ sub find_on_machine {
 }
 
 @threads = ();
-%clusters = (arch => 10, eos => 32 );
+#%clusters = (arch => 10, eos => 32 );
+%clusters = (arch => 10);
 
 while (my ($name, $number) = each(%clusters)) {
 
@@ -49,7 +49,6 @@ my $list ="";
 foreach (sort keys %results) {
     $list .= "<li>$_</li>\n";
 }
-
 
 my $document=<<"DONE";
 <html>

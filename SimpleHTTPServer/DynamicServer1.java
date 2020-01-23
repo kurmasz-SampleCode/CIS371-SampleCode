@@ -9,7 +9,11 @@ import java.io.*;
  ***********************************************************************************************/
 public class DynamicServer1 {
 
-    // This method demonstrates how to isolate a file's extension
+    
+    /**
+     * Extract the extension from a filename (i.e., return everything after the last ".")
+     * 
+     */
     public static String getExtension(String filename) {
         int i = filename.lastIndexOf('.');
         if (i > -1) {
@@ -61,19 +65,23 @@ public class DynamicServer1 {
         }
     }
 
+    /**
+     * Handle a request for a dynamicly generated page
+     * 
+     * @param out The {@code OutputStream} for the socket
+     * @param filename The filename.
+     */
     public static void dynamicPage(PrintStream out, String filename) {
 
         System.out.println("Serving a dynamic web page: " + filename);
         String extension = getExtension(filename);
 
         String command;
-        if (extension.equals("class")) {
-
+        if (extension.equals("class")) { 
             // Extract the class name from the filename
             int slashloc = filename.indexOf("/");
             int dotloc = filename.indexOf(".class");
             String className = filename.substring(slashloc + 1, dotloc);
-
             command = "java -cp cgi-bin " + className;
         } else if (extension.equals("pl")) {
             command = "perl " + filename;
