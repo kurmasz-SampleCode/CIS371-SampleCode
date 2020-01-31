@@ -1,0 +1,44 @@
+<!-- Jinja documentation: https://jinja.palletsprojects.com/en/2.11.x/ -->
+
+{% set colors = [ 'red', 'green', 'blue', 'orange', 'yellow', 'purple'] %}
+<html>
+
+<head>
+  <title>Color Samples using Jinja</title>
+</head>
+<style>
+  {% for color in colors %}
+
+  .color-{{color}} {
+    color: {{color}};
+  }
+
+  {% endfor %}
+</style>
+
+<body>
+
+  <h1> List Colors (Jinja)</h1>
+
+  This section simply lists the color names because the code is simpler.
+
+  <ul>
+    {% for color in colors %}
+    <li>{{ color }}</li>
+    {% endfor %}
+  </ul>
+
+  <h1> Show Colors </h1>
+  This section shows the colors. Same ideas as above, but the code is a little harder to read.
+
+  <ul>
+    {% for color in colors %}
+    <li><span class='color-{{ color }}'>{{color}}</span></li>
+    {% endfor %}
+  </ul>
+
+
+
+</body>
+
+</html>
