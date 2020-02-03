@@ -1,11 +1,14 @@
+<%# ERB stands for "Embedded Ruby" %>
+<%# To run:  erb colorDemo.html > output.html %>
+<%# To install:  gem install erb %>
+
 <% colors = [:red, :green, :blue, :orange, :pink, :purple, :violet, :lightgreen, :lightred] %>
 
-<html>
-<head>
-<title>Color Samples using ERB</title>
-<style>
-
-
+<html>>
+  <head>>
+    <title> Color Samples using ERB</title>
+  <style>
+  
 /* You can even use erb to generate CSS */
 <% colors.each do |color| %>
   .color-<%= color %> {

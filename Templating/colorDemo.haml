@@ -1,0 +1,42 @@
+-# HAML stands for "HTML Abstraction Markup Language"
+-# To run:      haml colorDemo.haml > output.html
+-# To install:  gem install haml 
+
+-# Indention is important
+-# Notice that loops have no end.  They are just "un-indented" 
+
+- colors = [:red, :green, :blue, :orange, :pink, :purple, :violet, :lightgreen, :fuchsia]
+
+%html
+  %head
+    %title Color Samples using HAML
+  %style 
+    - colors.each do |color|
+      \.color-#{color}  {color: #{color};}
+
+  %body
+    %h1 List Colors (ERB)
+
+    %p This section simply lists the color names because the code is simpler.
+
+    %ul 
+      - colors.each do |color|
+        %li= color 
+
+    %h1 Show Colors
+
+    %p This section shows the colors.  Same ideas as above, but the code is a little harder to read.
+
+    %ul
+      - colors.each do |color|
+        %li
+          %span{class: "color-#{color}"}= color
+
+
+
+  %h1 Show Colors (v2)
+
+  %p This section also shows the colors, but uses the <code>map</code> method. Some may find this code easier to follow.
+
+  %ul= colors.map { |color| "<li><span class='color-#{color}'>#{color}</span></li>" }.join("\n")  
+

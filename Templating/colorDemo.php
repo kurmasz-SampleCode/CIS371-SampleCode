@@ -28,6 +28,8 @@ This section simply lists the color names because the code is simpler.
 
 <ul>
 <?php foreach ($colors as $color) {
+  // Notice that the php code is generating a string that contains HTML.
+  // The alternative (repeatedly "opening" and "closing" PHP would get ugly and confusing)
    echo "<li>$color</li>\n";
  }
 ?>
@@ -48,6 +50,9 @@ This section shows the colors.  Same ideas as above, but the code is a little ha
 This section also shows the colors, but uses the <code>map</code> method. Some may find this code easier to follow.
 
 <ul>
+  <!-- array_map is a functional technique that has become quite common in the past 10 years.
+      Notice that its use in PHP is somewhat awkward. 
+-->
 <?php echo join("\n", array_map('make_li', $colors)); ?>  
 </ul>
 
