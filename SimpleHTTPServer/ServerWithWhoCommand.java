@@ -88,8 +88,9 @@ public class ServerWithWhoCommand {
             String[] parts = command.split("\\s+");
             System.out.printf("Command; %s; path %s; protocol %s\n", parts[0], parts[1], parts[2]);
 
-            String filename = parts[1];
 
+            String filename = parts[1];
+	    System.out.println("Filenamae: =>" + filename + "<=");
             //
             // NEW CODE GOES HERE
             //
