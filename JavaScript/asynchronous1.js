@@ -12,7 +12,7 @@ setTimeout(() => callback2(5.5), 5500);
 setTimeout(() => callback2(6), 6000);
 
 
-/*
+
 demonstrateClosures = function() {
 
     let x = 0;
@@ -26,5 +26,21 @@ demonstrateClosures = function() {
     setTimeout(callback3, 2500);
 };
 
-setTimeout(() => demonstrateClosures(), 6000);
-*/
+//setTimeout(() => demonstrateClosures(), 6000);
+
+
+
+demonstrateClosures2 = function() {
+
+    makeCallback = function(value) {
+      return function() {
+        console.log(`Callback v3 after ${value} seconds`);
+      };
+    };
+
+    setTimeout(makeCallback(1.5), 1500);
+    setTimeout(makeCallback(2.5), 2500);
+};
+
+setTimeout(() => demonstrateClosures2(), 6000);
+
