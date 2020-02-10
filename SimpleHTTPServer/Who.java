@@ -32,7 +32,7 @@ public class Who {
     } catch (IOException e) {
       lines.add("There was a problem: " + e);
     } finally {
-      input.close();
+	//      input.close();
     }
 
     return lines;

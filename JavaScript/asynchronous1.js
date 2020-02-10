@@ -12,33 +12,33 @@ setTimeout(() => callback2(5.5), 5500);
 setTimeout(() => callback2(6), 6000);
 
 
-demonstrateClosures = function() {
+demonstrateIncorrectClosures = function() {
 
+    console.log("About to demonstrate incorrect use of closures.");
     let x = 0;
     callback3 = function() {
         console.log(`Callback v3 after ${x} seconds`);
     };
 
+    // Notice that both callbacks will print "1.5".
     x = 1.5;
     setTimeout(callback3, 1500);
     x = 2.5;
     setTimeout(callback3, 2500);
 };
+setTimeout(() => demonstrateIncorrectClosures(), 6000);
 
-//setTimeout(() => demonstrateClosures(), 6000);
+demonstrateCorrectClosures = function() {
 
-demonstrateClosures2 = function() {
-
-
+    console.log("About to demonstrate the correct use of closures.");
     makeCallback = function(value) {
         return function() {
             console.log(`Callback v3 after ${value} seconds`);
         };
     };
 
-
     setTimeout(makeCallback(1.5), 1500);
     setTimeout(makeCallback(2.5), 2500);
 };
 
-setTimeout(() => demonstrateClosures2(), 6000);
+setTimeout(() => demonstrateCorrectClosures(), 9000);
