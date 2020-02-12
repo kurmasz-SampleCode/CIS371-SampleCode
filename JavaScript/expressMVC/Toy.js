@@ -16,9 +16,9 @@ class Toy {
         }
     }
 
+    // In a "real" app, the methods below would be DB accesses, not just a references to a static array.
 
     static all() {
-        // In a "real" app, this would be a DB access, not just a reference to a static array.
         return this.allToys;
     }
 
@@ -31,12 +31,12 @@ class Toy {
         this.allToys.push(newToy);
         return newToy;
     }
-
 }
 
 Toy.idCount = 0;
 Toy.allToys = [new Toy({ name: 'Barbie', description: 'The doll', price: 20.0, manufacturer: 'Mattel' }),
-    new Toy({ name: 'Hot Wheels', description: 'Tiny cars', price: 1.50, manufacturer: 'Mattel' })
+    new Toy({ name: 'Hot Wheels', description: 'Tiny cars', price: 1.50, manufacturer: 'Mattel' }),
+    new Toy({ name: 'Playstation 4', description: 'A gaming console', price: 400, manufacturer: 'Sony' })
 ];
 
 console.log(Toy.allToys);

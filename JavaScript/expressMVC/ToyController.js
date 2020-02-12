@@ -1,7 +1,6 @@
 const Toy = require('./Toy');
 
-
-
+/* Demonstrates a simple implementation of standard CRUD operations */
 class ToyController {
 
     index(req, res) {
