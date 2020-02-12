@@ -1,8 +1,10 @@
 // Express documentation: https://expressjs.com/en/api.html
 
-
 /* Import the express npm module */
 const express = require('express')
+
+/* Import the body-parser module.  (Used for parsing Post data) */
+const bodyParser = require('body-parser');
 
 /* Instantiate a server object*/
 const app = express()
@@ -11,6 +13,11 @@ const port = 3000
 
 /* Tell the server to use EJS by default */
 app.set('view engine', 'ejs');
+
+
+/* Parse the request body if there is POST data */
+app.use(bodyParser.urlencoded({ extended: true }));
+
 
 
 /* Sample route returning a simple, static message. */
@@ -41,6 +48,16 @@ app.get('/staticHTML', (req, res) => {
     // __dirname provide the absolute path of the currently executing file.
     res.sendFile('hello.html', { root: __dirname });
 });
+
+app.get('/multTable', (req, res) => {
+    res.sendFile('multForm.html', { root: __dirname });
+});
+
+app.post('/showTable', (req, res) => {
+    res.render('multTable', req.body);
+});
+
+
 
 /* Launch the server */
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

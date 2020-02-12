@@ -1,0 +1,36 @@
+<html>
+
+<head>
+    <style>
+        .label {
+            display: inline-block;
+            width: 6em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Toy Details</h1>
+
+    <span><span class='label'>Name:</span>
+    <%= toy.name %>
+        </span><br>
+        <span><span class='label'>Description:</span>
+        <%= toy.description %>
+            </span><br>
+            <span><span class='label'>Manufacturer:</span>
+            <%= toy.manufacturer %>
+                </span><br>
+                <span><span class='label'>Price:</span> $
+                <%= toy.price %>
+                    </span><br>
+
+                    <p>
+                        <a href="/toys">Back</a>
+                        <a href="/toys/<%= toy.id %>/edit">Edit</a>
+                    </p>
+
+</body>
+
+</html>
