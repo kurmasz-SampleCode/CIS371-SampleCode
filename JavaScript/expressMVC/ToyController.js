@@ -28,13 +28,15 @@ class ToyController {
         console.log(req.body);
         let newToy = Toy.create(req.body.toy);
 
-
         if (newToy.isValid()) {
+
+            console.log("New toy is valid: ");
+            console.log(newToy);
+
             // Send a redirect to the "show" route for the new toy.
             res.writeHead(302, { 'Location': `/toys/${newToy.id}` });
             res.end();
         } else {
-            newToy.id = undefined;
             res.render('toyNew', { toy: newToy });
         }
     }

@@ -1,14 +1,8 @@
 class Toy {
 
-    name;
-    description;
-    price;
-    manufacturer;
-
     constructor(description) {
         // if description is null or undefined, we want to create an "empty" Toy object.
         if (description) {
-            this.id = ++Toy.idCount;
             this.name = description.name;
             this.description = description.description;
             this.price = description.price;
@@ -19,18 +13,18 @@ class Toy {
 
     isValid() {
         this.errors = [];
-        if (this.name.length <= 2) {
+        if (!this.name || this.name.length <= 2) {
             this.errors.push("The name must contain at least three characters");
         }
-        if (this.description.length <= 0) {
+        if (!this.description || this.description.length <= 0) {
             this.errors.push("The toy must have a description.");
         }
-        if (this.manufacturer.length <= 0) {
+        if (!this.manufacturer || this.manufacturer.length <= 0) {
             this.errors.push("The toy must have a manufacturer.");
         }
         if (isNaN(parseFloat(this.price))) {
             this.errors.push("The price must be a number.");
-        } else if (this.price < 0.0) {
+        } else if (!this.price || this.price < 0.0) {
             this.errors.push("The price must not be negative.");
         }
         return this.errors.length <= 0;
@@ -51,17 +45,22 @@ class Toy {
     static create(toyDescription) {
         let newToy = new Toy(toyDescription);
         if (newToy.isValid()) {
+            console.log("Yes.");
+            newToy.id = ++Toy.idCount;
             this.allToys.push(newToy);
+        } else {
+            console.log("No.");
         }
         return newToy;
     }
 }
 
 Toy.idCount = 0;
-Toy.allToys = [new Toy({ name: 'Barbie', description: 'The doll', price: 20.0, manufacturer: 'Mattel' }),
-    new Toy({ name: 'Hot Wheels', description: 'Tiny cars', price: 1.50, manufacturer: 'Mattel' }),
-    new Toy({ name: 'Playstation 4', description: 'A gaming console', price: 400, manufacturer: 'Sony' })
-];
+Toy.allToys = [];
+
+Toy.create({ name: 'Barbie', description: 'The doll', price: 20.0, manufacturer: 'Mattel' });
+Toy.create({ name: 'Hot Wheels', description: 'Tiny cars', price: 1.50, manufacturer: 'Mattel' });
+Toy.create({ name: 'Playstation 4', description: 'A gaming console', price: 400, manufacturer: 'Sony' });
 
 console.log(Toy.allToys);
 
