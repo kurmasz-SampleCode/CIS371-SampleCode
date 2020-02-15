@@ -6,31 +6,40 @@
     submitLabel = "Create Toy";
     route = "/toys";
   }
-
 %>
+    <% if (toy.errors.length > 0) { %>
+        <% console.log("Found errors"); console.log(toy.errors); %>
 
-    <form action="<%=route%>" accept-charset="UTF-8" method="post">
-        <div class="field">
-            <label for="toy_name">Name</label>
-            <input type="text" name="toy[name]" id="toy_name" value="<%= toy.name %>">
-        </div>
+            <div>
+                <p>Errors:</p>
+                <ul>
+                    <%- toy.errors.map((item) => `<li>${item}</li>` ).join("\n"); %>
+                </ul>
+            </div>
+            <% } %>
 
-        <div class=" field ">
-            <label for="toy_description ">Description</label>
-            <textarea name="toy[description]" id="toy_description "><%= toy.description %></textarea>
-        </div>
+                <form action="<%=route%>" accept-charset="UTF-8" method="post">
+                    <div class="field">
+                        <label for="toy_name">Name</label>
+                        <input type="text" name="toy[name]" id="toy_name" value="<%= toy.name %>">
+                    </div>
 
-        <div class="field ">
-            <label for="toy_manufacturer ">Manufacturer</label>
-            <input type="text" name="toy[manufacturer]" id="toy_manufacturer" value="<%= toy.manufacturer %>" />
-        </div>
+                    <div class=" field ">
+                        <label for="toy_description ">Description</label>
+                        <textarea name="toy[description]" id="toy_description "><%= toy.description %></textarea>
+                    </div>
 
-        <div class="field ">
-            <label for="toy_price ">Price</label>
-            <input type="text" name="toy[price]" id="toy_price" value="<%= toy.price %>" />
-        </div>
+                    <div class="field ">
+                        <label for="toy_manufacturer ">Manufacturer</label>
+                        <input type="text" name="toy[manufacturer]" id="toy_manufacturer" value="<%= toy.manufacturer %>" />
+                    </div>
 
-        <div class="actions ">
-            <input type="submit" name="commit" value="<%= submitLabel %>" />
-        </div>
-    </form>
+                    <div class="field ">
+                        <label for="toy_price ">Price</label>
+                        <input type="text" name="toy[price]" id="toy_price" value="<%= toy.price %>" />
+                    </div>
+
+                    <div class="actions ">
+                        <input type="submit" name="commit" value="<%= submitLabel %>" />
+                    </div>
+                </form>

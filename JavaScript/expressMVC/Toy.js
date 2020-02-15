@@ -14,7 +14,29 @@ class Toy {
             this.price = description.price;
             this.manufacturer = description.manufacturer;
         }
+        this.errors = [];
     }
+
+    isValid() {
+        this.errors = [];
+        if (this.name.length <= 2) {
+            this.errors.push("The name must contain at least three characters");
+        }
+        if (this.description.length <= 0) {
+            this.errors.push("The toy must have a description.");
+        }
+        if (this.manufacturer.length <= 0) {
+            this.errors.push("The toy must have a manufacturer.");
+        }
+        if (isNaN(parseFloat(this.price))) {
+            this.errors.push("The price must be a number.");
+        } else if (this.price < 0.0) {
+            this.errors.push("The price must not be negative.");
+        }
+        return this.errors.length <= 0;
+    }
+
+
 
     // In a "real" app, the methods below would be DB accesses, not just a references to a static array.
 
@@ -28,7 +50,9 @@ class Toy {
 
     static create(toyDescription) {
         let newToy = new Toy(toyDescription);
-        this.allToys.push(newToy);
+        if (newToy.isValid()) {
+            this.allToys.push(newToy);
+        }
         return newToy;
     }
 }
