@@ -22,9 +22,13 @@ class Toy {
         if (!this.manufacturer || this.manufacturer.length <= 0) {
             this.errors.push("The toy must have a manufacturer.");
         }
-        if (isNaN(parseFloat(this.price))) {
+
+        // parseFloat(this.price) != this.price will detect cases like this"  parseFloat("201 Main street")
+        // where the returned value (201) is not the entire string.  Notice the use of == to compare the number
+        // and the string.
+        if (isNaN(parseFloat(this.price)) || parseFloat(this.price) != this.price) {
             this.errors.push("The price must be a number.");
-        } else if (!this.price || this.price < 0.0) {
+        } else if (this.price === undefined || this.price === null || this.price < 0.0) {
             this.errors.push("The price must not be negative.");
         }
         return this.errors.length <= 0;
@@ -45,11 +49,8 @@ class Toy {
     static create(toyDescription) {
         let newToy = new Toy(toyDescription);
         if (newToy.isValid()) {
-            console.log("Yes.");
             newToy.id = ++Toy.idCount;
             this.allToys.push(newToy);
-        } else {
-            console.log("No.");
         }
         return newToy;
     }
