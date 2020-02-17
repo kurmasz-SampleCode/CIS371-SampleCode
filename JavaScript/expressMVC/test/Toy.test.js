@@ -2,96 +2,104 @@
 
 const Toy = require('../Toy');
 
+// The "describe/it" style below is also used by Ruby's RSpec and Jasmine.
+// Jest also lets you just say "test".
 
-test('A valid toy', () => {
-    let toy = new Toy({ name: 'bob', price: 5, description: 'a Toy', manufacturer: 'Hasbro' });
-    expect(toy.isValid()).toBe(true);
-});
+describe("Toy", () => {
+    describe("#isValid", () => {
 
-test('Toy must have a name', () => {
-    let toy = new Toy({ price: 5, description: 'a Toy', manufacturer: 'Hasbro' });
-    expect(toy.isValid()).toBe(false);
-});
+        it('recognizes a valid toy', () => {
+            let toy = new Toy({ name: 'bob', price: 5, description: 'a Toy', manufacturer: 'Hasbro' });
+            expect(toy.isValid()).toBe(true);
+        });
 
-test('Toy name must be at least three characters', () => {
-    let toy = new Toy({ name: 'ab', price: 5, description: 'a Toy', manufacturer: 'Hasbro' });
-    expect(toy.isValid()).toBe(false);
-});
+        it('recognizes a missing name as invalid', () => {
+            let toy = new Toy({ price: 5, description: 'a Toy', manufacturer: 'Hasbro' });
+            expect(toy.isValid()).toBe(false);
+        });
 
+        it('recognizes a name of fewer than three characters as invalid', () => {
+            let toy = new Toy({ name: 'ab', price: 5, description: 'a Toy', manufacturer: 'Hasbro' });
+            expect(toy.isValid()).toBe(false);
+        });
 
-test('Missing name sets error message', () => {
-    let toy = new Toy({ price: 5, description: 'a Toy', manufacturer: 'Hasbro' });
-    toy.isValid();
-    expect(toy.errors.length).toBe(1);
-    expect(toy.errors[0]).toMatch(/The name must contain at least three characters/);
-});
+        it('sets the error message when the name is missing', () => {
+            let toy = new Toy({ price: 5, description: 'a Toy', manufacturer: 'Hasbro' });
+            toy.isValid();
+            expect(toy.errors.length).toBe(1);
+            expect(toy.errors[0]).toMatch(/The name must contain at least three characters/);
+        });
 
-test('Toy must have a description', () => {
-    let toy = new Toy({ name: 'Woody', price: 5, manufacturer: 'Hasbro' });
-    expect(toy.isValid()).toBe(false);
-});
+        it('recognizes a missing description as invalid', () => {
+            let toy = new Toy({ name: 'Woody', price: 5, manufacturer: 'Hasbro' });
+            expect(toy.isValid()).toBe(false);
+        });
 
-test('Toy description may not be an empty string', () => {
-    let toy = new Toy({ name: 'Woody', price: 5, description: '', manufacturer: 'Hasbro' });
-    expect(toy.isValid()).toBe(false);
-});
+        it('recognizes an empty description as invalid', () => {
+            let toy = new Toy({ name: 'Woody', price: 5, description: '', manufacturer: 'Hasbro' });
+            expect(toy.isValid()).toBe(false);
+        });
 
-test('Toy description may be as short as one character', () => {
-    let toy = new Toy({ name: 'Woody', price: 5, description: 'x', manufacturer: 'Hasbro' });
-    expect(toy.isValid()).toBe(true);
-});
+        it('accepts a one-character description', () => {
+            let toy = new Toy({ name: 'Woody', price: 5, description: 'x', manufacturer: 'Hasbro' });
+            expect(toy.isValid()).toBe(true);
+        });
 
-test('Missing description sets error message', () => {
-    let toy = new Toy({ name: 'Woody', price: 5, manufacturer: 'Hasbro' });
-    toy.isValid();
-    expect(toy.errors.length).toBe(1);
-    expect(toy.errors[0]).toMatch(/The toy must have a description./);
-});
+        it('sets an error message if the description is missing', () => {
+            let toy = new Toy({ name: 'Woody', price: 5, manufacturer: 'Hasbro' });
+            toy.isValid();
+            expect(toy.errors.length).toBe(1);
+            expect(toy.errors[0]).toMatch(/The toy must have a description./);
+        });
 
-test('Toy must have a price', () => {
-    let toy = new Toy({ name: 'Woody', description: 'hi', manufacturer: 'Hasbro' });
-    expect(toy.isValid()).toBe(false);
-});
+        it('recognizes a missing price as invalid', () => {
+            let toy = new Toy({ name: 'Woody', description: 'hi', manufacturer: 'Hasbro' });
+            expect(toy.isValid()).toBe(false);
+        });
 
-test('Toy price must be numeric', () => {
-    let toy = new Toy({ name: 'Woody', price: 'Mom', description: 'hi', manufacturer: 'Hasbro' });
-    expect(toy.isValid()).toBe(false);
-});
+        test('declares a toy to be invalid if the price is not numeric', () => {
+            let toy = new Toy({ name: 'Woody', price: 'Mom', description: 'hi', manufacturer: 'Hasbro' });
+            expect(toy.isValid()).toBe(false);
+        });
 
-test('Toy price may not be negative', () => {
-    let toy = new Toy({ name: 'Woody', price: '-0.0001', description: 'hi', manufacturer: 'Hasbro' });
-    expect(toy.isValid()).toBe(false);
-});
+        test('recognizes a toy with a negative price as invalid', () => {
+            let toy = new Toy({ name: 'Woody', price: '-0.0001', description: 'hi', manufacturer: 'Hasbro' });
+            expect(toy.isValid()).toBe(false);
+        });
 
-test('Toy price may be zero', () => {
-    let toy = new Toy({ name: 'Woody', price: '0.0', description: 'hi', manufacturer: 'Hasbro' });
-    expect(toy.isValid()).toBe(true);
-});
+        test('recognizes a toy with a price of 0 as valid.', () => {
+            let toy = new Toy({ name: 'Woody', price: '0.0', description: 'hi', manufacturer: 'Hasbro' });
+            expect(toy.isValid()).toBe(true);
+        });
 
-test('Toy price must parse', () => {
-    let toy = new Toy({ name: 'Woody', price: '201 Main Street', description: 'hi', manufacturer: 'Hasbro' });
-    console.log(toy);
-    expect(toy.isValid()).toBe(false);
-});
+        test('recognizes a price with mixed characters and numbers as invalid', () => {
+            let toy = new Toy({ name: 'Woody', price: '201 Main Street', description: 'hi', manufacturer: 'Hasbro' });
+            console.log(toy);
+            expect(toy.isValid()).toBe(false);
+        });
 
-test('isValid stores multiple errors', () => {
-    let toy = new Toy({ name: 'Wo', price: '-5', description: 'hi', manufacturer: 'Hasbro' });
-    toy.isValid();
-    expect(toy.errors.length).toBe(2);
-});
+        test('stores multiple errors', () => {
+            let toy = new Toy({ name: 'Wo', price: '-5', description: 'hi', manufacturer: 'Hasbro' });
+            toy.isValid();
+            expect(toy.errors.length).toBe(2);
+        });
+    }); // end #isValid
 
-test('Toy.create saves the toy if valid', () => {
-    let toysBefore = Toy.all().length;
-    let newToy = Toy.create({ name: 'bob', price: 5, description: 'a Toy', manufacturer: 'Hasbro' });
-    expect(Toy.all().length).toBe(toysBefore + 1);
-    expect(newToy.id).toBeTruthy();
-    expect(Toy.find(newToy.id)).toEqual(newToy);
-});
+    describe("#create", () => {
+        it('saves the toy if valid', () => {
+            let toysBefore = Toy.all().length;
+            let newToy = Toy.create({ name: 'bob', price: 5, description: 'a Toy', manufacturer: 'Hasbro' });
+            expect(Toy.all().length).toBe(toysBefore + 1);
+            expect(newToy.id).toBeTruthy();
+            expect(Toy.find(newToy.id)).toEqual(newToy);
+        });
 
-test('Toy.create does save toy if not valid', () => {
-    let toysBefore = Toy.all().length;
-    let newToy = Toy.create({ name: 'bo', price: 5, description: 'unique', manufacturer: 'Hasbro' });
-    expect(Toy.all().length).toBe(toysBefore);
-    expect(newToy.id).toBeFalsy();
-    expect(Toy.all().find((item) => item.description === 'unique')).toBeFalsy();
-});
+        it('does save toy if not valid', () => {
+            let toysBefore = Toy.all().length;
+            let newToy = Toy.create({ name: 'bo', price: 5, description: 'unique', manufacturer: 'Hasbro' });
+            expect(Toy.all().length).toBe(toysBefore);
+            expect(newToy.id).toBeFalsy();
+            expect(Toy.all().find((item) => item.description === 'unique')).toBeFalsy();
+        });
+    }); // end create
+}); // end Toy

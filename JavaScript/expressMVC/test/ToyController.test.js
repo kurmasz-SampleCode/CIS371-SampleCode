@@ -55,15 +55,18 @@ describe("#show", () => {
     });
 });
 
+describe("#new", () => {
+    it("renders the new template with a new toy", () => {
+        c.newToy(req, res);
 
+        // Verify that the constructor was called exactly once with no parameters.
+        expect(Toy).toHaveBeenCalledTimes(1);
+        expect(Toy).toHaveBeenCalledWith();
 
+        // Grab the object that was returned by the constructor.
+        let newToy = Toy.mock.instances[0];
 
-/*
-test.only('#new renders new template', () => {
-    c.newToy(req, res);
-    expect(res.render).toHaveBeenCalledTimes(1);
-    expect(res.render).toHaveBeenCalledWith('toyNew', { toy: new Toy() });
-    expect(Toy).toHaveBeenCalledTimes(1)
+        expect(res.render).toHaveBeenCalledTimes(1);
+        expect(res.render).toHaveBeenCalledWith('toyNew', { toy: newToy });
+    });
 });
-
-*/
