@@ -1,16 +1,18 @@
 const Toy = require('./Toy');
+const ToyDB = require('./MemoryToyDB');
+//const ToyDB = require('./SqliteToyDB');
 
 /* Demonstrates a simple implementation of standard CRUD operations */
 class ToyController {
 
-    index(req, res) {
-        let toys = Toy.all();
+    async index(req, res) {
+        let toys = await ToyDB.all();
         res.render('toyIndex', { toys: toys });
     }
 
-    show(req, res) {
+    async show(req, res) {
         let id = req.params.id;
-        let toy = Toy.find(id);
+        let toy = await ToyDB.find(id);
 
         if (!toy) {
             res.send("Could not find toy with id of " + id);
@@ -23,15 +25,12 @@ class ToyController {
         res.render('toyNew', { toy: new Toy() });
     }
 
-    create(req, res) {
+    async create(req, res) {
         console.log("About to create toy");
         console.log(req.body);
-        let newToy = Toy.create(req.body.toy);
+        let newToy = await ToyDB.create(req.body.toy);
 
         if (newToy.isValid()) {
-
-            console.log("New toy is valid: ");
-            console.log(newToy);
 
             // Send a redirect to the "show" route for the new toy.
             res.writeHead(302, { 'Location': `/toys/${newToy.id}` });
@@ -41,9 +40,9 @@ class ToyController {
         }
     }
 
-    edit(req, res) {
+    async edit(req, res) {
         let id = req.params.id;
-        let toy = Toy.find(id);
+        let toy = await ToyDB.find(id);
 
         if (!toy) {
             res.send("Could not find toy with id of " + id);
@@ -52,9 +51,9 @@ class ToyController {
         }
     }
 
-    update(req, res) {
+    async update(req, res) {
         let id = req.params.id;
-        let toy = Toy.find(id);
+        let toy = await ToyDB.find(id);
 
         let testToy = new Toy(req.body.toy);
         if (!testToy.isValid()) {
@@ -71,6 +70,10 @@ class ToyController {
             toy.manufacturer = req.body.toy.manufacturer;
             toy.price = req.body.toy.price;
             // If using a database, we would need some kind of "save" method here.
+
+            console.log("About to call update");
+            ToyDB.update(toy);
+
 
             // Send a redirect to the "show" route for the new toy.
             res.writeHead(302, { 'Location': `/toys/${toy.id}` });

@@ -6,6 +6,14 @@ const Toy = require('../Toy');
 // Jest also lets you just say "test".
 
 describe("Toy", () => {
+
+    describe(".constructor", () => {
+        it('should generate an empty error list', () => {
+            let toy = new Toy({ name: 'bob', price: 5, description: 'a Toy', manufacturer: 'Hasbro' });
+            expect(toy.errors.length).toBe(0);
+        });
+    });
+
     describe("#isValid", () => {
 
         it('recognizes a valid toy', () => {
@@ -85,21 +93,5 @@ describe("Toy", () => {
         });
     }); // end #isValid
 
-    describe("#create", () => {
-        it('saves the toy if valid', () => {
-            let toysBefore = Toy.all().length;
-            let newToy = Toy.create({ name: 'bob', price: 5, description: 'a Toy', manufacturer: 'Hasbro' });
-            expect(Toy.all().length).toBe(toysBefore + 1);
-            expect(newToy.id).toBeTruthy();
-            expect(Toy.find(newToy.id)).toEqual(newToy);
-        });
 
-        it('does save toy if not valid', () => {
-            let toysBefore = Toy.all().length;
-            let newToy = Toy.create({ name: 'bo', price: 5, description: 'unique', manufacturer: 'Hasbro' });
-            expect(Toy.all().length).toBe(toysBefore);
-            expect(newToy.id).toBeFalsy();
-            expect(Toy.all().find((item) => item.description === 'unique')).toBeFalsy();
-        });
-    }); // end create
 }); // end Toy
