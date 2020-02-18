@@ -56,5 +56,11 @@ app.post('/toys/:id', (req, res) => {
     toyController.update(req, res);
 });
 
+
+app.get('/init', (req, res) => {
+    require('./SqliteToyDB').initialize();
+    res.send("Initialized.");
+});
+
 /* Launch the server */
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

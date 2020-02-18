@@ -1,0 +1,40 @@
+<html>
+
+<body>
+    <h1>Toys, Toys, Toys!</h1>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Manufacturer</th>
+            <th>Price</th>
+            <th></th>
+        </tr>
+
+        <% toys.forEach( (toy) => { %>
+            <tr>
+                <td>
+                    <%= toy.name %>
+                </td>
+                <td>
+                    <%= toy.description %>
+                </td>
+                <td>
+                    <%= toy.manufacturer %>
+                </td>
+                <td>
+                    <%= toy.price %>
+                </td>
+                <td>
+                    <a href="/toys/<%= toy.id %>">Show</a>
+                    <a href="/toys/<%= toy.id %>/edit">Edit</a>
+                </td>
+                <% }) %>
+            </tr>
+    </table>
+</body>
+
+<a href="/toys/new">New</a>
+
+</html>
