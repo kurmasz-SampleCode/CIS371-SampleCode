@@ -23,7 +23,6 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-
 /* Display all toys */
 app.get('/toys', (req, res) => {
     toyController.index(req, res);

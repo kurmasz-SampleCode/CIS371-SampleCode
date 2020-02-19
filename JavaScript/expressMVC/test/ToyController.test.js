@@ -41,10 +41,14 @@ describe("#index", () => {
 });
 
 describe("#show", () => {
-    it("renders the show view for the given id if id is valid", async() => {
-        ken = new Toy({ name: 'Ken', manufacturer: "Mattel", description: "Companion", price: "0.65" });
-        ToyDB.find = jest.fn((id) => id == 22 ? ken : null);
 
+    let ken;
+    beforeEach(() => {
+        ken = new Toy({ name: 'Ken', manufacturer: "Mattel", description: "Companion", price: "0.65" });
+    });
+
+    it("renders the show view for the given id if id is valid", async() => {
+        ToyDB.find = jest.fn((id) => id == 22 ? ken : null);
         req.params = { id: 22 };
         await c.show(req, res);
         expect(res.send).toHaveBeenCalledTimes(0);
@@ -53,7 +57,6 @@ describe("#show", () => {
     });
 
     it("renders an error message if given id is not valid", async() => {
-
         Toy.find = jest.fn((id) => id == 17 ? ken : null);
         req.params = { id: 31 };
         await c.show(req, res);

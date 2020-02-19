@@ -6,7 +6,7 @@ const ToyDB = require('./MemoryToyDB');
 class ToyController {
 
     async index(req, res) {
-        let toys = await ToyDB.all();
+        let toys = await ToyDB.allToys();
         res.render('toyIndex', { toys: toys });
     }
 
@@ -69,11 +69,9 @@ class ToyController {
             toy.description = req.body.toy.description;
             toy.manufacturer = req.body.toy.manufacturer;
             toy.price = req.body.toy.price;
-            // If using a database, we would need some kind of "save" method here.
 
             console.log("About to call update");
             ToyDB.update(toy);
-
 
             // Send a redirect to the "show" route for the new toy.
             res.writeHead(302, { 'Location': `/toys/${toy.id}` });
