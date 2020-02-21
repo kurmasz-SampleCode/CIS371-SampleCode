@@ -16,11 +16,11 @@ if (!array_key_exists("nickname", $_COOKIE)) {
 
     # Use default parameters.  Cookie expires at the end of the session.
     # To verify, close the browser, re-open it and see what happens.
-    setcookie('nickname', $nickname);
+    //setcookie('nickname', $nickname);
 
     # Expire:
     # Set cookie to expire in 30 seconds.  Refresh a few times, then wait.
-    //setcookie('nickname', $nickname, time() + 20);
+   // setcookie('nickname', $nickname, time() + 20);
 
     # Path:
     # Specify what other pages can see this cookie.
@@ -36,7 +36,7 @@ if (!array_key_exists("nickname", $_COOKIE)) {
     # Secure only:
     # Set cookie to only send over a secure connection.
     # Notice that the cookie only works when using https
-    #setcookie('nickname', $nickname, time() + 60, "/", "cis.gvsu.edu", true);
+    setcookie('nickname', $nickname, time() + 60, "/", "cis.gvsu.edu", true);
 
     # HttpOnly
     # Specifies that cookie is not available in Javascript
