@@ -1,0 +1,19 @@
+<!-- Demonstrate how to use a drop-down list in an HTML form. -->
+<html>
+
+<body>
+    <h1>Select a User</h1>
+
+    <form action="selectUser" accept-charset="UTF-8" method="post" id='chooseUserForm'>
+        Select a user:
+        <select id='userSelector' name='chosenUser' form='chooseUserForm'>
+            <%- users.map((user) => `<option value='${user.id}'>${user.fname} ${user.lname}</option>`).join('\n'); %>
+        </select>
+
+        <div class="actions ">
+            <input type="submit" name="commit" value="Submit" />
+        </div>
+    </form>
+</body>
+
+</html>

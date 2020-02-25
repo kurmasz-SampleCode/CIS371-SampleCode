@@ -7,6 +7,9 @@ const express = require('express')
 const ToyController = require('./ToyController');
 const toyController = new ToyController();
 
+const UserController = require('./UserController');
+const userController = new UserController();
+
 /* Import the body-parser module.  (Used for parsing Post data) */
 const bodyParser = require('body-parser');
 
@@ -55,11 +58,21 @@ app.post('/toys/:id', (req, res) => {
     toyController.update(req, res);
 });
 
+app.get('/selectUser', (req, res) => {
+    userController.select(req, res);
+});
+
+app.post('/selectUser', (req, res) => {
+    userController.showSelected(req, res);
+});
+
+
 
 app.get('/init', (req, res) => {
     require('./SqliteToyDB').initialize();
     res.send("Initialized.");
 });
+
 
 /* Launch the server */
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
