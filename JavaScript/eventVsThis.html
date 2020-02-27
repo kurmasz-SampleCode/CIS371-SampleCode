@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Handle Click Demo</title>
+</head>
+
+<body>
+
+    <div id='section1'>
+        <h1>Click Handler using the <code>event</code> parameter</h1>
+
+        <p>Demonstrates what happens when a click handler accesses the event parameter </p>
+
+        <ul class='demoList'>
+            <li>Item 1</li>
+            <li>Item <b>(stuff in the middle)</b> 2</li>
+            <li>Item 3</li>
+            <li>Item <em>(more <b>Nested</b> tags)</em> 4</li>
+        </ul>
+
+        <p>Notice what happens when you click on the list items: <code>event.target</code> refers specifically to the element clicked on.</p>
+
+        <div>
+            You have clicked:
+            <ul class='outputList'>
+
+            </ul>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        // Responds to a click by printing the content on the console.
+        function handler1(event) {
+            console.log(event.target.textContent)
+        }
+
+        // Responds to a click by adding the content to a div.
+        function handler2(event) {
+            let outputList = document.querySelector('#section1 .outputList');
+            // TO DO:  See what happens if you add this to the new list without cloning it.
+            let item = event.target.cloneNode(true);
+            outputList.appendChild(item);
+        }
+
+
+        // Add handler to each <li> element in the <ul>
+        var li = document.querySelectorAll("#section1 .demoList li");
+        for (var i = 0; i < li.length; i++) {
+            // Notice that an element can have more than one handler.
+            // All handlers are called.
+            li[i].addEventListener("click", handler1);
+            li[i].addEventListener("click", handler2);
+        }
+    </script>
+
+    <hr>
+    <div id='section2'>
+        <h1>Click Handler using <code>this</code></h1>
+
+        <p>Demonstrates what happens when a click handler accesses <code>this</code></p>
+
+        <ul class='demoList'>
+            <li>Item 1</li>
+            <li>Item <b>(stuff in the middle)</b> 2</li>
+            <li>Item 3</li>
+            <li>Item <em>(more <b>Nested</b> tags)</em> 4</li>
+        </ul>
+
+        <p>Notice what happens when you click on the list items: <code>event.target</code> refers specifically to the element clicked on.</p>
+
+        <div>
+            You have clicked:
+            <ul class='outputList'>
+
+            </ul>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        // Responds to a click by printing the content on the console.
+        function handler1(event) {
+            console.log(this.textContent)
+        }
+
+        // Add handler to each <li> element in the <ul>
+        var li = document.querySelectorAll("#section2 .demoList li");
+        for (var i = 0; i < li.length; i++) {
+            // Notice that an element can have more than one handler.
+            // All handlers are called.
+            li[i].addEventListener("click", handler1);
+            li[i].addEventListener("click", function(event) {
+                let outputList = document.querySelector('#section2 .outputList');
+                // TO DO:  See what happens if you add this to the new list without cloning it.
+                // TO DO:  See what happens if you omit the "true" parameter.
+                let item = this.cloneNode(true);
+                outputList.appendChild(item);
+            });
+        }
+    </script>
+
+    <hr>
+    <div id='section3'>
+        <h1>Must use <code>function</code> keyword when accessing <code>this</code> in a callback</h1>
+
+        <p>Demonstrates what happens when using <code>() => </code> syntax for a callback requiring <code>this</code>. (Spoiler alert: It breaks because <code>this</code> doesn't get set as expected.)</code>
+        </p>
+
+        <ul class='demoList'>
+            <li>Item 1</li>
+            <li>Item <b>(stuff in the middle)</b> 2</li>
+            <li>Item 3</li>
+            <li>Item <em>(more <b>Nested</b> tags)</em> 4</li>
+        </ul>
+
+        <p>Notice what happens when you click on the list items: <code>event.target</code> refers specifically to the element clicked on.</p>
+
+        <div>
+            You have clicked:
+            <ul class='outputList'>
+
+            </ul>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        // Responds to a click by printing the content on the console.
+        function handler1(event) {
+            console.log(this.textContent)
+        }
+
+        // Add handler to each <li> element in the <ul>
+        var li = document.querySelectorAll("#section3 .demoList li");
+        for (var i = 0; i < li.length; i++) {
+            // Notice that an element can have more than one handler.
+            // All handlers are called.
+            li[i].addEventListener("click", handler1);
+            li[i].addEventListener("click", (event) => {
+
+                // WHen using the () => syntax, then the this object isn't updated.  It remains what it was when
+                // calling addEventListener.  In this case, since the code isn't inside any particular function or object, 
+                // this is set to the Window object.
+                console.log("This is: ");
+                console.log(this);
+                let outputList = document.querySelector('#section3 .outputList');
+                let item = this.cloneNode(true);
+                outputList.appendChild(item);
+            });
+        }
+    </script>
+</body>
+
+</html>
