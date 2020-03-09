@@ -31,6 +31,19 @@ const data = [{
         "Place the fish on the 3 tortillas.",
         "Top them with lettuce, tomatoes, and cheese."
     ]
+},
+{
+    name: "Fruit Smoothie",
+    ingredients: [
+        { name: "Banana", amount: 1, measurement: "large" },
+        { name: "Strawberries", amount: 1, measurement: "cup" },
+        { name: "Blueberries", amount: 0.5, measurement: "cup" },
+        { name: "Orange Juice", amount: 1, measurement: "cup" },
+    ],
+    steps: [
+        "Put all ingredients in the blender",
+        "Blend until smooth"
+    ]
 }
 ];
 
@@ -65,7 +78,7 @@ function Instructions(props) {
 function Recipe(props) {
     return (
         <div>
-            <h2 > {props.name} </h2>
+            <h2 > {props.name} ({props.index}) </h2>
             <IngredientList ingredients={props.ingredients} />
             <Instructions steps={props.steps} />
         </div>
@@ -73,19 +86,26 @@ function Recipe(props) {
 }
 
 function Menu(props) {
-    const [currentVersion, setVersion] = React.useState(1);
+    const [currentIndex, setIndex] = React.useState(0);
+    const recipe = props.recipes[currentIndex];
     return (
         <section>
+            <button id='prev' onClick={() => {
+                setIndex((currentIndex - 1 + props.recipes.length) % props.recipes.length);
+            }}>Previous</button>
+            <button id='next' onClick={() => {
+                setIndex((currentIndex + 1) % props.recipes.length);
+            }}>Next</button>
+
             <h1> {props.title} </h1>
-            <div className='recipes' > {props.recipes.map((recipe, index) => (
-                <Recipe key={index}
+            <div className='recipes' >
+                <Recipe 
+                    index={currentIndex + 1}
                     name={recipe.name}
                     ingredients={recipe.ingredients}
                     steps={recipe.steps}
-                />
-            ))}
-            </div>
-           
+                />        
+            </div>           
         </section>
     );
 }
