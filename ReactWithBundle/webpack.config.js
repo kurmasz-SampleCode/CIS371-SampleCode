@@ -10,5 +10,9 @@ module.exports = {
     },
     module: {
         rules: [{ test: /\.jsx$/, exclude: /node_modules/, loader: "babel-loader" }]
+    },
+    mode: "production",
+    optimization: {
+        minimize: true
     }
 };

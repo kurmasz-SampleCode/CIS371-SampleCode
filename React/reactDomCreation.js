@@ -10,7 +10,7 @@ var items = states.map((item) => React.createElement("li", null, item));
 
 let div = React.createElement("div",
     null,
-    React.createElement("p", null, "Here is a list of some states"),
+    React.createElement("p", null, "Here is a list of some states (created using React)"),
 
     // Note the use of className instead of class ("class" is a keyword)
     // The ...items syntax takes the array of child elements and pulls them

@@ -1,3 +1,7 @@
+// Sample code available on GitHub: https://github.com/kurmasz-SampleCode/CIS371-SampleCode
+// Based on an example from Learning React, 2nd Edition by Porcello and Banks.
+// This example is in React/recipe1.jsx
+
 const data = [{
     name: "Baked Salmon",
     ingredients: [
@@ -31,26 +35,48 @@ const data = [{
         "Place the fish on the 3 tortillas.",
         "Top them with lettuce, tomatoes, and cheese."
     ]
+},
+{
+    name: "Fruit Smoothie",
+    ingredients: [
+        { name: "Banana", amount: 1, measurement: "large" },
+        { name: "Strawberries", amount: 1, measurement: "cup" },
+        { name: "Blueberries", amount: 0.5, measurement: "cup" },
+        { name: "Orange Juice", amount: 1, measurement: "cup" },
+    ],
+    steps: [
+        "Put all ingredients in the blender",
+        "Blend until smooth"
+    ]
 }
 ];
 
 function Ingredient(props) {
-    return (<li > {props.amount} {props.measurement} {props.name} </li>
-    );
+    return <li> {props.amount} {props.measurement} {props.name} </li>;
+}
+
+/* Note:  You would not normally write it this way.  I include this Demo in case it is easier to
+   understand than the "real" version below that uses .map */
+function IngredientListDemo(props) {
+    let list = props.ingredients;
+    return <ul className="ingredients" >
+        <Ingredient amount={list[0].amount} measurement={lst[0].measurement} name={list[0].name} key='0' />
+        <Ingredient amount={list[1].amount} measurement={lst[1].measurement} name={list[1].name} key='1' />
+        <Ingredient amount={list[2].amount} measurement={lst[2].measurement} name={list[2].name} key='2' />
+        <Ingredient amount={list[3].amount} measurement={lst[3].measurement} name={list[3].name} key='3' />
+    </ul>;
 }
 
 function IngredientList(props) {
-    return (
-        <ul className="ingredients" > {
-            props.ingredients.map((item, index) => (
-                <Ingredient amount={item.amount}
-                    measurement={item.measurement}
-                    name={item.name}
-                    key={index}
-                />
-            ))}
-        </ul>
-    );
+    return <ul className="ingredients" > {
+        props.ingredients.map((item, index) => (
+            <Ingredient amount={item.amount}
+                measurement={item.measurement}
+                name={item.name}
+                key={index}
+            />
+        ))}
+    </ul>
 }
 
 function Instructions(props) {
@@ -73,26 +99,20 @@ function Recipe(props) {
 }
 
 function Menu(props) {
-    const [currentVersion, setVersion] = React.useState(1);
-    return (
-        <section>
-            <h1> {props.title} </h1>
-            <div className='recipes' > {props.recipes.map((recipe, index) => (
-                <Recipe key={index}
-                    name={recipe.name}
-                    ingredients={recipe.ingredients}
-                    steps={recipe.steps}
-                />
-            ))}
-            </div>
-           
-        </section>
-    );
+    return <section>
+        <h1> {props.title} </h1>
+        <div className='recipes' > {props.recipes.map((recipe, index) => (
+            <Recipe key={index}
+                name={recipe.name}
+                ingredients={recipe.ingredients}
+                steps={recipe.steps}
+            />
+        ))}
+        </div>
+    </section>;
 }
 
 ReactDOM.render(
     <Menu recipes={data} title="Sample Recipe List #1" />,
     document.getElementById("main")
 );
-
-console.log("Here!");
