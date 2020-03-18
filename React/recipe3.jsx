@@ -47,9 +47,25 @@ const data = [{
 }
 ];
 
+function Ingredient_theLongWay(props) {
+    return <li > {props.amount} {props.measurement} {props.name} </li>;
+}
+
 function Ingredient({ amount, measurement, name }) {
     return (<li > {amount} {measurement} {name} </li>
     );
+}
+
+function IngredientList_theOldWay(props) {
+    return <ul className="ingredients" > {
+        props.ingredients.map((item, index) => (
+            <Ingredient amount={item.amount}
+                measurement={item.measurement}
+                name={item.name}
+                key={index}
+            />
+        ))}
+    </ul>
 }
 
 function IngredientList({ ingredients }) {

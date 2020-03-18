@@ -60,10 +60,10 @@ function Ingredient(props) {
 function IngredientListDemo(props) {
     let list = props.ingredients;
     return <ul className="ingredients" >
-        <Ingredient amount={list[0].amount} measurement={lst[0].measurement} name={list[0].name} key='0' />
-        <Ingredient amount={list[1].amount} measurement={lst[1].measurement} name={list[1].name} key='1' />
-        <Ingredient amount={list[2].amount} measurement={lst[2].measurement} name={list[2].name} key='2' />
-        <Ingredient amount={list[3].amount} measurement={lst[3].measurement} name={list[3].name} key='3' />
+        <Ingredient amount={list[0].amount} measurement={list[0].measurement} name={list[0].name} key='0' />
+        <Ingredient amount={list[1].amount} measurement={list[1].measurement} name={list[1].name} key='1' />
+        <Ingredient amount={list[2].amount} measurement={list[2].measurement} name={list[2].name} key='2' />
+        <Ingredient amount={list[3].amount} measurement={list[3].measurement} name={list[3].name} key='3' />
     </ul>;
 }
 
@@ -80,22 +80,18 @@ function IngredientList(props) {
 }
 
 function Instructions(props) {
-    return (
-        <div className='instructions'>
-            <h3>Instructions</h3>
-            {props.steps.map((step, index) => (<p key={index}>{step}</p>))}
-        </div>
-    );
+    return <div className='instructions'>
+        <h3>Instructions</h3>
+        {props.steps.map((step, index) => (<p key={index}>{step}</p>))}
+    </div>;
 }
 
 function Recipe(props) {
-    return (
-        <div>
-            <h2 > {props.name} </h2>
-            <IngredientList ingredients={props.ingredients} />
-            <Instructions steps={props.steps} />
-        </div>
-    );
+    return <div>
+        <h2 > {props.name} </h2>
+        <IngredientList ingredients={props.ingredients} />
+        <Instructions steps={props.steps} />
+    </div>;
 }
 
 function Menu(props) {

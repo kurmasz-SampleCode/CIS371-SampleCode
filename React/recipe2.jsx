@@ -48,66 +48,57 @@ const data = [{
 ];
 
 function Ingredient(props) {
-    return (<li > {props.amount} {props.measurement} {props.name} </li>
-    );
+    return <li > {props.amount} {props.measurement} {props.name} </li>;
 }
 
 function IngredientList(props) {
-    return (
-        <ul className="ingredients" > {
-            props.ingredients.map((item, index) => (
-                <Ingredient amount={item.amount}
-                    measurement={item.measurement}
-                    name={item.name}
-                    key={index}
-                />
-            ))}
-        </ul>
-    );
+    return <ul className="ingredients" > {
+        props.ingredients.map((item, index) => (
+            <Ingredient amount={item.amount}
+                measurement={item.measurement}
+                name={item.name}
+                key={index}
+            />
+        ))}
+    </ul>
 }
 
 function Instructions(props) {
-    return (
-        <div className='instructions'>
-            <h3>Instructions</h3>
-            {props.steps.map((step, index) => (<p key={index}>{step}</p>))}
-        </div>
-    );
+    return <div className='instructions'>
+        <h3>Instructions</h3>
+        {props.steps.map((step, index) => (<p key={index}>{step}</p>))}
+    </div>;
 }
 
 function Recipe(props) {
-    return (
-        <div>
-            <h2 > {props.name} ({props.index}) </h2>
-            <IngredientList ingredients={props.ingredients} />
-            <Instructions steps={props.steps} />
-        </div>
-    );
+    return <div>
+        <h2 > {props.name} ({props.index}) </h2>
+        <IngredientList ingredients={props.ingredients} />
+        <Instructions steps={props.steps} />
+    </div>;
 }
 
 function Menu(props) {
     const [currentIndex, setIndex] = React.useState(0);
     const recipe = props.recipes[currentIndex];
-    return (
-        <section>
-            <button id='prev' onClick={() => {
-                setIndex((currentIndex - 1 + props.recipes.length) % props.recipes.length);
-            }}>Previous</button>
-            <button id='next' onClick={() => {
-                setIndex((currentIndex + 1) % props.recipes.length);
-            }}>Next</button>
+    return <section>
+        <button id='prev' onClick={() => {
+            setIndex((currentIndex - 1 + props.recipes.length) % props.recipes.length);
+        }}>Previous</button>
+        <button id='next' onClick={() => {
+            setIndex((currentIndex + 1) % props.recipes.length);
+        }}>Next</button>
 
-            <h1> {props.title} </h1>
-            <div className='recipes' >
-                <Recipe 
-                    index={currentIndex + 1}
-                    name={recipe.name}
-                    ingredients={recipe.ingredients}
-                    steps={recipe.steps}
-                />        
-            </div>           
-        </section>
-    );
+        <h1> {props.title} </h1>
+        <div className='recipes' >
+            <Recipe
+                index={currentIndex + 1}
+                name={recipe.name}
+                ingredients={recipe.ingredients}
+                steps={recipe.steps}
+            />
+        </div>
+    </section>;
 }
 
 ReactDOM.render(
