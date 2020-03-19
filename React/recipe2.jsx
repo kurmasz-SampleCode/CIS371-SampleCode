@@ -1,3 +1,8 @@
+// Sample code available on GitHub: https://github.com/kurmasz-SampleCode/CIS371-SampleCode
+// Based on an example from Learning React, 2nd Edition by Porcello and Banks.
+// This example is in React/recipe2.jsx
+// It is similar to recipe1.jsx; but, illustrates the use of the useState hook.
+
 const data = [{
     name: "Baked Salmon",
     ingredients: [
@@ -82,9 +87,11 @@ function Menu(props) {
     const [currentIndex, setIndex] = React.useState(0);
     const recipe = props.recipes[currentIndex];
     return <section>
+
         <button id='prev' onClick={() => {
             setIndex((currentIndex - 1 + props.recipes.length) % props.recipes.length);
         }}>Previous</button>
+        
         <button id='next' onClick={() => {
             setIndex((currentIndex + 1) % props.recipes.length);
         }}>Next</button>

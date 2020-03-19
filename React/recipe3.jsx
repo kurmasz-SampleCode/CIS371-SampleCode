@@ -1,3 +1,8 @@
+// Sample code available on GitHub: https://github.com/kurmasz-SampleCode/CIS371-SampleCode
+// Based on an example from Learning React, 2nd Edition by Porcello and Banks.
+// This example is in React/recipe3.jsx
+// It is similar to recipe2.jsx; but, illustrates the use of the ... operator.
+
 const data = [{
     name: "Baked Salmon",
     ingredients: [
@@ -52,8 +57,7 @@ function Ingredient_theLongWay(props) {
 }
 
 function Ingredient({ amount, measurement, name }) {
-    return (<li > {amount} {measurement} {name} </li>
-    );
+    return <li > {amount} {measurement} {name} </li>;
 }
 
 function IngredientList_theOldWay(props) {
@@ -69,50 +73,42 @@ function IngredientList_theOldWay(props) {
 }
 
 function IngredientList({ ingredients }) {
-    return (
-        <ul className="ingredients" >
-            {ingredients.map((item, index) => (<Ingredient {...item} key={index} />))}
-        </ul>
-    );
+    return <ul className="ingredients" >
+        {ingredients.map((item, index) => (<Ingredient {...item} key={index} />))}
+    </ul>
 }
 
 function Instructions({ steps }) {
-    return (
-        <div className='instructions'>
-            <h3>Instructions</h3>
-            {steps.map((step, index) => (<p key={index}>{step}</p>))}
-        </div>
-    );
+    return <div className='instructions'>
+        <h3>Instructions</h3>
+        {steps.map((step, index) => (<p key={index}>{step}</p>))}
+    </div>;
 }
 
 function Recipe({ name, index, ingredients, steps }) {
-    return (
-        <div>
-            <h2 > {name} ({index}) </h2>
-            <IngredientList ingredients={ingredients} />
-            <Instructions steps={steps} />
-        </div>
-    );
+    return <div>
+        <h2 > {name} ({index}) </h2>
+        <IngredientList ingredients={ingredients} />
+        <Instructions steps={steps} />
+    </div>;
 }
 
 function Menu({ title, recipes }) {
     const [currentIndex, setIndex] = React.useState(0);
     const recipe = recipes[currentIndex];
-    return (
-        <section>
-            <button id='prev' onClick={() => {
-                setIndex((currentIndex - 1 + recipes.length) % recipes.length);
-            }}>Previous</button>
-            <button id='next' onClick={() => {
-                setIndex((currentIndex + 1) % recipes.length);
-            }}>Next</button>
+    return <section>
+        <button id='prev' onClick={() => {
+            setIndex((currentIndex - 1 + recipes.length) % recipes.length);
+        }}>Previous</button>
+        <button id='next' onClick={() => {
+            setIndex((currentIndex + 1) % recipes.length);
+        }}>Next</button>
 
-            <h1> {title} </h1>
-            <div className='recipes' >
-                <Recipe index={currentIndex + 1} {...recipe} />
-            </div>
-        </section>
-    );
+        <h1> {title} </h1>
+        <div className='recipes' >
+            <Recipe index={currentIndex + 1} {...recipe} />
+        </div>
+    </section>
 }
 
 ReactDOM.render(
