@@ -1,3 +1,13 @@
+This project breaks the creation of an Authors view down into several small steps.
+To run each step separately, edit index.js to import the desired version of Authors_v?.jsx.
+
+Authors_v1.jsx:  Just shows placeholders for the major components.
+Authors_v2.jsx:  Adds state and displays the Authors List
+Authors_v3.jsx:  Adds the Author form, and configures it to handle the *creation* of authors.
+Authors_v4.jsx:  Connects the Edit button to populate the form and process an update.
+Authors_v5.jsx:  Connect the cancel and delete buttons.
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

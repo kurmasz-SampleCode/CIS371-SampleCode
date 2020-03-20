@@ -1,3 +1,5 @@
+// Just display the basic outline of the components.
+
 import React from 'react';
 
 function AuthorForm() {

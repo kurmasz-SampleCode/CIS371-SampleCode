@@ -1,3 +1,8 @@
+// Add the Authors Form
+// Show how to set up a *controlled* component.
+// Show how to set up a form submission callback
+// Show how to configure a form to make a callback to a "higher" component.
+
 import React from 'react';
 
 function AuthorForm({ submitCallback }) {
@@ -42,13 +47,13 @@ function AuthorForm({ submitCallback }) {
   );
 }
 
-function AuthorListItem({ fname, lname, email }) {
+function AuthorListItem({ author }) {
   // Notice that the buttons currently don't do anything when clicked.
   return (
     <tr>
-      <td className="col-md-3">{fname}</td>
-      <td className="col-md-3">{lname}</td>
-      <td className="col-md-3">{email}</td>
+      <td className="col-md-3">{author.fname}</td>
+      <td className="col-md-3">{author.lname}</td>
+      <td className="col-md-3">{author.email}</td>
       <td className="col-md-3 btn-toolbar">
         <button className="btn btn-success btn-sm" onClick={event => undefined}>
           <i className="glyphicon glyphicon-pencil"></i> Edit
@@ -64,7 +69,7 @@ function AuthorListItem({ fname, lname, email }) {
 
 function AuthorList({ authors }) {
   const authorItems = authors.map((author) => (
-    <AuthorListItem key={author.id} {...author} />
+    <AuthorListItem key={author.id} author={author} />
   ));
 
   return (
@@ -96,6 +101,7 @@ function Authors() {
   ]);
 
   let formSubmitted = (author) => {
+    author.id = authorList.length + 1;
     setAuthorList([...authorList, author]);
   }
 
