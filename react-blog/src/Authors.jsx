@@ -2,7 +2,7 @@ import React from 'react';
 
 function AuthorForm(props) {
 
-  let [fname, setFname] = React.useState(props.author.fname);
+  //let [fname, setFname] = React.useState(props.author.fname);
   let [lname, setLname] = React.useState(props.author.lname);
   let [email, setEmail] = React.useState(props.author.email);
   let [id, setId] = React.useState(props.author.id);
@@ -27,19 +27,23 @@ function AuthorForm(props) {
       <h1> Authors </h1>
       <form onSubmit={(event) => {
         event.preventDefault();
+        let fname = props.author.fname;
         props.onSubmit({ fname, lname, email, id });
       }}>
         <div className="form-group">
           <label>First Name</label>
-          <input type="text" className="form-control" autoComplete='given-name' name="fname" id="fname" placeholder="First Name" value={fname} onChange={(event) => setFname(event.target.value)} />
+          <input type="text" className="form-control" autoComplete='given-name'
+            name="fname" id="fname" placeholder="First Name" value={props.author.fname} onChange={(event) => props.setFname(event.target.value)} />
         </div>
         <div className="form-group">
           <label htmlFor="lname">Last Name</label>
-          <input type="text" className="form-control" autoComplete='family-name' name="lname" id="lname" placeholder="Last Name" value={lname} onChange={(event) => setLname(event.target.value)} />
+          <input type="text" className="form-control" autoComplete='family-name'
+            name="lname" id="lname" placeholder="Last Name" value={lname} onChange={(event) => setLname(event.target.value)} />
         </div>
         <div className="form-group">
           <label htmlFor="email">Email address</label>
-          <input type="email" className="form-control" autoComplete='email' name="email" id="email" placeholder="name@example.com" value={email} onChange={(event) => setEmail(event.target.value)} />
+          <input type="email" className="form-control" autoComplete='email'
+            name="email" id="email" placeholder="name@example.com" value={email} onChange={(event) => setEmail(event.target.value)} />
         </div>
         {renderButtons()}
       </form>
@@ -54,7 +58,7 @@ function AuthorListItem(props) {
       <td>{props.lname}</td>
       <td>{props.email}</td>
       <td className="btn-toolbar">
-        <button className="btn btn-success btn-sm" onClick={event => props.onEdit("update", {fname: props.fname, lname: props.lname, email: props.email, id: props.id})}>
+        <button className="btn btn-success btn-sm" onClick={event => props.onEdit("update", { fname: props.fname, lname: props.lname, email: props.email, id: props.id })}>
           Edit
           </button>
         <button className="btn btn-danger btn-sm" onClick={event => console.log("Nothing yet")}>
@@ -110,7 +114,7 @@ function Authors() {
 
   let [formMode, setFormMode] = React.useState("new");
 
-  let [currentAuthor, setCurrentAuthor] = React.useState({id: 0});
+  let [currentAuthor, setCurrentAuthor] = React.useState({ id: 0 });
 
 
   let formSubmitted = (author) => {
@@ -132,7 +136,7 @@ function Authors() {
   return (
     <div className="authors">
       <AuthorForm formMode={formMode} author={currentAuthor} onSubmit={formSubmitted} />
-      <AuthorList authors={authors} onEdit={(mode, author) => updateForm(mode, author)}/>
+      <AuthorList authors={authors} onEdit={(mode, author) => updateForm(mode, author)} />
     </div>
   );
 }
