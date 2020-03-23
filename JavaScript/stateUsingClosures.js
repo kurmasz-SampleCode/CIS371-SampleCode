@@ -1,3 +1,9 @@
+// Gives a rough idea of how the React useState hook might work.
+// (In reality, it is much more complex.)
+// Other articles:
+//   https://dev.to/lizraeli/implementing-the-usestate-hook-3nd7
+//   https://medium.com/the-guild/under-the-hood-of-reacts-hooks-system-eb59638c9dba
+
 let makeState = function(initialValue) {
 
     let current = initialValue;
