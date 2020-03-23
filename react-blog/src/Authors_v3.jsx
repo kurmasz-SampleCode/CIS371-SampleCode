@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-function AuthorForm({ submitCallback }) {
+function AuthorForm({submitCallback} ) {
 
   // For now, the form will be for Create only.
   // Later we will add an If statement to this function so it can change

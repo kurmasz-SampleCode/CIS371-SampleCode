@@ -66,11 +66,27 @@ app.post('/selectUser', (req, res) => {
     userController.showSelected(req, res);
 });
 
-
-
 app.get('/init', (req, res) => {
     require('./SqliteToyDB').initialize();
     res.send("Initialized.");
+});
+
+/*****************************************************
+*
+* The routes below are used for introducing AJAX. 
+*
+****************************************************** */
+
+app.get('/toys.json', (req, res) => {
+    toyController.rawIndex(req, res);
+})
+
+app.get('/ajax1', (req, res) => {
+    res.sendFile(__dirname + '/public/ajax1.html');
+});
+
+app.get('/ajax2', (req, res) => {
+    res.sendFile(__dirname + '/public/ajax2.html');
 });
 
 

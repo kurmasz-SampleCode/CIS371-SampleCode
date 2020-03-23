@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import './authors.css';
-import Authors from './Authors_v5.jsx';
+import Authors from './Authors_v3.jsx';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<Authors />, document.getElementById('root'));

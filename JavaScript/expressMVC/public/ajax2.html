@@ -1,0 +1,72 @@
+<head>
+
+<body>
+  <h1>AJAX toy Form</h1>
+
+  <p>Create Toy:</p>
+  <form accept-charset="UTF-8" method="post" id='the-form'>
+    <table>
+      <tr>
+        <td><label for="toy_name">Name</label></td>
+        <td><input type="text" name="toy[name]" id="toy_name" value="Bob"></td>
+      </tr>
+
+      <tr class=" field ">
+        <td><label for="toy_description ">Description</label></td>
+        <td><textarea name="toy[description]" id="toy_description ">A toy</textarea></td>
+      </tr>
+
+      <tr class="field ">
+        <td><label for="toy_manufacturer ">Manufacturer</label></td>
+        <td><input type="text" name="toy[manufacturer]" id="toy_manufacturer" value="Coleco" /></td>
+      </tr>
+
+      <tr class="field ">
+        <td><label for="toy_price ">Price</label></td>
+        <td><input type="text" name="toy[price]" id="toy_price" value="43" /></td>
+      </tr>
+
+      <tr class="actions ">
+        <td><input type="submit" name="commit" value="Create" /></td>
+      </tr>
+      </table>
+  </form>
+
+  <script>
+
+    function onFormSubmit(event) {
+      event.preventDefault();
+      console.log("Form submitted");
+
+      // build the post string:
+      let fields = ['name', 'description', 'manufacturer', 'price'];
+      let postStringParts = fields.map((field) => {
+        let value = document.getElementsByName(`toy[${field}]`)[0].value;
+        console.log(`value for ${field}: ${value}`);
+        value = value.replace(/\s+/, '+');
+        return `toy[${field}]=${value}`;
+      });
+
+      let postString = postStringParts.join('&');
+      console.log(postString);
+
+      return;
+
+      let xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        console.log("Network ready state: " + this.readyState + " " + this.status);
+        console.log(this);
+      }
+      xhttp.open("POST", "/toys", true);
+      xhttp.send();
+
+
+    }
+    document.getElementById('the-form').addEventListener('submit', (event) => onFormSubmit(event));
+
+
+  </script>
+
+
+</body>
+</head>
