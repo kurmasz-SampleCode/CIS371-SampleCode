@@ -32,6 +32,8 @@
       </table>
   </form>
 
+  <a href="http://localhost:3000/toys">Toy index</a>
+
   <script>
 
     function onFormSubmit(event) {
@@ -43,28 +45,30 @@
       let postStringParts = fields.map((field) => {
         let value = document.getElementsByName(`toy[${field}]`)[0].value;
         console.log(`value for ${field}: ${value}`);
-        value = value.replace(/\s+/, '+');
         return `toy[${field}]=${value}`;
       });
 
       let postString = postStringParts.join('&');
       console.log(postString);
+      console.log(encodeURI(postString));
 
-      return;
 
       let xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
         console.log("Network ready state: " + this.readyState + " " + this.status);
-        console.log(this);
+        if (this.readyState === 4) {
+          // Notice 302 forward was followed.
+          console.log(xhttp.response);
+        }
       }
-      xhttp.open("POST", "/toys", true);
-      xhttp.send();
+      xhttp.open("POST", "http://localhost:3000/toys", true);
+      xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhttp.send(encodeURI(postString));
+      console.log("...sent");
 
 
     }
     document.getElementById('the-form').addEventListener('submit', (event) => onFormSubmit(event));
-
-
   </script>
 
 
