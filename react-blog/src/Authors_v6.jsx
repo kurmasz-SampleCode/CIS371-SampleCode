@@ -2,6 +2,8 @@
 
 import React from 'react';
 
+const apiURL = 'http://localhost:3001'
+
 function AuthorForm({ author, updateAuthor, formMode, submitCallback, cancelCallback }) {
 
   let cancelClicked = (event) => {
@@ -116,7 +118,7 @@ function Authors() {
   let [currentAuthor, setCurrentAuthor] = React.useState(emptyAuthor);
 
   let fetchAuthors = () => {
-    fetch('http://localhost:3001/authors').then(response => {
+    fetch(`${apiURL}/authors`).then(response => {
       console.log("Look what I got: ");
       console.log(response);
       // Notice we aren't done yet.  
@@ -135,7 +137,7 @@ function Authors() {
     });
   };
 
-  
+
   React.useEffect(() => fetchAuthors(), []);
 
   let updateAuthor = (field, value) => {
@@ -144,24 +146,36 @@ function Authors() {
     setCurrentAuthor(newAuthor);
   }
 
+  let postNewAuthor = (author) => {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json;charset=UTF-8'
+      },
+      body: JSON.stringify(author)
+    };
+    console.log("Attempting to post new author");
+    console.log(author);
+    console.log(options.body);
+    return fetch(`${apiURL}/authors`, options).then(response => {
+      return response.json();
+    });
+  }
+
+
   let formSubmitted = () => {
     if (formMode === "new") {
-      currentAuthor.id = Math.max(...authorList.map((item) => item.id)) + 1;
-      setAuthorList([...authorList, currentAuthor]);
+      postNewAuthor(currentAuthor).then(data => {
+        currentAuthor.id = Math.max(...authorList.map((item) => item.id)) + 1;
+        setAuthorList([...authorList, currentAuthor]);
+      });
     } else {
       let newAuthorList = [...authorList];
       let authorIndex = authorList.findIndex((author) => author.id === currentAuthor.id);
 
       newAuthorList[authorIndex] = currentAuthor;
       setAuthorList(newAuthorList);
-
-      // Run this code instead to see that you have to clone objects
-      // when updating state.
-      if (false) {
-        console.log("Here!");
-        authorList[authorIndex] = currentAuthor;
-        setAuthorList(authorList);
-      }
     }
   }
 

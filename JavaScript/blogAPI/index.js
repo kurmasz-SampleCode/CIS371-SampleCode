@@ -16,7 +16,9 @@ const app = express()
 const port = 3001
 
 /* Parse the request body if there is POST data */
-app.use(bodyParser.urlencoded({ extended: true }));
+/* IMPORTANT! Notice that this is different from the expressMVC example:
+   It uses json instead of urlEncoded */
+app.use(bodyParser.json());
 
 /* Use CORS.  Enable for All requests */
 app.use(cors());

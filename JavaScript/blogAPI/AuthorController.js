@@ -17,23 +17,17 @@ class AuthorController {
         }
     }
 
-    newToy(req, res) {
-        res.render('toyNew', { toy: new Toy() });
-    }
-
-    async create(req, res) {
-        console.log("About to create toy");
+    create(req, res) {
+        console.log("About to create author");
         console.log(req.body);
-        let newToy = await ToyDB.create(req.body.toy);
+    
+        let newAuthor = req.body;
 
-        if (newToy.isValid()) {
-
-            // Send a redirect to the "show" route for the new toy.
-            res.writeHead(302, { 'Location': `/toys/${newToy.id}` });
-            res.end();
+        if (newAuthor.lname && newAuthor.fname && newAuthor.email) {
+            AuthorDB.create(newAuthor).then(data => res.send({success: true, ...data}));
         } else {
-            res.render('toyNew', { toy: newToy });
-        }
+            res.send({success: false, reason: "Data missing"});
+        }      
     }
 
     async edit(req, res) {
@@ -74,12 +68,6 @@ class AuthorController {
             res.end();
         }
     }
-
-    async rawIndex(req, res) {
-        let toys = await ToyDB.allToys();
-        res.send(toys);
-    }
-
 }
 
 module.exports = AuthorController;
