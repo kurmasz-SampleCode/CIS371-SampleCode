@@ -23,13 +23,16 @@ class AuthorController {
     
         let newAuthor = req.body;
 
+        // Quick and dirty validation
         if (newAuthor.lname && newAuthor.fname && newAuthor.email) {
+            // The 'data' contains the id (primary key) of newly created author
             AuthorDB.create(newAuthor).then(data => res.send({success: true, ...data}));
         } else {
             res.send({success: false, reason: "Data missing"});
         }      
     }
 
+    /*
     async edit(req, res) {
         let id = req.params.id;
         let toy = await ToyDB.find(id);
@@ -68,6 +71,7 @@ class AuthorController {
             res.end();
         }
     }
+    */
 }
 
 module.exports = AuthorController;

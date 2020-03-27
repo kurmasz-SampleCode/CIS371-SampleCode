@@ -3,6 +3,7 @@
 import React from 'react';
 
 const apiURL = 'http://localhost:3001'
+//const apiURL = 'https://railsapi-kurmasz.codeanyapp.com'
 
 function AuthorForm({ author, updateAuthor, formMode, submitCallback, cancelCallback }) {
 
@@ -109,7 +110,7 @@ function AuthorList({ authors, onEditClicked, onDeleteClicked }) {
 function Authors() {
 
   let [authorList, setAuthorList] = React.useState([
-    { id: 1, fname: "Hasn't", lname: "Loaded", email: "Yes" }
+    { id: 1, fname: "Hasn't", lname: "Loaded", email: "Yet" }
   ]);
 
   let [formMode, setFormMode] = React.useState("new");
@@ -137,7 +138,6 @@ function Authors() {
     });
   };
 
-
   React.useEffect(() => fetchAuthors(), []);
 
   let updateAuthor = (field, value) => {
@@ -163,12 +163,17 @@ function Authors() {
     });
   }
 
-
   let formSubmitted = () => {
     if (formMode === "new") {
       postNewAuthor(currentAuthor).then(data => {
-        currentAuthor.id = Math.max(...authorList.map((item) => item.id)) + 1;
-        setAuthorList([...authorList, currentAuthor]);
+        console.log("Received data");
+        console.log(data);
+        if (data.success) {
+          currentAuthor.id = data.newId;
+          setAuthorList([...authorList, currentAuthor]);
+        } else {
+          console.log("New author wasn't created.");
+        }
       });
     } else {
       let newAuthorList = [...authorList];

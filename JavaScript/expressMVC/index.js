@@ -29,13 +29,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // This sets a CORS header.
 // (1) Don't worry about this until we get to AJAX.
 // (2) Don't ever to "*" in production!!!
+
 app.use(function(req, res, next) {
     res.setHeader("Access-Control-Allow-Origin", "*");
   next();
 });
-
-
-
 
 /* Display all toys */
 app.get('/toys', (req, res) => {

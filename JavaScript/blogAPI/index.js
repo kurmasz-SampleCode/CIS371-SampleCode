@@ -45,11 +45,6 @@ let makeCrudRoutes = (name, controller) => {
     });
 };
 
-let foo = 'authors';
-app['get'](foo, (req, res) => {});
-console.log("Good!");
-
-
 makeCrudRoutes('authors', authorController);
 
 /* Launch the server */
