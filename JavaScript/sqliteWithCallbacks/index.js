@@ -13,7 +13,7 @@ class ToyController {
     // Because DB accesses are asynchronous, any access requires
     // a callback.
     index(req, res) {
-        ToyDB.all((rows) => {
+        ToyDB.allToys((rows) => {
             res.render('toyIndex', { toys: rows });
         });
     }

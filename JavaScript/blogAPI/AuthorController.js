@@ -1,45 +1,38 @@
-const Toy = require('./Toy');
-const ToyDB = require('./MemoryToyDB');
-//const ToyDB = require('./SqliteToyDB');
+const AuthorDB = require('./AuthorDB');
 
-/* Demonstrates a simple implementation of standard CRUD operations */
-class ToyController {
+class AuthorController {
 
     async index(req, res) {
-        let toys = await ToyDB.allToys();
-        res.render('toyIndex', { toys: toys });
+      res.send(await AuthorDB.all())
     }
 
     async show(req, res) {
         let id = req.params.id;
-        let toy = await ToyDB.find(id);
+        let author = await AuthorDB.find(id);
 
-        if (!toy) {
+        if (!author) {
             res.send("Could not find toy with id of " + id);
         } else {
-            res.render('toyShow', { toy: toy });
+           res.send(author);
         }
     }
 
-    newToy(req, res) {
-        res.render('toyNew', { toy: new Toy() });
-    }
-
-    async create(req, res) {
-        console.log("About to create toy");
+    create(req, res) {
+        console.log("About to create author");
         console.log(req.body);
-        let newToy = await ToyDB.create(req.body.toy);
+    
+        let newAuthor = req.body;
 
-        if (newToy.isValid()) {
-
-            // Send a redirect to the "show" route for the new toy.
-            res.writeHead(302, { 'Location': `/toys/${newToy.id}` });
-            res.end();
+        // Quick and dirty validation
+        if (newAuthor.lname && newAuthor.fname && newAuthor.email) {
+            // The 'data' contains the id (primary key) of newly created author
+            AuthorDB.create(newAuthor).then(data => res.send({success: true, ...data}));
         } else {
-            res.render('toyNew', { toy: newToy });
-        }
+            res.send({success: false, reason: "Data missing"});
+        }      
     }
 
+    /*
     async edit(req, res) {
         let id = req.params.id;
         let toy = await ToyDB.find(id);
@@ -78,12 +71,7 @@ class ToyController {
             res.end();
         }
     }
-
-    async rawIndex(req, res) {
-        let toys = await ToyDB.allToys();
-        res.send(toys);
-    }
-
+    */
 }
 
-module.exports = ToyController;
+module.exports = AuthorController;

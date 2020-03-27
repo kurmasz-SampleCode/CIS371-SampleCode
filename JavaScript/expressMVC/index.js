@@ -7,6 +7,9 @@ const express = require('express')
 const ToyController = require('./ToyController');
 const toyController = new ToyController();
 
+const UserController = require('./UserController');
+const userController = new UserController();
+
 /* Import the body-parser module.  (Used for parsing Post data) */
 const bodyParser = require('body-parser');
 
@@ -23,6 +26,14 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
+// This sets a CORS header.
+// (1) Don't worry about this until we get to AJAX.
+// (2) Don't ever to "*" in production!!!
+
+app.use(function(req, res, next) {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+  next();
+});
 
 /* Display all toys */
 app.get('/toys', (req, res) => {
@@ -56,11 +67,37 @@ app.post('/toys/:id', (req, res) => {
     toyController.update(req, res);
 });
 
+app.get('/selectUser', (req, res) => {
+    userController.select(req, res);
+});
+
+app.post('/selectUser', (req, res) => {
+    userController.showSelected(req, res);
+});
 
 app.get('/init', (req, res) => {
     require('./SqliteToyDB').initialize();
     res.send("Initialized.");
 });
+
+/*****************************************************
+*
+* The routes below are used for introducing AJAX. 
+*
+****************************************************** */
+
+app.get('/toys.json', (req, res) => {
+    toyController.rawIndex(req, res);
+})
+
+app.get('/ajax1', (req, res) => {
+    res.sendFile(__dirname + '/public/ajax1.html');
+});
+
+app.get('/ajax2', (req, res) => {
+    res.sendFile(__dirname + '/public/ajax2.html');
+});
+
 
 /* Launch the server */
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

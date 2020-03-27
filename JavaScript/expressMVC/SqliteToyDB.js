@@ -11,7 +11,7 @@ class SqliteToyDB {
         });
     }
 
-    static all() {
+    static allToys() {
         return new Promise((resolve, reject) => {
             this.db.all('SELECT * from Toys', (err, response) => {
                 resolve(response.map((item) => new Toy(item)));
