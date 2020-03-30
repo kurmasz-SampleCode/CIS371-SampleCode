@@ -38,8 +38,9 @@ class AuthorDB {
         return new Promise((resolve, reject) => {
             let sql = `INSERT INTO Authors (fname, lname, email) VALUES ("${author.fname}", "${author.lname}", "${author.email}");`;
             console.log('The sql: ');
-            console.log(sql);
-            this.db.run(sql, function(err, rows) {
+            console.log(sql);        
+                        
+            this.db.run(sql,  function(err, rows) {
                 console.log("This: ");
                 console.log(this);
                 if (err) {
@@ -47,7 +48,7 @@ class AuthorDB {
                     console.log(err);
                     reject(err);
                 } else {
-                    resolve({newId: this.lastID})
+                    resolve({id: this.lastID, ...author})
                 }
             });
         })

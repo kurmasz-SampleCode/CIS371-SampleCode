@@ -2,8 +2,8 @@
 
 import React from 'react';
 
-const apiURL = 'http://localhost:3001'
-//const apiURL = 'https://railsapi-kurmasz.codeanyapp.com'
+//const apiURL = 'http://localhost:3001'
+const apiURL = 'https://railsapi-kurmasz.codeanyapp.com'
 
 function AuthorForm({ author, updateAuthor, formMode, submitCallback, cancelCallback }) {
 
@@ -84,6 +84,8 @@ function AuthorListItem({ author, onEditClicked, onDeleteClicked }) {
 }
 
 function AuthorList({ authors, onEditClicked, onDeleteClicked }) {
+  console.log("The authors: ");
+  console.log(authors);
   const authorItems = authors.map((author) => (
     <AuthorListItem key={author.id} author={author} onEditClicked={onEditClicked} onDeleteClicked={onDeleteClicked} />
   ));
@@ -138,7 +140,7 @@ function Authors() {
     });
   };
 
-  React.useEffect(() => fetchAuthors(), []);
+React.useEffect(() => fetchAuthors(), []);
 
   let updateAuthor = (field, value) => {
     let newAuthor = { ...currentAuthor }
@@ -168,14 +170,17 @@ function Authors() {
       postNewAuthor(currentAuthor).then(data => {
         console.log("Received data");
         console.log(data);
-        if (data.success) {
-          currentAuthor.id = data.newId;
+
+        // The presence of a message key indicates there was an error.
+        if (!data.message) {
+          currentAuthor.id = data.id;
           setAuthorList([...authorList, currentAuthor]);
         } else {
-          console.log("New author wasn't created.");
+          console.log("New author wasn't created because " + data.message);
         }
       });
     } else {
+      // Notice! This does not submit changes to the server!
       let newAuthorList = [...authorList];
       let authorIndex = authorList.findIndex((author) => author.id === currentAuthor.id);
 

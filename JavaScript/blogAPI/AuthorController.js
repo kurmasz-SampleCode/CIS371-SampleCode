@@ -1,4 +1,6 @@
 const AuthorDB = require('./AuthorDB');
+const Author = require('./Author')
+
 
 class AuthorController {
 
@@ -17,18 +19,20 @@ class AuthorController {
         }
     }
 
-    create(req, res) {
+    async create(req, res) {
         console.log("About to create author");
         console.log(req.body);
     
         let newAuthor = req.body;
 
         // Quick and dirty validation
-        if (newAuthor.lname && newAuthor.fname && newAuthor.email) {
+        if (Author.isValid(newAuthor, await AuthorDB.all())) {
             // The 'data' contains the id (primary key) of newly created author
-            AuthorDB.create(newAuthor).then(data => res.send({success: true, ...data}));
+            AuthorDB.create(newAuthor).then(data => res.send(data));
         } else {
-            res.send({success: false, reason: "Data missing"});
+            // Send a 422 response.
+            res.status(422);
+            res.send({message: newAuthor.errors.join(": ")});
         }      
     }
 
