@@ -181,6 +181,7 @@ React.useEffect(() => fetchAuthors(), []);
       });
     } else {
       // Notice! This does not submit changes to the server!
+      alert("Change not submitted to server. (Just not part of this example.)")
       let newAuthorList = [...authorList];
       let authorIndex = authorList.findIndex((author) => author.id === currentAuthor.id);
 
@@ -200,6 +201,7 @@ React.useEffect(() => fetchAuthors(), []);
   }
 
   let deleteClicked = (id) => {
+    alert("Important: Not deleted on the server.  (Not part of this example.)")
     setAuthorList(authorList.filter((item) => item.id !== id));
 
     // reset the form after someone clicks delete.

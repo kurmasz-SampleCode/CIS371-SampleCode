@@ -34,7 +34,8 @@ let makeCrudRoutes = (name, controller) => {
         makeRoute('get', `/${name}`, 'index'),
         makeRoute('post', `/${name}`, 'create'),
         makeRoute('get', `/${name}/:id`, 'show'),
-        makeRoute('post', `/${name}/:id`, 'update')
+        makeRoute('put', `/${name}/:id`, 'update'),
+        makeRoute('delete', `/${name}/:id`, 'delete')
     ];
 
     // create the routes from the description.

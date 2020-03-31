@@ -3,7 +3,6 @@
 /* Import the express npm module */
 const express = require('express')
 
-
 const ToyController = require('./ToyController');
 const toyController = new ToyController();
 
@@ -17,14 +16,11 @@ const bodyParser = require('body-parser');
 const app = express()
 const port = 3000
 
-
 /* Tell the server to use EJS by default */
 app.set('view engine', 'ejs');
 
-
 /* Parse the request body if there is POST data */
 app.use(bodyParser.urlencoded({ extended: true }));
-
 
 // This sets a CORS header.
 // (1) Don't worry about this until we get to AJAX.
@@ -62,8 +58,20 @@ app.get('/toys/:id/edit', (req, res) => {
     toyController.edit(req, res);
 });
 
+// Don't worry about this until we get to security  and middleware.
+const {body} = require('express-validator')
+const validations = [
+    body('toy.name').escape(),
+    body('toy.description').escape(),
+    body('toy.manufacturer').escape(),
+    body('toy.price').escape()
+]
+// Add validations as 2nd parameter to apply
+
 /* Update a toy */
 app.post('/toys/:id', (req, res) => {
+    console.log("Update: ");
+    console.log(req.body);
     toyController.update(req, res);
 });
 

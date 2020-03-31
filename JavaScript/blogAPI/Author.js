@@ -15,7 +15,7 @@ module.exports = class Author {
       errors.push("Author must have an email");      
     }
 
-   if (!Author.isUnique(author.email, allAuthors)) {
+   if (!Author.isUnique(author, allAuthors)) {
      errors.push("Email is already in use.");
    }
 
@@ -27,7 +27,7 @@ module.exports = class Author {
    }
   }
 
-  static isUnique(email, allAuthors) {
-   return !allAuthors.find((author) => author.email === email);
+  static isUnique(author, allAuthors) {   
+    return allAuthors.filter((auth) => auth.email === author.email && auth.id !== author.id).length === 0;
   }
 }

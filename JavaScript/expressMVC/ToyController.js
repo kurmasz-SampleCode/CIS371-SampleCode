@@ -83,7 +83,6 @@ class ToyController {
         let toys = await ToyDB.allToys();
         res.send(toys);
     }
-
 }
 
 module.exports = ToyController;

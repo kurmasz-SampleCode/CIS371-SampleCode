@@ -35,26 +35,55 @@ class AuthorDB {
     }
 
     static create(author) {
+        let sql = `INSERT INTO Authors (fname, lname, email) VALUES ("${author.fname}", "${author.lname}", "${author.email}");`;
         return new Promise((resolve, reject) => {
-            let sql = `INSERT INTO Authors (fname, lname, email) VALUES ("${author.fname}", "${author.lname}", "${author.email}");`;
             console.log('The sql: ');
-            console.log(sql);        
-                        
-            this.db.run(sql,  function(err, rows) {
+            console.log(sql);
+
+            this.db.run(sql, function (err, rows) {
                 console.log("This: ");
                 console.log(this);
                 if (err) {
-                    console.log('Error');
+                    console.log('Create Error');
                     console.log(err);
                     reject(err);
                 } else {
-                    resolve({id: this.lastID, ...author})
+                    resolve({ id: this.lastID, ...author })
                 }
             });
         })
     }
-}
 
+    static update(author) {
+        let sql = `UPDATE Authors SET fname="${author.fname}", lname="${author.lname}", email="${author.email}" WHERE id="${author.id}"`;
+        return new Promise((resolve, reject) => {
+            this.db.run(sql, function (err, rows) {
+                if (err) {
+                    console.log('Update Error');
+                    console.log(err);
+                    reject(err);
+                } else {
+                    resolve({ success: true });
+                }
+            });
+        });
+    }
+
+    static delete(author) {
+        let sql = `DELETE from Authors WHERE id="${author.id}"`;
+        return new Promise((resolve, reject) => {
+            this.db.run(sql, function (err, rows) {
+                if (err) {
+                    console.log('Delete Error');
+                    console.log(err);
+                    reject(err);
+                } else {
+                    resolve({ success: true });
+                }
+            });
+        });
+    } // end delete
+} // end AuthorDB
 
 AuthorDB.db = new sqlite3.Database('blog.sqlite');
 
