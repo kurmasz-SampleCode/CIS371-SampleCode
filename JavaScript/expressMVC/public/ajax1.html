@@ -33,7 +33,7 @@
           let data = JSON.parse(xhr.response);
           console.log("Data after being parsed: ");
           console.log(data);
-          displayToys(data);
+          displayToys(data);          
         }
       }
       xhr.open("GET", "http://localhost:3000/toys.json", true);

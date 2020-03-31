@@ -27,8 +27,8 @@ app.use(cors());
 let makeCrudRoutes = (name, controller) => {
 
     // create a "route" object.
-    let makeRoute = (verb, path, method) => ({verb: verb, path: path, method: method});
-       
+    let makeRoute = (verb, path, method) => ({ verb: verb, path: path, method: method });
+
     // describe the desired routes
     let routes = [
         makeRoute('get', `/${name}`, 'index'),
@@ -39,10 +39,17 @@ let makeCrudRoutes = (name, controller) => {
     ];
 
     // create the routes from the description.
-    routes.forEach((route) => {    
+    routes.forEach((route) => {
         app[route.verb](route.path, (req, res) => {
-            controller[route.method](req, res);
-        })    
+            let ret = controller[route.method](req, res);
+
+            Promise.resolve(ret).catch((data) => {
+                console.log("Unhandled Exception");
+                console.log(data);
+                res.status(500);
+                res.send("Server Error: Unhandled Exception.");
+            });
+        });
     });
 };
 
