@@ -11,7 +11,6 @@ setTimeout(() => callback2(5), 5000);
 setTimeout(() => callback2(5.5), 5500);
 setTimeout(() => callback2(6), 6000);
 
-
 demonstrateIncorrectClosures = function() {
 
     console.log("About to demonstrate incorrect use of closures.");

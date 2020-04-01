@@ -1,7 +1,6 @@
 const AuthorDB = require('./AuthorDB');
 const Author = require('./Author')
 
-
 class AuthorController {
 
     async index(req, res) {     
@@ -45,7 +44,7 @@ class AuthorController {
 
         if (!author) {
             res.status(404);
-            res.send("Could not find toy with id of " + id);
+            res.send("Could not find an author with id of " + id);
         } else {
             if (Author.isValid(newAuthor, await AuthorDB.all())) {
                 // Indicate that the response is successful, but has no body.

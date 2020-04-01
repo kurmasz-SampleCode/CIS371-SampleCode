@@ -26,17 +26,20 @@ function myFetch(url) {
 
 const apiURL = 'https://railsapi-kurmasz.codeanyapp.com';
 
+/*
 // Successful fetch #1
 myFetch(`${apiURL}/authors`).then((data) => {
   console.log("Got good data");
   console.log(data);
 });
 
+
 // Successful fetch #2
 myFetch(`${apiURL}/authors/1`).then((data) => {
   console.log("Got more good data");
   console.log(data);
 });
+
 
 // Fetch fails with 404
 myFetch(`${apiURL}/authors/4`).then((data) => {
@@ -68,6 +71,7 @@ myFetch(`${apiURL}/authors`).then((rawData) => {
   console.log(data2);
 })
 
+
 //
 // Chain calls together and gracefully handle errors
 //
@@ -82,6 +86,9 @@ myFetch(`${apiURL}/authors`).then((rawData) => {
   console.log("Caught an error");
   console.log(obj);
 });
+
+*/
+
 
 // 
 // Make calls in parallel.
