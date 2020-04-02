@@ -4,13 +4,13 @@ import PropTypes from 'prop-types'
 function AuthorListItem ({ author, onEditClicked, onDeleteClicked }) {
   // Notice that the buttons currently don't do anything when clicked.
   return (
-    <tr>
+    <tr data-id={author.id}>
       <td className="col-md-3">{author.fname}</td>
       <td className="col-md-3">{author.lname}</td>
       <td className="col-md-3">{author.email}</td>
       <td className="col-md-3 btn-toolbar">
         <button className="btn btn-success btn-sm" onClick={event => onEditClicked(author)}>
-          <i className="glyphicon glyphicon-pencil"></i> Edit
+          <i className="glyphicon glyphicon-pencil edit-button"></i> Edit
         </button>
         <button className="btn btn-danger btn-sm" onClick={event => onDeleteClicked(author.id)}>
           <i className="glyphicon glyphicon-remove"></i> Delete
@@ -27,7 +27,7 @@ AuthorListItem.propTypes = {
 }
 
 export default function AuthorList ({ authors, onEditClicked, onDeleteClicked }) {
-  const authorItems = authors.map((author) => (
+  const authorItems = authors.map((author, index) => (
     <AuthorListItem key={author.id} author={author} onEditClicked={onEditClicked} onDeleteClicked={onDeleteClicked} />
   ))
 

@@ -1,21 +1,11 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { render, fireEvent, screen } from '@testing-library/react'
 import AuthorForm from '../components/AuthorForm'
-
-describe('dummy', () => {
-  it('does something', () => {
-
-    function Dummy () {
-      return <span>Dummy</span>
-    }
-
-    let stuff = render(<Dummy />)
-  })
-})
 
 describe('AuthorForm', () => {
 
   let props
+  let mockPreventDefault
   beforeEach(() => {
     props = {
       author: { fname: '', lname: '', email: '' },
@@ -24,6 +14,7 @@ describe('AuthorForm', () => {
       submitCallback: jest.fn(),
       cancelCallback: jest.fn(),
     }
+    mockPreventDefault = jest.fn()
   })
 
   it('Initializes input fields to empty', () => {
@@ -48,7 +39,7 @@ describe('AuthorForm', () => {
     props.author = { fname: 'George', lname: 'Smith', email: 'g@smith.com' }
 
     // Render AuthorForm
-    const { container } = render(<AuthorForm {...props} />)
+    const { container, getByLabelText } = render(<AuthorForm {...props} />)
 
     // Get fname input element, then verify it was initialized properly.
     const fnameInput = container.querySelector('#fname')
@@ -59,35 +50,64 @@ describe('AuthorForm', () => {
     expect(lnameInput.value).toBe('Smith')
 
     // Get email input element, then verify it was initialized properly.
-    const emailInput = container.querySelector('#email')
+    // getByLabelText is a different way to select the element.
+    // querySelector is a standard DOM method
+    // getByLabelText is a helper provided by the react testing library
+    const emailInput = getByLabelText("Email address")
     expect(emailInput.value).toBe('g@smith.com')
   })
 
   it('has "Create" button in "new" mode', () => {
-    props.formMode = 'new';
+    props.formMode = 'new'
     const { container } = render(<AuthorForm {...props} />)
 
     // Look for all the buttons.
-    const buttons = container.querySelectorAll('form button');
+    const buttons = container.querySelectorAll('form button')
     // There should be exactly one.
-    expect(buttons.length).toBe(1);
+    expect(buttons.length).toBe(1)
     // It should be "Create"
-    expect(buttons[0].textContent).toEqual('Create');
+    expect(buttons[0].textContent).toEqual('Create')
   })
 
   it('has "Save" and "Cancel" buttons in "update" mode', () => {
-    props.formMode = 'update';
+    props.formMode = 'update'
     const { container } = render(<AuthorForm {...props} />)
 
     // Look for all the buttons.
-    const buttons = container.querySelectorAll('form button');
+    const buttons = container.querySelectorAll('form button')
     // There should be exactly two.
-    expect(buttons.length).toBe(2);
-    console.log("The buttons:");
-    console.log(buttons);
-    let text = buttons.map((b) => b.textContent);
-    // It should be "Create"
-    expect(buttons[0].textContent).toEqual(['Save', 'Cancel']);
+    expect(buttons.length).toBe(2)
+    let textArray = Array.from(buttons).map((b) => b.textContent)
+    expect(textArray).toEqual(['Save', 'Cancel'])
   })
 
+  let types = ['fname', 'lname', 'email']
+  types.forEach((inputType) => {
+    it(`updates ${inputType} on every change`, () => {
+      const { container } = render(<AuthorForm {...props} />)
+
+      let input = container.querySelector(`#${inputType}`)
+
+      fireEvent.change(input, { target: { value: 'newValue' } })
+      expect(props.updateAuthor).toHaveBeenCalledWith(inputType, 'newValue')
+    })
+  })
+
+  it('calls the submit callback when form submitted', () => {
+    const { container } = render(<AuthorForm {...props} />)
+    let form = container.querySelector('form')
+    fireEvent.submit(form)
+    expect(props.submitCallback).toHaveBeenCalledTimes(1)
+  })
+
+  it('calls the cancel callback when cancel button clicked.', () => {
+    props.formMode = 'update'
+    const { container, getByText } = render(<AuthorForm {...props} />)
+    let cancelButton = getByText('Cancel')
+    fireEvent.click(cancelButton)
+
+    // Careful. Searching by text can make tests fragile. 
+    // Changing the text breaks the test.  Adding classes or ids is better (in my opinion)
+    expect(props.cancelCallback).toHaveBeenCalledTimes(1)
+  })
 })

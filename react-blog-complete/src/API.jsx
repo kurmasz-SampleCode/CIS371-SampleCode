@@ -3,6 +3,7 @@ const apiURL = 'https://railsapi-kurmasz.codeanyapp.com'
 
 export default class API {
   static fetchAuthors () {
+    console.log("In fetch Authors");
     return fetch(`${apiURL}/authors`)
       .then(response => {
         // Notice: At this point, we have only the headers.  We can't

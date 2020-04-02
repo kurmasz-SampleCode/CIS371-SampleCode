@@ -1,0 +1,54 @@
+<html>
+
+<head>
+  <title>Sample SQL Injection</title>
+  <style>
+    input {
+      min-width: 500px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <p>First Name: <input id='fname' name='fname' /></p>
+  <p><button id='enter'>Submit</button><button id='evil'>Evil Input</button></p>
+
+  <p>Consider this line of JavaScript that generates a sql statement:</p>
+  <code>
+    sqlStmt = `SELECT * from Authors where name="${nameEntered}"`
+  </code>
+  <p>Enter a name, click "Submit" and see the resulting SQL statement</p>
+
+  <table>
+    <tr><td>Result:</td><td><code id='result' class='result'>&nbsp;</code></td></tr>
+    <tr><td>Sanitized Result:</td><td><code id='sanitized' class='result'>&nbsp;</code></td></tr>
+  </table>
+
+  <script>
+    let result = document.getElementById('result');
+    let sanitizedResult = document.getElementById('sanitized');
+
+    document.getElementById('evil').addEventListener('click', () => {
+      document.getElementById('fname').value = 'Fred"; DROP TABLE Authors; SELECT * from Authors where name="'
+    })
+
+
+    document.getElementById('enter').addEventListener('click', () => {
+      let nameEntered = document.getElementById('fname').value
+      let sqlStmt = `SELECT * from Authors where name="${nameEntered}"`;
+      result.textContent = sqlStmt;
+
+      let sanitizedName = nameEntered.replace(/['"]/g, '\\"');
+      console.log("SN: " + sanitizedName);
+      let sanitizedStmt = `SELECT * from Authors where name="${sanitizedName}"`
+      sanitizedResult.textContent = sanitizedStmt
+
+      
+    })
+  </script>
+
+
+</body>
+
+</html>

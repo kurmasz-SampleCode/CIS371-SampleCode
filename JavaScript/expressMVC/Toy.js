@@ -38,6 +38,4 @@ class Toy {
     }
 }
 
-
-
 module.exports = Toy;
