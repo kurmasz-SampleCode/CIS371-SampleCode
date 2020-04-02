@@ -1,0 +1,32 @@
+.authors {
+  display: inline-block;
+  border: black 1px solid;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.author-list, .author-form {
+  display: inline-block;
+  border: blue 1px solid;
+  border-radius: 10px;
+  margin: 5px;
+  padding: 10px;
+}
+
+.author-form label {
+  display: inline-block;
+  width: 125px;
+  margin-right: 5px;
+}
+
+.author-form input {
+  width: 150px;
+  margin-right: 5px;
+}
+
+.errorMessage {
+  border-radius: 10px;
+  border: red 1px solid;
+  margin: 5px;
+  padding: 10px;
+}
