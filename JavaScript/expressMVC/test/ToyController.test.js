@@ -22,7 +22,7 @@ beforeEach(() => {
 
     Toy.mockClear();
     ToyDB.mockClear();
-    ToyDB.all = jest.fn(() => allToys);
+    ToyDB.allToys = jest.fn(() => allToys);
 
     c = new ToyController()
     req = {};

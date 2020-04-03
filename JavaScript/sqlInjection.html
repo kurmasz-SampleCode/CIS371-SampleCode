@@ -21,8 +21,14 @@
   <p>Enter a name, click "Submit" and see the resulting SQL statement</p>
 
   <table>
-    <tr><td>Result:</td><td><code id='result' class='result'>&nbsp;</code></td></tr>
-    <tr><td>Sanitized Result:</td><td><code id='sanitized' class='result'>&nbsp;</code></td></tr>
+    <tr>
+      <td>Result:</td>
+      <td><code id='result' class='result'>&nbsp;</code></td>
+    </tr>
+    <tr>
+      <td>Sanitized Result:</td>
+      <td><code id='sanitized' class='result'>&nbsp;</code></td>
+    </tr>
   </table>
 
   <script>
@@ -43,8 +49,6 @@
       console.log("SN: " + sanitizedName);
       let sanitizedStmt = `SELECT * from Authors where name="${sanitizedName}"`
       sanitizedResult.textContent = sanitizedStmt
-
-      
     })
   </script>
 

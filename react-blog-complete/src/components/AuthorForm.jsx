@@ -38,7 +38,7 @@ export default function AuthorForm ({ author, updateAuthor, formMode, submitCall
 
   const formSubmitted = (event) => {
     // Prevent the browser from re-loading the page.
-    // event.preventDefault()
+    event.preventDefault()
     submitCallback()
   }
 

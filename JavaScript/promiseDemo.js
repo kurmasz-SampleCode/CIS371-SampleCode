@@ -34,6 +34,7 @@ myFetch(`${apiURL}/authors`).then((data) => {
 });
 
 
+
 // Successful fetch #2
 myFetch(`${apiURL}/authors/1`).then((data) => {
   console.log("Got more good data");
@@ -70,7 +71,6 @@ myFetch(`${apiURL}/authors`).then((rawData) => {
   console.log("The last author");
   console.log(data2);
 })
-
 
 //
 // Chain calls together and gracefully handle errors
