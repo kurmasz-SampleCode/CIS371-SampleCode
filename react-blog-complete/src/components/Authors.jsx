@@ -89,7 +89,6 @@ export default function Authors () {
       {errorBlock}
       <AuthorForm formMode={formMode} author={currentAuthor} updateAuthor={updateAuthor}
         submitCallback={formSubmitted} cancelCallback={cancelClicked} />
-      <div />
       {loadingMessage
         ? <p>{loadingMessage}</p>
         : <AuthorList authors={authorList} onEditClicked={editClicked} onDeleteClicked={deleteClicked} />
