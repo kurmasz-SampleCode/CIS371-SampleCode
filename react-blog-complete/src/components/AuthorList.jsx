@@ -9,10 +9,10 @@ function AuthorListItem ({ author, onEditClicked, onDeleteClicked }) {
       <td className="col-md-3">{author.lname}</td>
       <td className="col-md">{author.email}</td>
       <td className="col-md-2 btn-toolbar">
-        <button className="btn btn-success btn-sm" onClick={event => onEditClicked(author)}>
+        <button className="btn btn-success btn-sm edit-author" onClick={event => onEditClicked(author)}>
           <i className="glyphicon glyphicon-pencil edit-button"></i> Edit
         </button>
-        <button className="btn btn-danger btn-sm" onClick={event => onDeleteClicked(author.id)}>
+        <button className="btn btn-danger btn-sm cancel-edit" onClick={event => onDeleteClicked(author.id)}>
           <i className="glyphicon glyphicon-remove"></i> Delete
         </button>
       </td>
