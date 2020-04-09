@@ -47,6 +47,7 @@ export default function Authors () {
         console.log(data)
         if (data.id) {
           currentAuthor.id = data.id
+   //       setCurrentAuthor(emptyAuthor)
           setAuthorList([...authorList, currentAuthor])
         } else {
           console.log("New author wasn't created.")
@@ -90,7 +91,7 @@ export default function Authors () {
       <AuthorForm formMode={formMode} author={currentAuthor} updateAuthor={updateAuthor}
         submitCallback={formSubmitted} cancelCallback={cancelClicked} />
       {loadingMessage
-        ? <p>{loadingMessage}</p>
+        ? <p id='loading-message'>{loadingMessage}</p>
         : <AuthorList authors={authorList} onEditClicked={editClicked} onDeleteClicked={deleteClicked} />
       }
     </div>

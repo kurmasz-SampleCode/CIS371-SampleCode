@@ -4,6 +4,8 @@ const Author = require('./Author')
 class AuthorController {
 
     async index(req, res) {     
+        console.log("In index");
+        console.log(await AuthorDB.all())
         res.send(await AuthorDB.all())
     }
 

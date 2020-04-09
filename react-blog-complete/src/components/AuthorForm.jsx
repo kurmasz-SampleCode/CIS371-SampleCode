@@ -21,13 +21,13 @@ export default function AuthorForm ({ author, updateAuthor, formMode, submitCall
   const renderButtons = () => {
     if (formMode === 'new') {
       return (
-        <button type="submit" className="btn btn-primary">Create</button>
+        <button id='create-button' type="submit" className="btn btn-primary">Create</button>
       )
     } else {
       return (
         <div className="form-group">
-          <button type="submit" className="btn btn-primary">Save</button>
-          <button type="submit" className="btn btn-danger" onClick={cancelClicked}>Cancel</button>
+          <button id='save-button' type="submit" className="btn btn-primary">Save</button>
+          <button id='cancel-button' type="submit" className="btn btn-danger" onClick={cancelClicked}>Cancel</button>
         </div>
       )
     }

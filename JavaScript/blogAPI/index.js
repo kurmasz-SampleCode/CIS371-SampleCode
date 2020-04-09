@@ -55,5 +55,12 @@ let makeCrudRoutes = (name, controller) => {
 
 makeCrudRoutes('authors', authorController);
 
+app.get('/initTest', (req, res) => {
+    const AuthorDB = require('./AuthorDB');
+    AuthorDB.initializeTest();
+    res.status(204);
+    res.send();
+})
+
 /* Launch the server */
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

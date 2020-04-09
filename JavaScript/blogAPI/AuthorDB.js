@@ -4,12 +4,25 @@ class AuthorDB {
 
     static initialize() {
         this.db.serialize(() => {
+            // This will fail if the table exists (to prevent accidentally destroying existing data).
             this.db.run('CREATE TABLE Authors (id INTEGER PRIMARY KEY, fname TEXT NOT NULL, lname TEXT NOT NULL, email TEXT NOT NULL);');
             this.db.run('INSERT INTO Authors (fname, lname, email) VALUES ("George", "Washington", "george@washington.com");');
             this.db.run('INSERT INTO Authors (fname, lname, email) VALUES ("John", "Adams", "john@adams.com");');
             this.db.run('INSERT INTO Authors (fname, lname, email) VALUES ("Thomas", "Jefferson", "thomas@jefferson.com");');
         });
     }
+
+    static initializeTest() {
+        this.db.serialize(() => {
+            let createSQL = 'CREATE TABLE IF NOT EXISTS Authors (id INTEGER PRIMARY KEY, fname TEXT NOT NULL, lname TEXT NOT NULL, email TEXT NOT NULL);'
+            this.db.run(createSQL)
+            this.db.run('DELETE FROM Authors')
+            this.db.run('INSERT INTO Authors (fname, lname, email) VALUES ("George", "Washington", "george@washington.com");');
+            this.db.run('INSERT INTO Authors (fname, lname, email) VALUES ("John", "Adams", "john@adams.com");');
+            this.db.run('INSERT INTO Authors (fname, lname, email) VALUES ("Thomas", "Jefferson", "thomas@jefferson.com");');
+        });
+    }
+
 
     static all() {
         return new Promise((resolve, reject) => {
@@ -85,6 +98,12 @@ class AuthorDB {
     } // end delete
 } // end AuthorDB
 
-AuthorDB.db = new sqlite3.Database('blog.sqlite');
+let dbName = 'blog.sqlite';
+if (process.argv.find((item) => item === '--test')) {
+    console.log("Running in test mode");
+    dbName = 'blog.test.sqlite'
+}
+
+AuthorDB.db = new sqlite3.Database(dbName);
 
 module.exports = AuthorDB;

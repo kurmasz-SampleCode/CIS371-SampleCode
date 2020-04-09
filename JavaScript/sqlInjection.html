@@ -45,7 +45,7 @@
       let sqlStmt = `SELECT * from Authors where name="${nameEntered}"`;
       result.textContent = sqlStmt;
 
-      let sanitizedName = nameEntered.replace(/['"]/g, '\\"');
+      let sanitizedName = nameEntered.replace(/['"]/g, '"\\');
       console.log("SN: " + sanitizedName);
       let sanitizedStmt = `SELECT * from Authors where name="${sanitizedName}"`
       sanitizedResult.textContent = sanitizedStmt

@@ -1,5 +1,5 @@
-// const apiURL = 'http://localhost:3001'
-const apiURL = 'https://railsapi-kurmasz.codeanyapp.com'
+const apiURL = 'http://localhost:3001'
+//const apiURL = 'https://railsapi-kurmasz.codeanyapp.com'
 
 export default class API {
   static fetchAuthors () {

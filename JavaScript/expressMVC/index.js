@@ -27,9 +27,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // (2) Don't ever to "*" in production!!!
 
 app.use(function(req, res, next) {
-    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Origin", "localhost:3001");
   next();
 });
+
+
 
 /* Display all toys */
 app.get('/toys', (req, res) => {
