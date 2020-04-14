@@ -100,6 +100,4 @@ describe('Authors page', () => {
     cy.get('#save-button').should('not.exist')
     cy.get('#cancel-button').should('not.exist')
   })
-
-
 })

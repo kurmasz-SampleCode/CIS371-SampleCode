@@ -1,7 +1,7 @@
 // Note:  To keep the example simple, you need to launch the react app and the 
 // back-end API before running Cucumber
 
-const { Given, When, Then, And, Before, AfterAll } = require("cucumber")
+const { Given, When, Then, Before, AfterAll } = require("cucumber")
 const { Builder, By, Key, until } = require('selenium-webdriver')
 const expect = require('expect')  // The matchers from Jest
 const http = require('http')
@@ -15,7 +15,7 @@ Before(() => {
 })
 
 
-When(/^I visit the home page$/, () => {
+When('I visit the home page', () => {
   // get returns a promise. Remember to return this promise
   // so the runner knows when to move onto the next step.
   return driver.get('http://localhost:3000/')
@@ -56,11 +56,13 @@ Then(/^I should see a list of (\d+) authors$/, async (num) => {
   })
 })
 
-Then(/^Author (\d+) should be "([^"]+)" "([^"]+)" with email "([^"]+)"$/, async (id, fname, lname, email) => {
+Then(/^Author (\d+) should be "(["^]+)" "([^"]+)" with email "([^"]+)"$/, async (id, fname, lname, email) => {
   return driver.findElements(By.css(`tr[data-id="${id}"] td`)).then(async (elements) => {
     expect(elements.length).toBe(4)
 
     expect(await elements[0].getText()).toEqual(fname)
+    expect(await elements[1].getText()).toEqual(lname)
+    expect(await elements[2].getText()).toEqual(email)
   })
 })
 

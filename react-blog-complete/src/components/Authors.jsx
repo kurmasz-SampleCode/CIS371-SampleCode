@@ -47,7 +47,7 @@ export default function Authors () {
         console.log(data)
         if (data.id) {
           currentAuthor.id = data.id
-         setCurrentAuthor(emptyAuthor)
+          setCurrentAuthor(emptyAuthor)
           setAuthorList([...authorList, currentAuthor])
         } else {
           console.log("New author wasn't created.")

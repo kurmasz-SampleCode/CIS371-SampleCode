@@ -2,7 +2,7 @@ Feature: Authors
 
   Scenario: Visit root page (simple)
     When I visit the home page
-    # Then I should see the loading message
+   # Then I should see the loading message
     When I wait for the authors to load
     Then I should see a list of authors
 

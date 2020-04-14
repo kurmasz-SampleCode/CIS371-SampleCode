@@ -40,7 +40,7 @@ describe('Authors', () => {
   })
 
   // This is here to show you how it's done.  But, to me,
-  // it looks more like an end-to-end test
+  // it looks more like an integration end-to-end test
   it('populates the form when "Edit" button clicked', async () => {
     let { container, getByText } = render(<Authors />)
     await waitForElementToBeRemoved(() => getByText('Loading...'))
@@ -57,11 +57,5 @@ describe('Authors', () => {
 
     let emailInput = container.querySelector('#email')
     expect(emailInput.value).toBe('sam@jones.com')
-
-
-
   })
-
-
-
 })
