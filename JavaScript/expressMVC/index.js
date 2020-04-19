@@ -31,7 +31,9 @@ app.use(function(req, res, next) {
   next();
 });
 
-
+// If a route comes in that doesn't match anything else,
+// express will look for a file in the public directory.
+app.use(express.static(__dirname + '/public'))
 
 /* Display all toys */
 app.get('/toys', (req, res) => {
@@ -100,14 +102,9 @@ app.get('/toys.json', (req, res) => {
     toyController.rawIndex(req, res);
 })
 
-app.get('/ajax1', (req, res) => {
-    res.sendFile(__dirname + '/public/ajax1.html');
-});
-
-app.get('/ajax2', (req, res) => {
-    res.sendFile(__dirname + '/public/ajax2.html');
-});
-
+app.get('/pictures', (req, res) => {
+    res.render('showSomePictures');
+})
 
 /* Launch the server */
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
