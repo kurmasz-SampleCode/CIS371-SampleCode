@@ -66,7 +66,7 @@ public class DynamicServer1 {
     }
 
     /**
-     * Handle a request for a dynamicly generated page
+     * Handle a request for a dynamically generated page
      * 
      * @param out The {@code OutputStream} for the socket
      * @param filename The filename.
@@ -90,7 +90,7 @@ public class DynamicServer1 {
         } else if (extension.equals("rb")) {
             command = "ruby " + filename;
         } else {
-            System.out.println("Dont' recognize extension =>" + extension + "<=");
+            System.out.println("Don't recognize extension =>" + extension + "<=");
 
             String toPrint = "<html><body>Problem running dynamic program: " + "Don't recognize extension =>" + filename
                     + "<= </body></html>";
