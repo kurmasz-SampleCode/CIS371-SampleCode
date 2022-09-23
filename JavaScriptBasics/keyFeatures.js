@@ -4,6 +4,10 @@ let myObject = {
     name: "Bob",
     age: 32
 };
+console.log(`Template strings can contain code:`);
+console.log(`${myObject.name} will be ${myObject.age + 10} a decade from now.`)
+
+
 console.log(`Original state of myObject:`);
 console.log(myObject);
 console.log("We can add a new key/value pair to the object:");
@@ -45,12 +49,15 @@ console.log('u === n is false because they are different types');
 console.log("Remember to check for both null and undefined!.");
 console.log();
 
+// Demonstrating the nullish coalescing operator (??)
+console.log(`The magic number is ${n ?? 'TBD'}`);
 
 console.log("let vs var");
 
 for (var i = 1; i < 10; ++i) {
     console.log(`${i}^2 = ${i*i}`);
 }
+
 console.log(`Notice that after the loop i=${i}`);
 for (let j = 10; j < 20; ++j) {
     console.log(`${j}^2 = ${j*j}`);

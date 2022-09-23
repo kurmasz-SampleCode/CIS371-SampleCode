@@ -1,3 +1,5 @@
+/* jshint esversion: 6 */
+
 console.log("Notice that Javascript runs asynchronously:");
 setTimeout(() => console.log('Callback after 3 seconds'), 3000);
 setTimeout(() => console.log('Callback after 2 seconds'), 2000);
@@ -15,7 +17,7 @@ demonstrateIncorrectClosures = function() {
 
     console.log("About to demonstrate incorrect use of closures.");
     let x = 0;
-    callback3 = function() {
+    callback3 = () => {
         console.log(`Callback v3 after ${x} seconds`);
     };
 
