@@ -41,7 +41,7 @@ console.log("Round 2");
 // Benefit of dynamic typing:  We can put objects of different types into 
 // an array.  Everything works as long as all the objects implement the method 
 // in question.
-var animals = [dog, duck];
+let animals = [dog, duck];
 
 animals.forEach((animal) => {
     animal.speak();

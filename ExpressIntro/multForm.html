@@ -1,0 +1,35 @@
+<html>
+
+<head>
+    <style>
+        .label {
+            display: inline-block;
+            width: 6em;
+            margin: 3px;
+        }
+        
+        input[type='submit'] {
+            margin-top: 10px;
+            margin-bottom: 3px;
+        }
+        
+        fieldset {
+            width: 15em;
+        }
+    </style>
+</head>
+
+
+<body>
+    <h1>Multiplication Table</h1>
+
+    <fieldset>
+        <legend>Table Parameters</legend>
+        <form action="showTable" method="post">
+            <span class='label'>Num rows:</span><input type='text' name='rows' /><br>
+            <span class='label'>Num columns:</span><input type='text' name='columns'><br>
+            <span class='label'></span><input type='submit' />
+        </form>
+</body>
+
+</html>
