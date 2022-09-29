@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "nit": "^0.0.5",
+    "sqlite3": "^5.1.1"
+  },
+  "name": "expressmvcsqlitepromises",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

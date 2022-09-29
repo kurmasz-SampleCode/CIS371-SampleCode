@@ -26,6 +26,7 @@ console.log()
 console.log("We can assign the two return values to separate variables:");
 let k = 0;
 let [celsius, fahrenheit] = convertKelvin(k);
+
 console.log(`${k} degrees Kelvin is ${celsius} degrees Celsius and ${fahrenheit} degrees Fahrenheit`)
 
 // Example 3: Notice that when using an array variable, you are referring to the entire array object:
