@@ -8,6 +8,13 @@ const Toy = require('../Toy');
 describe("Toy", () => {
 
     describe(".constructor", () => {
+        it('should set all Toy properties', () => {
+            let toy = new Toy({ name: 'bob', price: 5, description: 'a Toy', manufacturer: 'Hasbro' });
+            expect(toy.name).toBe('bob');
+            expect(toy.price).toBe(5);
+            expect(toy.description).toBe('a Toy');
+            expect(toy.manufacturer).toBe('Hasbro');
+        });
         it('should generate an empty error list', () => {
             let toy = new Toy({ name: 'bob', price: 5, description: 'a Toy', manufacturer: 'Hasbro' });
             expect(toy.errors.length).toBe(0);
@@ -15,7 +22,6 @@ describe("Toy", () => {
     });
 
     describe("#isValid", () => {
-
         it('recognizes a valid toy', () => {
             let toy = new Toy({ name: 'bob', price: 5, description: 'a Toy', manufacturer: 'Hasbro' });
             expect(toy.isValid()).toBe(true);

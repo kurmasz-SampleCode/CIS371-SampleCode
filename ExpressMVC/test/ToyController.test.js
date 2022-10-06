@@ -19,9 +19,7 @@ let req;
 let allToys = [new Toy({ name: "David", manufacturer: "Hasbro", description: "An action figure", price: "43.21" })];
 
 beforeEach(() => {
-
-    Toy.mockClear();
-    ToyDB.mockClear();
+    jest.resetAllMocks();
     ToyDB.allToys = jest.fn(() => allToys);
 
     c = new ToyController()
@@ -42,15 +40,23 @@ describe("#index", () => {
 
 describe("#show", () => {
 
-    let ken;
+    let ken;  // notice that let is declared outside of beforeEach and the tests.
     beforeEach(() => {
+        // a handy Toy to be used in each test.
         ken = new Toy({ name: 'Ken', manufacturer: "Mattel", description: "Companion", price: "0.65" });
     });
 
     it("renders the show view for the given id if id is valid", async() => {
+        // mock ToyDB.find to return a known, local Toy when given the expected id.
         ToyDB.find = jest.fn((id) => id == 22 ? ken : null);
+
+        // set up the req object as if the id was set to 22 in the URL.
         req.params = { id: 22 };
+
+        // invoke the method to be tested.
         await c.show(req, res);
+
+        // verify that we respond to the request as expected.
         expect(res.send).toHaveBeenCalledTimes(0);
         expect(res.render).toHaveBeenCalledTimes(1);
         expect(res.render).toHaveBeenCalledWith('toyShow', { toy: ken });
