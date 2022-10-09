@@ -92,6 +92,19 @@ app.get('/init', (req, res) => {
     res.send("Initialized.");
 });
 
+app.get('/cookies', (req, res) => {
+    res.cookie("MyCookie", "Hello there");
+    res.cookie("Another Cookie", "I see you");
+
+    // IMPORTANT!! Using req.get("Cookie") is _not_ the 
+    // best way to view incoming cookies.
+    // See https://expressjs.com/en/api.html#res.cookie
+    // for how to use cookie-parser middleware
+    // https://www.npmjs.com/package/cookie-parser
+    console.log(req.get("Cookie"));
+    res.send("Here are the cookies I see: " + req.get("Cookie"));
+})
+
 /*****************************************************
 *
 * The routes below are used for introducing AJAX. 
