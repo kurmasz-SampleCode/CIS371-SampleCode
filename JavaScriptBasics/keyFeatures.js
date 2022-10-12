@@ -1,3 +1,5 @@
+"use strict";
+
 console.log("All objects behave like associative arrays");
 
 let myObject = {
