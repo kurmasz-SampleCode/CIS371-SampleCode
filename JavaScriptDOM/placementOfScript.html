@@ -1,0 +1,50 @@
+<html>
+
+<head>
+
+    <script>
+        document.onreadystatechange = function() {
+            console.log("Document state is now " + document.readyState);
+
+            // A document is in the "interactive" state when the document has been parsed, 
+            // but sub-resources such as images, stylesheets, and frames may still be loading.
+            // (In other words, it is safe to run code that interacts with the DOM at this point)
+            // https://developer.mozilla.org/en-US/docs/Web/API/Document/readyState
+            if (document.readyState === 'interactive') {
+                listCourses("ready state");
+            }
+        }
+
+        function listCourses(location) {
+            let items = document.querySelectorAll('#theList li');
+            console.log("Running from " + location);
+            console.log(`I've taught ${items.length} courses: `);
+            for (let i = 0; i < items.length; ++i) {
+                console.log(items[i].textContent);
+            }
+        }
+        listCourses("head");
+    </script>
+</head>
+
+
+<body>
+    <h1> My List</h1>
+    <ul id='theList'>
+        <li>CIS 162</li>
+        <li>CIS 163</li>
+        <li>CIS 343</li>
+        <li>CIS 351</li>
+        <li>CIS 371</li>
+        <li>CIS 451</li>
+        <li>CIS 500</li>
+        <li>CIS 658</li>
+    </ul>
+
+
+    <script>
+        listCourses("body");
+    </script>
+</body>
+
+</html>
