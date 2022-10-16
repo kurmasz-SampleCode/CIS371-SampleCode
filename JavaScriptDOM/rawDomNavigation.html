@@ -1,0 +1,41 @@
+<html>
+<head lang="en">
+    <title>Sample page 1</title>
+</head>
+<body id="theBody" class="first">
+
+<h1>Sample 1</h1>
+
+<!-- This is the first comment -->
+
+<p>This is a sample html page with which we can explore the parse tree.</p>
+
+<ul class="aList" id="countyList">
+    <li>Kent</li>
+    <li>Ottawa</li>
+    <li id="myCounty">Genessee
+        <ul class="aList">
+            <li>Flint</li>
+            <li>Flushing</li>
+            <li id="ldn">Linden</li>
+            <li>Fenton</li>
+        </ul>
+    </li>
+    <li>Lapeer</li>
+</ul>
+
+A link to <a id="theLink" target="_top" href="www.youtube.com">YouTube</a>.
+
+<!-- This is the second comment -->
+
+<hr/>
+
+Some more text below the horizontal line.
+
+<script type="text/javascript" src="rawDomNavigation.js"></script>
+<script>
+    examineNode(document.getElementsByTagName("body")[0]);
+    examineNode(document.getElementById("theLink"));
+    </script>
+</body>
+</html>

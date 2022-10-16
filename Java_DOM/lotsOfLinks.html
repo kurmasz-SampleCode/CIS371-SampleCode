@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title>Lots of Links</title>
+</head>
+<body>
+
+Link to the <a href="#bottom">bottom</a> of the page.
+
+<ul>
+    <li><a href="http://www.google.com">Google</a></li>
+    <li><a href="http://www.microsoft.com"><code>http://microsoft.com</code></a></li>
+    <li><a href="http://jasmine.github.io"><code>Jasmine</code></a></li>
+    <li>Look at all the pretty flowers.</li>
+    <li><a target="_top" href="http://www.gatech.edu">Georga Tech</a></li>
+    <!---
+    <li><a href="http://www.uga.edu">University (sic) of Georgia</a></li>
+    -->
+    <li><a class="special" href="http://www.gvsu.edu" id="nifty">Go Lakers!</a></li>
+    <li><a
+
+
+            href=
+
+                    "http://stackoverflow.com">Help me!</a></li>
+
+    <li>http://mybb.gvsu.edu</li>
+
+</ul>
+
+<a href="http://bubbletimer.com">Bubble timer</a> and <a href="https://piazza.com">Piazza!</a>
+
+<a name="bottom"><p>Did you know, that to make a web link you use a syntax that looks like this: <code>&lt;a
+    href="www.weather.com"&gt;Weather&lt;/a&gt;</code></p></a>
+
+
+<span href="www.laravel.com">(Remember, href doesn't mean anything outside of an anchor tag.)</span>
+<!-- This is not used until the JavaScript assignment -->
+<script src="findLinks.js"></script>
+<script type="text/javascript">
+    window.onload = function () {
+        var observed = findLinks();
+        var expected = ["#bottom", "http://www.google.com", "http://www.microsoft.com", "http://jasmine.github.io", "http://www.gatech.edu", "http://www.gvsu.edu", "http://stackoverflow.com", "http://bubbletimer.com", "https://piazza.com"];
+        verifyResult(observed, expected);
+    }
+</script>
+
+</body>
+</html>

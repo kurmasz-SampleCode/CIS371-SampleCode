@@ -38,6 +38,12 @@ document.getElementById('orangeNames').addEventListener('click', () => colorName
 // Notice that each price element gets its own listener; however,
 // the callback then hides *all* prices.
 prices = document.getElementsByClassName('price');
+
+// Note:  prices is an HTMLCollection, _not_ an array.
+// Consequently, you can't call Array methods like forEach and map.
+console.log("Prices:")
+console.log(prices);
+
 for (let i = 0; i < prices.length; ++i) {
     prices[i].addEventListener('click', function(event) {
         // When anything in the column is clicked, hide *all* the prices
@@ -61,11 +67,17 @@ colors.forEach((color) => {
     buttonPlace.appendChild(newButton);
 
     newButton.addEventListener('click', () => {
-        let manufacturers = document.getElementsByClassName('manufacturer');
-        for (let i = 0; i < manufacturers.length; ++i) {
+        let manufacturers_asHTMLCollection = document.getElementsByClassName('manufacturer');
+
+        // As above, manufacturers is an HTMLCollection.
+        // You can convert to a standard array using Array.from
+        let manufacturers = Array.from(manufacturers_asHTMLCollection);
+
+       //for (let i = 0; i < manufacturers.length; ++i) {
+        manufacturers.forEach((item) => {
             let htmlColor = color.replace(/\s+/, '');
-            manufacturers[i].style.color = htmlColor;
-        }
+            item.style.color = htmlColor;
+        });
     });
 });
 

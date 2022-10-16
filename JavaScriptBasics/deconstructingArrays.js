@@ -18,14 +18,18 @@ console.log(`F2 is ${f2}.`);
 let convertKelvin = function(kelvin) {
     let c = kelvin - 273.15;
     let f = c * 9 / 5 + 32;
-    return [c, f]
+    // return [c, f]
+    return {celsius: c, fahrenheit: f}
 }
 
 // Example 2: We can assign the two return values to separate variables
 console.log()
 console.log("We can assign the two return values to separate variables:");
 let k = 0;
+
+let farenheit = convertKelvie(k).farenheit
 let [celsius, fahrenheit] = convertKelvin(k);
+let [, fh1] = convertKelvin(k)
 
 console.log(`${k} degrees Kelvin is ${celsius} degrees Celsius and ${fahrenheit} degrees Fahrenheit`)
 
