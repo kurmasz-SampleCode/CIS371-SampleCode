@@ -73,7 +73,6 @@ colors.forEach((color) => {
         // You can convert to a standard array using Array.from
         let manufacturers = Array.from(manufacturers_asHTMLCollection);
 
-       //for (let i = 0; i < manufacturers.length; ++i) {
         manufacturers.forEach((item) => {
             let htmlColor = color.replace(/\s+/, '');
             item.style.color = htmlColor;

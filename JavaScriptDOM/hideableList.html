@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Hideable List</title>
+    <script type="module" src="hideableList.mjs"></script>
+    <style type="text/css">
+        .hideableList p {
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
+
+        .hideableList ul {
+            padding-top: 0;
+            margin-top: 0;
+        }
+
+        .hideableList canvas {
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="hideableList">
+    <p>
+        <canvas class="triangle"></canvas>
+        Counties in Michigan:
+    </p>
+    <ul>
+        <li>Wayne</li>
+        <li>Oakland</li>
+        <li>Livingston</li>
+        <li>Macomb</li>
+        <li>Bay</li>
+        <li>Kent</li>
+        <li>Ottawa</li>
+    </ul>
+</div>
+
+<p>Here is some text below the list, just to demonstrate that it moves.</p>
+
+<div class="hideableList">
+    <p>
+        <canvas class="triangle"></canvas>
+        Countries in Europe:
+    </p>
+    <ul>
+        <li>France</li>
+        <li>Germany</li>
+        <li>Poland</li>
+        <li>Austria</li>
+        <li>Switzerland</li>
+        <li>Italy</li>
+    </ul>
+
+</div>
+</body>
+</html>

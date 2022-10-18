@@ -18,7 +18,7 @@ function examineNode(node) {
     console.log(node);
     printAttributes(node);
     
-    var children = node.childNodes;
+    let children = node.childNodes;
     console.log("The children:  ");
     console.log(children);
 
@@ -110,4 +110,4 @@ function printElement(element, depth) {
     });
 } // end printElement
 
-// printElement(document.documentElement, 0);
+//printElement(document.documentElement, 0);
