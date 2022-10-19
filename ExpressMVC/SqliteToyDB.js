@@ -37,6 +37,7 @@ class SqliteToyDB {
         if (newToy.isValid()) {
             return new Promise((resolve, reject) => {
                 // Note:  In order to have access to this.lastID, you have to use function instead of the new arrow syntax.
+                // See https://github.com/TryGhost/node-sqlite3/wiki/API
                 this.db.run(`INSERT INTO Toys (name, description, manufacturer, price) VALUES ("${newToy.name}", "${newToy.description}", "${newToy.manufacturer}", "${newToy.price}")`,
                     function(err, data) {
                         newToy.id = this.lastID;

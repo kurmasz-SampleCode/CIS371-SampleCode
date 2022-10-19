@@ -71,6 +71,7 @@ setTimeout(fred.display, 1000)
 // But, we can use bind to fix the problem:
 setTimeout(fred.display.bind(fred), 2000)
 
+setTimeout(() => fred.display(), 200)
 
 
 console.log(Person.prototype)
