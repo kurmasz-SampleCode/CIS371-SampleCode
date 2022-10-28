@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Dog Example</title>
+    <script type="text/javascript" src="Dog.js"></script>
+    <script type="text/javascript" src="PrintHelper.js"></script>
+</head>
+<body>
+
+<h1>OO JavaScript --- Complete Example</h1>
+
+<div id="output" style="border: 1px solid black">
+</div>
+
+<script type="text/javascript">
+    var dog1 = Dog.init("Fido", 33, 14);
+    var dog2 = Dog.init("Rover", 19, 22);
+    var dog3 = Dog.init("George", 21, 12);
+
+    PrintHelper.println("<br>Three separate dog objects");
+    PrintHelper.println(PrintHelper.tab + dog1.toString());
+    PrintHelper.println(PrintHelper.tab + dog2.toString());
+    PrintHelper.println(PrintHelper.tab + dog3.toString());
+
+    PrintHelper.println(dog1.bmi());
+    PrintHelper.println(dog1.speak());
+
+    PrintHelper.println("We have created " + Dog.numDogs() + " dogs");
+</script>
+
+
+</body>
+</html>

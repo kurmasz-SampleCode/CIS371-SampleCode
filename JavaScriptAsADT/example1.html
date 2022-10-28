@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>OO Javascript Example 1</title>
+</head>
+<body>
+
+
+<h1>Object Oriented JavaScript --- Example 1</h1>
+
+
+<div id="output" style="border: 1px solid black">
+</div>
+
+<script type="text/javascript">
+
+    function print(p) {
+        document.getElementById("output").innerHTML += p;
+    }
+
+    function println(p) {
+        print(p);
+        print("<br>");
+    }
+
+    var tab = "<span style='margin-right: 25px'>&nbsp;</span>";
+
+
+    var calcBMI = function () {
+        return 10000 * this.weight / (this.height * this.height);
+    };
+
+    // Create an object literal:
+    var dog = {
+        name: "Fido",
+        height: 43,
+        weight: 7,
+        speak: function () {
+            return "Woof";
+        },
+
+        // notice the use of "this" to refer to the calling object.
+        toString: function () {
+            return this.name + " has height " + this.height + " and weight " + this.weight
+        },
+
+        // notice that the function implementation can be outside the object
+        // definition, and this still works as expected.
+
+        bmi: calcBMI,
+        initialBMI:  calcBMI()
+    };
+
+    // Refer to dog properties and call dog methods.
+    println(dog.name + " says \"" + dog.speak() + "\".");
+    println(dog.toString());
+
+    // Important!!  Notice that objects are copied by __reference__
+    // Notice also, that all properties are effectively public.
+    var anotherDog = dog;
+    anotherDog.name = "Rover";
+    anotherDog.height = 34;
+    anotherDog.weight = 12;
+
+    println("<br>Copy by reference:</br>");
+    println("This is <code>anotherDog</code>:");
+    println(tab + anotherDog.name + " says \"" + anotherDog.speak() + "\".");
+    println(tab + anotherDog.toString());
+
+
+    println("This is the original <code>dog</code>:");
+    println(tab + dog.name + " says \"" + dog.speak() + "\".");
+    println(tab + dog.toString());
+
+    println("<br>The dog's BMI is: " + dog.bmi());
+
+
+    // Notice that objects can share functions
+
+    var person = {
+        height: 190,
+        weight: 88,
+        bmi: calcBMI
+    };
+
+    println("The person's BMI is " + person.bmi());
+
+
+    // Notice that, at this point, we don't have any sense of "class" or "object type".
+
+</script>
+
+
+</body>
+</html>

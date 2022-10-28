@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>OO JavaScript Example 2</title>
+</head>
+<body>
+
+
+<h1>Object Oriented JavaScript --- Example 2</h1>
+
+<div id="output" style="border: 1px solid black">
+</div>
+
+
+<script type="text/javascript">
+
+    function print(p) {
+        document.getElementById("output").innerHTML += p;
+    }
+
+    function println(p) {
+        print(p);
+        print("<br>");
+    }
+    var tab = "<span style='margin-right: 25px'>&nbsp</span>"
+
+
+    var calcBMI = function () {
+        return this.weight / (this.height * this.height);
+    };
+
+    function makeDog(name_in, height_in, weight_in) {
+        return {
+            name: name_in,
+            height: height_in,
+            weight: weight_in,
+
+            speak: function () {
+                return "Woof";
+            },
+
+            toString: function () {
+                return this.name + " has height " + this.height + " and weight " + this.weight
+            },
+
+            bmi: calcBMI
+        }
+    }
+
+    var dog1 = makeDog("Fido", 33, 14);
+    var dog2 = makeDog("Rover", 19, 22);
+
+    println("<br>Two separate dog objects");
+    println(tab + dog1.toString());
+    println(tab + dog2.toString());
+
+    // Notice that we can replace functions:
+
+    println("<br>You can replace methods on individual objects:");
+    dog2.speak = function() {return "Arf";};
+    println(tab + dog1.name + " says \"" + dog1.speak()+ "\".");
+    println(tab + dog2.name + " says \"" + dog2.speak()+ "\".");
+
+
+    // So, what's going on?
+    // (1) Each function call creates a new, separate object.
+    // (2) makeDog looks a lot like a constructor.
+    // (3) We've placed a lot of stuff in the global namespace that probably shouldn't be there.
+</script>
+
+</body>
+</html>

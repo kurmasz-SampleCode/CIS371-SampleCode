@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>OO JavaScript Example 3</title>
+</head>
+<body>
+
+
+<h1>Object Oriented JavaScript --- Example 3</h1>
+
+<div id="output" style="border: 1px solid black">
+</div>
+
+
+<script type="text/javascript">
+
+    function print(p) {
+        document.getElementById("output").innerHTML += p;
+    }
+
+    function println(p) {
+        print(p);
+        print("<br>");
+    }
+    var tab = "<span style='margin-right: 25px'>&nbsp</span>";
+
+    function makeDog(name_in, height_in, weight_in) {
+
+        var name = name_in;
+        var height = height_in;
+        var weight = weight_in;
+
+
+        var speak = function () {
+            return "Woof";
+        };
+
+
+        var toString = function () {
+            // Notice the removal of "this"
+            return name + " has height " + height + " and weight " + weight
+        };
+
+        // Notice calcBMI must be moved inside makeDog to have
+        // access to private data.
+        var calcBMI = function () {
+            return weight / (height * height);
+        };
+
+
+        // If you don't add a function to the list below, it is effectively private.
+
+        return {
+            speak: speak,
+            toString: toString,
+            bmi: calcBMI,
+            setHeight: function (newHeight) {
+                height = newHeight;
+            }
+        }
+    }
+
+    var dog1 = makeDog("Fido", 33, 14);
+    var dog2 = makeDog("Rover", 19, 22);
+
+    println("<br>Two separate dog objects");
+    println(tab + dog1.toString());
+    println(tab + dog2.toString());
+
+    println(dog1.bmi());
+    println(dog1.speak());
+
+
+    println("<br>Set height: ");
+    dog1.setHeight(52);
+    println(tab + dog1.toString());
+
+
+</script>
+</body>
+</html>

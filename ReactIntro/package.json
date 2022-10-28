@@ -1,0 +1,16 @@
+{
+  "name": "react-intro",
+  "version": "1.0.0",
+  "description": "",
+  "main": "clientSideDomCreation.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Zachary Kurmas",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.19.6",
+    "@babel/preset-react": "^7.18.6"
+  }
+}
