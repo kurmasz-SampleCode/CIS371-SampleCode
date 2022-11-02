@@ -23,6 +23,14 @@ const colorData = [
   }
 ]
 
+// copied from https://stackoverflow.com/questions/105034/how-do-i-create-a-guid-uuid
+function uuidv4() {
+  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+    (c ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))).toString(16)
+  );
+}
+
+
 
 function App() {
 
@@ -34,10 +42,18 @@ function App() {
     const newColors = [...colors]
     // add new color to the beginning of the list
     newColors.unshift({
-      id: 'this_is_a_fake_uuid',
+      id: uuidv4(),
       rating: 0,
       title,
       color
+    })
+    console.log(newColors[0].id)
+    setColors(newColors)
+  }
+
+  const updateRating = (id, newValue) => {
+    const newColors = colors.map( (color) => {
+      return color.id === id ? {...color, rating: newValue} : {...color}
     })
     setColors(newColors)
   }
@@ -46,7 +62,7 @@ function App() {
   return (
     <div style = {{margin: 50}}>
       <NewColorForm onNewColor={addNewColor}/>
-      <ColorList colors={colors} />
+      <ColorList colors={colors} update={updateRating}/>
     </div>
   );
 }
