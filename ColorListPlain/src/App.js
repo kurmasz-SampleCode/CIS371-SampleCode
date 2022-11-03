@@ -1,8 +1,10 @@
 import ColorList from './ColorList'
 import NewColorForm from './NewColorForm'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 
-const colorData = [
+const apiURL='http://localhost:3001'
+
+const hardCodedColorData = [
   {
     "id": "0175d1f0-a8c6-41bf-8d02-df5734d829a4",
     "title": "ocean at dusk",
@@ -30,11 +32,51 @@ function uuidv4() {
   );
 }
 
+function intToColor(value) {
+  const longHexValue = `000000${value.toString(16)}`.slice(-6)
+  return `#${longHexValue}`
+}
 
 
 function App() {
 
-  const [colors, setColors] = useState(colorData);
+  const [colors, setColors] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState(undefined);
+
+  let fetchColors = () => {
+    setLoading(true)
+    fetch(`${apiURL}/colors`).then(response => {
+      console.log("Look what I got: ");
+      console.log(response);
+      // Notice we aren't done yet.  
+      // We still need to call response.json(), which returns a Promise
+      // (hence the need for a second "then" block);
+      return response.json();
+    }).then(data => {
+      console.log("And the JSON");
+      console.log(data);
+  
+      data.forEach((color) => color.color = intToColor(color.color))   
+      console.log("Color data after fixing up the hex values:")
+      console.log(data)
+
+      setMessage(undefined)
+      setLoading(false)
+      setColors(data)
+
+      // Use this instead of the line above if you want to see what happens
+      // if the server is slow.
+      // setTimeout(() => {setLoading(false); setColors(data)}, 4000);
+    }).catch (problem => {
+      setLoading(false)
+      setMessage("Unable to load colors from the server.")
+    });
+  };
+
+  // The [] below is important, otherwise, 
+  // we end up making an API call on every update.
+  useEffect(fetchColors, []);
 
   const addNewColor = (title, color) => {
     
@@ -62,7 +104,7 @@ function App() {
   return (
     <div style = {{margin: 50}}>
       <NewColorForm onNewColor={addNewColor}/>
-      <ColorList colors={colors} update={updateRating}/>
+      <ColorList colors={colors} loading={loading} message={message} update={updateRating}/>
     </div>
   );
 }

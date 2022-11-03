@@ -1,8 +1,15 @@
 import React from "react";
 import Color from "./Color";
 
-export default function ColorList({ colors = [], update = f => f }) {
-  if(!colors.length) return <div>No Colors Listed.</div>;
+export default function ColorList({ colors = [], loading = false, message, update = f => f }) {
+  if (message) {
+    return <div>{message}</div>
+  }
+  else if(!colors.length) {
+    return <div>No Colors Listed.</div>;
+  } else if (loading) {
+    return <div>Loading ......</div>;
+  } 
   return (
     <div>
       {
