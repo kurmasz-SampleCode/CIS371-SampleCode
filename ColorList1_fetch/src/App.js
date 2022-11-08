@@ -49,7 +49,10 @@ function App() {
 
   let fetchColors = () => {
     setLoading(true)
-    fetch(`${apiURL}/colors`).then(response => {
+
+    // You can configure a delay on the API if you 
+    // want to see what happens if the server is slow.
+    fetch(`${apiURL}/colors?delay=3000`).then(response => {
       console.log("Look what I got: ");
       console.log(response);
       // Notice we aren't done yet.  
@@ -67,10 +70,6 @@ function App() {
       setMessage(undefined)
       setColors(data)
       setLoading(false)
-
-      // Use this instead of the line above if you want to see what happens
-      // if the server is slow.
-      //setTimeout(() => {setLoading(false); setColors(data)}, 4000);
     }).catch (problem => {
       setLoading(false)
       setMessage("Unable to load colors from the server.")
