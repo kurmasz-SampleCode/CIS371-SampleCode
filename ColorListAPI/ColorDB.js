@@ -19,6 +19,15 @@ class ColorDB {
             })
         })
     }
+
+    static insertColor(color) {
+        return new Promise((resolve, reject) => {
+            this.db.run(`INSERT INTO Colors (id, title, color, rating) VALUES ("${color.id}", "${color.title}", "${color.color}", "0")`, function(err, data) {
+                color.pk = this.lastID;
+                resolve(color)
+            })
+        })
+    }
 }
 
 ColorDB.db = new sqlite3.Database('colors.sqlite');
