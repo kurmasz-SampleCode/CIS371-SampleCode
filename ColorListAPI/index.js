@@ -18,7 +18,7 @@ app.use(function (req, res, next) {
 
 // Tell Express to parse the body as JSON.
 // (This is a different format than data sent by an HTML form.)
-// app.use(express.json());
+app.use(express.json());
 
 // Respond to preflight
 app.options('/colors', (req, res) => {

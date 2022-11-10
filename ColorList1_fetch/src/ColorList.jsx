@@ -11,8 +11,6 @@ export default function ColorList({ colors = [], loading = false, message, updat
     return <div>No Colors Listed.</div>;
   }
   
-  
-
   return (
     <div>
       {
