@@ -14,7 +14,6 @@ app.use(express.json());
 // !!!!! Don't ever use "*" in production!!!
 app.use(function (req, res, next) {
     res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000")
-    //res.setHeader("Access-Control-Request-Method", "POST, GET, OPTIONS, DELETE")
     res.setHeader("Access-Control-Allow-Headers", "content-type")
     next();
 });

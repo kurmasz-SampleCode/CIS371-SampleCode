@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-// import { useInput } from "./hooks";
 
 export default function AddColorForm({ editMode = false, colorToEdit, onUpdate = f => f, onSubmit = f => f, onCancelEdit = f => f }) {
     

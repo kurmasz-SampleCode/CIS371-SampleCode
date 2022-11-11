@@ -1,3 +1,9 @@
+/**********************************************************************
+ * 
+ * Variation of ColorList demo from Porcello and Banks book
+ *
+ **********************************************************************/
+
 import ColorList from './ColorList'
 import NewColorForm from './NewColorForm'
 import { useState, useEffect } from 'react'
@@ -75,35 +81,50 @@ function App() {
     setColors(newColors)
   }
 
+  const finishSubmit = (newColors) => {
+    setColors(newColors)
+    setEditMode(false)
+    setColorToEdit(defaultColor);
+  }
+
   const submit = (event) => {
     console.log(event)
     event.preventDefault();
     if (editMode) {
-      console.log("In edit mode.")    
+      console.log("In edit mode.") 
+      ColorAPI.modifyColor(colorToEdit).then(data => {
+        console.log("Received from modify color post")
+        console.log(data)
+        let newColors = colors.map( (item) => item.pk === colorToEdit.pk ? colorToEdit : item)
+        finishSubmit(newColors)
+      })   
     } else {
       console.log("In 'new color' mode.")
       colorToEdit.id = uuidv4()
       ColorAPI.addColor(colorToEdit).then( data => {
-        console.log("Received from post")
+        console.log("Received from new color post")
         console.log(data)
         colorToEdit.pk = data.pk
+
+        // Remember, use a completely new object
+        // when updating state.
         let newColors = [colorToEdit, ...colors]
-        setColors(newColors)
-        setEditMode(false)
-        setColorToEdit(defaultColor);
+        finishSubmit(newColors)
       }).catch( data => {
         console.log("Problem saving new color")
         console.log(data);
-        setEditMode(false)
-        setColorToEdit(defaultColor);
+        finishSubmit(colors)
       })
     }
   }
 
-  const updateColor = (color) => {
+  // Called with the data in the form is updated
+  // (Remember, the form is a "controlled" component.)
+  const updateFormData = (color) => {
     setColorToEdit(color);
   }
 
+  // Called when an "Edit" button is pushed
   const editColor = (color) => {
     setColorToEdit(color)
     setEditMode(true)
@@ -116,7 +137,7 @@ function App() {
 
   return (
     <div style={{ margin: 50 }}>
-      <NewColorForm editMode={editMode} colorToEdit={colorToEdit} onUpdate={updateColor} onSubmit={submit} onCancelEdit={cancelEdit} />
+      <NewColorForm editMode={editMode} colorToEdit={colorToEdit} onUpdate={updateFormData} onSubmit={submit} onCancelEdit={cancelEdit} />
       <ColorList colors={colors} loading={loading} message={message} onEditColor={editColor} update={updateRating} />
     </div>
   );
