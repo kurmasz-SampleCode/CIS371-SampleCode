@@ -5,11 +5,12 @@ export default function ColorList({ colors = [], loading = false, message, updat
   if (message) {
     return <div>{message}</div>
   }
-  else if(!colors.length) {
-    return <div>No Colors Listed.</div>;
-  } else if (loading) {
+  else if (loading) {
     return <div>Loading ......</div>;
-  } 
+  } else if(!colors.length) {
+    return <div>No Colors Listed.</div>;
+  }
+  
   return (
     <div>
       {

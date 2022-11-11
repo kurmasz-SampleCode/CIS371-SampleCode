@@ -4,6 +4,7 @@ import {useState, useEffect} from 'react'
 
 const apiURL='http://localhost:3001'
 
+
 const hardCodedColorData = [
   {
     "id": "0175d1f0-a8c6-41bf-8d02-df5734d829a4",
@@ -38,15 +39,20 @@ function intToColor(value) {
 }
 
 
+
 function App() {
 
   const [colors, setColors] = useState([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(undefined);
+  const [reloadCount, setReload] = useState(0);
 
   let fetchColors = () => {
     setLoading(true)
-    fetch(`${apiURL}/colors`).then(response => {
+
+    // You can configure a delay on the API if you 
+    // want to see what happens if the server is slow.
+    fetch(`${apiURL}/colors?delay=3000`).then(response => {
       console.log("Look what I got: ");
       console.log(response);
       // Notice we aren't done yet.  
@@ -62,12 +68,8 @@ function App() {
       console.log(data)
 
       setMessage(undefined)
-      setLoading(false)
       setColors(data)
-
-      // Use this instead of the line above if you want to see what happens
-      // if the server is slow.
-      // setTimeout(() => {setLoading(false); setColors(data)}, 4000);
+      setLoading(false)
     }).catch (problem => {
       setLoading(false)
       setMessage("Unable to load colors from the server.")
@@ -76,7 +78,7 @@ function App() {
 
   // The [] below is important, otherwise, 
   // we end up making an API call on every update.
-  useEffect(fetchColors, []);
+  useEffect(fetchColors, [reloadCount]);
 
   const addNewColor = (title, color) => {
     
@@ -104,6 +106,7 @@ function App() {
   return (
     <div style = {{margin: 50}}>
       <NewColorForm onNewColor={addNewColor}/>
+      <button onClick={() => setReload(reloadCount + 1)}>Reload ({reloadCount})</button>
       <ColorList colors={colors} loading={loading} message={message} update={updateRating}/>
     </div>
   );

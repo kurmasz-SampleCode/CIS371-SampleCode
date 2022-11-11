@@ -19,6 +19,33 @@ class ColorDB {
             })
         })
     }
+
+    static insertColor(color) {
+        return new Promise((resolve, reject) => {
+            this.db.run(`INSERT INTO Colors (id, title, color, rating) VALUES ("${color.id}", "${color.title}", "${color.color}", "0")`, function(err, data) {
+                color.pk = this.lastID;
+                resolve(color)
+            })
+        })
+    }
+
+    static updateColor(color) {
+        return new Promise((resolve, reject) => {
+            const sql = `UPDATE Colors SET id="${color.id}", title="${color.title}", color="${color.color}" where pk="${color.pk}"`
+            this.db.run(sql, function(err, data) {   
+                if (err != null) {
+                    console.log("Error updating ");
+                    console.log(color);
+                    console.log(err);
+                    reject({message: err})
+                } else if (this.changes === 1) {
+                    resolve("Success")
+                } else {
+                    reject("Unknown problem.  There were " + this.changes + "changes.")
+                }
+            })
+        })
+    }
 }
 
 ColorDB.db = new sqlite3.Database('colors.sqlite');
