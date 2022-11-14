@@ -1,0 +1,41 @@
+/* These are just the examples from https://www.w3schools.com/sass
+ *
+ * There are many ways to install/run sass.  Here is one:
+ *   npm install sass -g
+ *   sass example.scss
+ */
+
+nav {
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    li {
+        display: inline-block;
+    }
+    a {
+        display: block;
+        padding: 6px 12px;
+        text-decoration: none;
+    }
+}
+
+.button-basic {
+    border: none;
+    padding: 15px 30px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.button-report {
+    @extend .button-basic;
+    background-color: red;
+}
+
+.button-submit {
+    @extend .button-basic;
+    background-color: green;
+    color: white;
+}

@@ -1,0 +1,67 @@
+<html lang='en'>
+
+<head>
+    <meta charset="utf-8">
+    <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
+    <meta http-equiv='x-ua-compatible' content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <style>
+        div {
+            border: 1px solid black;
+            white-space: nowrap;
+        }
+        
+        .oh div {
+            overflow: hidden;
+        }
+        
+        .row {
+            margin-bottom: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <h1>Nested Columns</h1>
+        Regular Overflow:
+        <div class='row '>
+            <div class='col-2'>Two parts</div>
+            <div class='col'>Equal parts</div>
+            <div class='col'>Equal parts</div>
+            <div class='col'>Equal parts</div>
+            <div class='col'>Equal parts</div>
+            <div class='col'>Equal parts</div>
+            <div class='col-3'>Three parts</div>
+        </div>
+
+        Regular overflow (shorter names)
+        <div class='row'>
+            <div class='col-2'>2</div>
+            <div class='col'>1a</div>
+            <div class='col'>1b</div>
+            <div class='col'>1c</div>
+            <div class='col'>1d</div>
+            <div class='col'>1e</div>
+            <div class='col-3'>3</div>
+        </div>
+
+        "Hidden" overflow
+        <div class='row oh'>
+            <div class='col-2'>Two parts</div>
+            <div class='col'>Equal parts</div>
+            <div class='col'>Equal parts</div>
+            <div class='col'>Equal parts</div>
+            <div class='col'>Equal parts</div>
+            <div class='col'>Equal parts</div>
+            <div class='col-3'>Three parts</div>
+        </div>
+</body>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</html>
