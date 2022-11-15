@@ -151,11 +151,10 @@ function App() {
           path="/contact"
           element={<Contact />}
         />
-        {/*
         <Route
-          path=":id"
+          path="/color/:id"
           element={<ColorDetails colors={colors} />}
-        /> */}
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

@@ -150,7 +150,9 @@
 
 <body>
 
-Screen: <span id='screen_width'></span> Window:  <span id='window_width'></span> Document:  <span id='document_width'></span>
+Screen: <span id='screen_width'></span> (Note:  iOS doesn't change width and height when orientation changes).<br>
+Window:  <span id='window_width'></span> Document:  <span id='document_width'></span>
+Pixel Ratio: <span id='pr'></span>
 <button onclick="getWidth()">Refresh</button>
 
 
@@ -246,10 +248,10 @@ let documentWidth = Math.max(
   document.body.clientWidth, document.documentElement.clientWidth
 );
 
-
-  document.getElementById('screen_width').innerHTML = screen.width;
+  document.getElementById('screen_width').innerHTML = `${screen.width}x${screen.height}`;
   document.getElementById('window_width').innerHTML = document.documentElement.clientWidth;
    document.getElementById('document_width').innerHTML = documentWidth;
+   document.getElementById('pr').innerHTML = window.devicePixelRatio;
 }
 getWidth();
 
