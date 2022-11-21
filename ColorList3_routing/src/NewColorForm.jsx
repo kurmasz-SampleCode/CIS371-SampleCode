@@ -14,12 +14,14 @@ export default function AddColorForm({ editMode = false, colorToEdit, onUpdate =
                 onChange={event => onUpdate({...colorToEdit, title: event.target.value})}
                 type="text"
                 placeholder="color title..."
+                title='Title'
                 required
             />
             <input
                 value={colorToEdit.color}
                 onChange={event =>onUpdate({...colorToEdit, color: event.target.value})}
                 type="color"
+                title='Color'
                 required
             />
             <button>{editMode ? 'Update' : 'Add'}</button>
