@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react'
 
 
 export default function AddColorForm({ editMode = false, colorToEdit, onUpdate = f => f, onSubmit = f => f, onCancelEdit = f => f }) {
@@ -7,7 +7,7 @@ export default function AddColorForm({ editMode = false, colorToEdit, onUpdate =
   // for a short-cut to the cut-and-paste for value and onChange.
   return (
     <div id='updateForm'>
-      {editMode ? "Update" : "New"} Color
+      <span>{editMode ? 'Update' : 'New'} Color</span>
       <form onSubmit={onSubmit}>
         <input
           value={colorToEdit.title}
@@ -26,7 +26,7 @@ export default function AddColorForm({ editMode = false, colorToEdit, onUpdate =
           title='Color'
           required
         />
-        <button>{editMode ? "Update" : "Add"}</button>
+        <button>{editMode ? 'Update' : 'Add'}</button>
 
         {/* <button> by default will submit a form.  If you don't want this behavior, set the type to 'button'*/}
         <button type='button' onClick={onCancelEdit}>Cancel</button>
