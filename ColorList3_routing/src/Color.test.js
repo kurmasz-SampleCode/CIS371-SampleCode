@@ -27,5 +27,5 @@ test("clicking 'Edit' passes the color", () => {
   const button = document.querySelector("button")
   expect(button.innerHTML).toBe("Edit")
   fireEvent.click(button)
-  expect(editCallback).toHaveBeenCalledWith("#00ff00");
+  expect(editCallback).toHaveBeenCalledWith("#00ff00")
 })
