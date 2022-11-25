@@ -1,6 +1,6 @@
-import React from "react"
-import { useParams } from "react-router-dom"
-import Color from "./Color"
+import React from 'react'
+import { useParams } from 'react-router-dom'
+import Color from './Color'
 
 export default function ColorDetails({ colors }) {
 

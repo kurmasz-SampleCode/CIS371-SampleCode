@@ -3,6 +3,14 @@ var sqlite3 = require('sqlite3').verbose()
 class ColorDB {
 
 
+    // reset the DB for consistency when running system tests
+    static reset() {
+        console.log('resetting test DB')
+        ColorDB.db = new sqlite3.Database('colors.test.sqlite');
+        this.db.run('DROP TABLE Colors')
+        ColorDB.initialize();
+    }
+
     static initialize() {
         this.db.serialize(() => {
             this.db.run('CREATE TABLE Colors (pk INTEGER PRIMARY KEY, id TEXT NOT NULL, title TEXT NOT NULL, color INTEGER NOT NULL, rating INTEGER NOT NULL)')

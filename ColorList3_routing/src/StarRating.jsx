@@ -1,5 +1,5 @@
-import React from "react"
-import Star from "./Star"
+import React from 'react'
+import Star from './Star'
 
 const createArray = length => [...Array(length)]
 

@@ -1,5 +1,5 @@
-import React from "react"
-import StarRating from "./StarRating"
+import React from 'react'
+import StarRating from './StarRating'
 
 export default function Color({ title, color, rating, onEditClicked = f => f, onColorRatingUpdated = f => f }) {
   return (

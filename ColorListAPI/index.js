@@ -5,6 +5,13 @@ const ColorDB = require('./ColorDB')
 const app = express()
 const port = 3001  // so we don't conflict with React on 3000
 
+
+const myArgs = process.argv.slice(2)
+if (myArgs[0] === '--test') {
+    ColorDB.reset()
+}
+
+
 // Tell Express to parse the body as JSON.
 // (This is a different format than data sent by an HTML form.)
 app.use(express.json());
@@ -29,6 +36,13 @@ app.options('/colors', (req, res) => {
     console.log(req.headers)
     res.send()
 })
+
+if (myArgs[0] === '--test') {
+    app.get('/reset', (req, res) => {
+        ColorDB.reset();
+        res.send('reset')
+    })
+}
 
 app.get('/colors', async (req, res) => {
     // Introduce an artificial delay so user can see the effects of loading.    

@@ -4,14 +4,14 @@
  *
  **********************************************************************/
 
-import React from "react"
-import ColorList from "./ColorList"
-import NewColorForm from "./NewColorForm"
-import ColorDetails from "./ColorDetails"
-import { useState, useEffect } from "react"
-import ColorAPI from "./ColorAPI"
+import React from 'react'
+import ColorList from './ColorList'
+import NewColorForm from './NewColorForm'
+import ColorDetails from './ColorDetails'
+import { useState, useEffect } from 'react'
+import ColorAPI from './ColorAPI'
 
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route } from 'react-router-dom'
 import {
   NotFound,
   About,
@@ -19,7 +19,7 @@ import {
   Products,
   Contact,
   NavBar
-} from "./Tabs"
+} from './Tabs'
 
 // copied from https://stackoverflow.com/questions/105034/how-do-i-create-a-guid-uuid
 function uuidv4() {
@@ -33,7 +33,7 @@ function intToColor(value) {
   return `#${longHexValue}`
 }
 
-const defaultColor = { id: null, title: "", color: "#000000" }
+const defaultColor = { id: null, title: '', color: '#000000' }
 
 function App() {
   const [colors, setColors] = useState([])
@@ -44,7 +44,7 @@ function App() {
 
   let fetchColors = () => {
     setLoading(true)
-    console.log("Fetching colors")
+    console.log('Fetching colors')
     // fetchColors returns a promise (hence the ability to still
     // use then and catch below.)
     ColorAPI.fetchColors()
@@ -82,18 +82,18 @@ function App() {
     console.log(event)
     event.preventDefault()
     if (editMode) {
-      console.log("In edit mode.")
+      console.log('In edit mode.')
       ColorAPI.modifyColor(colorToEdit).then(data => {
-        console.log("Received from modify color post")
+        console.log('Received from modify color post')
         console.log(data)
         let newColors = colors.map((item) => item.pk === colorToEdit.pk ? colorToEdit : item)
         finishSubmit(newColors)
       })
     } else {
-      console.log("In 'new color' mode.")
+      console.log('In \'new color\' mode.')
       colorToEdit.id = uuidv4()
       ColorAPI.addColor(colorToEdit).then(data => {
-        console.log("Received from new color post")
+        console.log('Received from new color post')
         console.log(data)
         colorToEdit.pk = data.pk
 
@@ -102,7 +102,7 @@ function App() {
         let newColors = [colorToEdit, ...colors]
         finishSubmit(newColors)
       }).catch(data => {
-        console.log("Problem saving new color")
+        console.log('Problem saving new color')
         console.log(data)
         finishSubmit(colors)
       })

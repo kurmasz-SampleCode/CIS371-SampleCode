@@ -47,7 +47,7 @@ describe('NewColorForm', () => {
     render(<AddColorForm editMode={true} colorToEdit={{ title: 'My Title', color: 'myColor', id: 4343 }} onUpdate={onUpdate} />)
     const colorPicker = screen.getByTitle('Color')
 
-    // Sampe from https://github.com/testing-library/user-event/issues/423
+    // Sample from https://github.com/testing-library/user-event/issues/423
     fireEvent.input(colorPicker, { target: { value: '#333333' } })
     expect(onUpdate).toHaveBeenCalledWith({ title: 'My Title', color: '#333333', id: 4343 })
   })

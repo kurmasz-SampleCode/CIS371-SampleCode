@@ -68,7 +68,7 @@ Then('The color name in the form should be empty', async function () {
 
 When('I set the color to {string}', async function (newColor) {
   // This doesn't quite work yet.
-  const colorInput = await driver.findElement(By.xpath('//input[@type="color"]'))
+  await driver.findElement(By.xpath('//input[@type="color"]'))
   const qs = `document.querySelector("[type='color']").value = '${newColor}'`
   console.log(qs)
   driver.executeScript(qs)
