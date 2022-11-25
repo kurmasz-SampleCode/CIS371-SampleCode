@@ -11,5 +11,5 @@ export default function Color({ title, color, rating, onEditClicked = f => f, on
       </div>
       <StarRating selectedStars={rating} onRatingUpdated={(newValue) => onColorRatingUpdated(newValue)} />
     </section>
-  );
+  )
 }

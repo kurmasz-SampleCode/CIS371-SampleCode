@@ -2,9 +2,6 @@ import { render, screen, fireEvent } from "@testing-library/React"
 import Color from "./Color"
 import React from "react"
 
-// Color props:
-//{ title, color, rating, onEditClicked = f => f, onColorRatingUpdated = f => f}
-
 // React recommends structuring tests to _not_ look for structure.
 // (But, it can be useful on occasion.)
 test("contains a colorbox", () => {

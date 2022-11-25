@@ -4,7 +4,7 @@
  *
  **********************************************************************/
 
-import React from "react'"
+import React from "react"
 import ColorList from "./ColorList"
 import NewColorForm from "./NewColorForm"
 import ColorDetails from "./ColorDetails"

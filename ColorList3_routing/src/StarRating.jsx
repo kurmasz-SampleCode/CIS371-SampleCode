@@ -1,7 +1,7 @@
 import React from "react"
 import Star from "./Star"
 
-const createArray = length => [...Array(length)];
+const createArray = length => [...Array(length)]
 
 export default function StarRating({ totalStars = 5, selectedStars = 0, onRatingUpdated = f => f }) {
   return (
@@ -17,5 +17,5 @@ export default function StarRating({ totalStars = 5, selectedStars = 0, onRating
         {selectedStars} of {totalStars} stars
       </p>
     </>
-  );
+  )
 }

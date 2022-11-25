@@ -22,5 +22,5 @@ export default function ColorList({ colors = [], loading = false, message, onEdi
         colors.map(color => <Color key={color.id} {...color} onEditClicked={() => editClicked(color)} onColorRatingUpdated={(newValue) => update(color.id, newValue)} />)
       }
     </div>
-  );
+  )
 }
