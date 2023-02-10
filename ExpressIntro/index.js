@@ -4,7 +4,7 @@
 const express = require('express')
 
 /* Import the body-parser module.  (Used for parsing Post data) */
-const bodyParser = require('body-parser');
+const bodyParser = require('body-parser')
 
 /* Instantiate a server object*/
 const app = express()
@@ -12,11 +12,11 @@ const port = 3000
 
 
 /* Tell the server to use EJS by default */
-app.set('view engine', 'ejs');
+app.set('view engine', 'ejs')
 
 
 /* Parse the request body if there is POST data */
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }))
 
 
 
@@ -29,16 +29,16 @@ app.get('/', (req, res) => res.send('Hello World!'))
 */
 app.get('/sayHi', (req, res) => {
     // console.log(req);
-    res.send(`Hello, ${req.query.name}`);
-});
+    res.send(`Hello, ${req.query.name}`)
+})
 
 
 /* Sample route returning a rendered EJS view */
 app.get('/testView', (req, res) => {
     // By default, Express looks for views in the `views` directory.
-    res.render('firstView', { name: req.query.name });
+    res.render('firstView', { name: req.query.name })
 
-});
+})
 
 /* Sample route returning a static HTML file. */
 app.get('/staticHTML', (req, res) => {
@@ -46,16 +46,18 @@ app.get('/staticHTML', (req, res) => {
     // (1) Provide an absolute path name, or 
     // (2) Provide a "root" parameter.  
     // __dirname provide the absolute path of the currently executing file.
-    res.sendFile('hello.html', { root: __dirname });
-});
+    // eslint-disable-next-line no-undef
+    res.sendFile('hello.html', { root: __dirname })
+})
 
 app.get('/multTable', (req, res) => {
-    res.sendFile('multForm.html', { root: __dirname });
-});
+    // eslint-disable-next-line no-undef
+    res.sendFile('multForm.html', { root: __dirname })
+})
 
 app.post('/showTable', (req, res) => {
-    res.render('multTable', req.body);
-});
+    res.render('multTable', req.body)
+})
 
 
 
