@@ -17,9 +17,9 @@ public class BasicHTTPTransaction {
 
     // Values set up for a web server running locally.
     // One option is to run "python -m SimpleHTTPServer" from the data directory
-    String host = "localhost";
-    int port = 8000;
-    String file = "/index.html";
+    String host = "www.gvsu.edu";
+    int port = 80;
+    String file = "/";
     String outputFile = "opt.index.html";
 
     Socket socket = new Socket(host, port);

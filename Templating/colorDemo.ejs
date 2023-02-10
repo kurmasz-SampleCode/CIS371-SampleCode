@@ -62,7 +62,7 @@
             This section also shows the colors, but uses the <code>map</code> method. Some may find this code easier to follow.
 
             <ul>
-                <%- colors.map( color => `<li><span class='color-${color}'>${color}</span></li>`).join("\n"); %>
+                <%= colors.map( color => `<li><span class='color-${color}'>${color}</span></li>`).join("\n"); %>
             </ul>
 
 

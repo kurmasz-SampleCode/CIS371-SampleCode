@@ -10,6 +10,8 @@ const bodyParser = require('body-parser')
 const app = express()
 const port = 3000
 
+/* Serve static files from the images directory */
+app.use(express.static('images'))
 
 /* Tell the server to use EJS by default */
 app.set('view engine', 'ejs')
@@ -17,7 +19,6 @@ app.set('view engine', 'ejs')
 
 /* Parse the request body if there is POST data */
 app.use(bodyParser.urlencoded({ extended: true }))
-
 
 
 /* Sample route returning a simple, static message. */
@@ -30,6 +31,13 @@ app.get('/', (req, res) => res.send('Hello World!'))
 app.get('/sayHi', (req, res) => {
     // console.log(req);
     res.send(`Hello, ${req.query.name}`)
+})
+
+/* Order matters, so the app.use(express.static('images'))
+   above will cause the picture to be displayed
+*/
+app.get('/buzz2.jpeg', (req, res) => {
+    res.send('<em>Not</em> the Picture 	&#128512;')
 })
 
 
@@ -58,8 +66,6 @@ app.get('/multTable', (req, res) => {
 app.post('/showTable', (req, res) => {
     res.render('multTable', req.body)
 })
-
-
 
 /* Launch the server */
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

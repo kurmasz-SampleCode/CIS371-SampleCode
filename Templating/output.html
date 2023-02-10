@@ -1,93 +1,148 @@
+Need to install the following packages:
+  ejs-cli@2.2.3
+Ok to proceed? (y) <!-- EJS is a JavaScript templating system. 
 
-<html>
-<head>
-<title>Color Samples using PHP</title>
-<style>
+   To run this code, you need to install the ejs-cli npm module
 
+   If you want to install EJS globally, just run "npm install -g ejs-cli"
+   At this point you can run "ejs-cli colorDemo.ejs > test.html"
 
-/* You can use PHP to generate CSS */
-  .color-red {
-    color: red;
-  }
-  .color-green {
-    color: green;
-  }
-  .color-blue {
-    color: blue;
-  }
-  .color-orange {
-    color: orange;
-  }
-  .color-pink {
-    color: pink;
-  }
-  .color-purple {
-    color: purple;
-  }
-  .color-violet {
-    color: violet;
-  }
-  .color-lightgreen {
-    color: lightgreen;
-  }
-  .color-lightred {
-    color: lightred;
-  }
-</style>
-
-<body>
-
-<h1> List Colors (PHP)</h1>
-
-This section simply lists the color names because the code is simpler.
-
-<ul>
-<li>red</li>
-<li>green</li>
-<li>blue</li>
-<li>orange</li>
-<li>pink</li>
-<li>purple</li>
-<li>violet</li>
-<li>lightgreen</li>
-<li>lightred</li>
-</ul>
-
-<h1> Show Colors </h1>
-This section shows the colors.  Same ideas as above, but the code is a little harder to read.
-
-<ul>
-<li><span class='color-red'>red</span></li>
-<li><span class='color-green'>green</span></li>
-<li><span class='color-blue'>blue</span></li>
-<li><span class='color-orange'>orange</span></li>
-<li><span class='color-pink'>pink</span></li>
-<li><span class='color-purple'>purple</span></li>
-<li><span class='color-violet'>violet</span></li>
-<li><span class='color-lightgreen'>lightgreen</span></li>
-<li><span class='color-lightred'>lightred</span></li>
- 
-</ul>
-
-
-<h1> Show Colors (v2) </h1>
-This section also shows the colors, but uses the <code>map</code> method. Some may find this code easier to follow.
-
-<ul>
-  <!-- array_map is a functional technique that has become quite common in the past 10 years.
-      Notice that its use in PHP is somewhat awkward. 
+   If you want to instal EJS local to your current project, you need to first
+   initialize an npm project, then install ejs-cli:
+      npm init
+      npm install ejs-cli --save
+   At this point, you can run ejs:
+     ./node_modules/.bin/ejs-cli colorDemo.ejs > test.html
 -->
-<li><span class='color-red'>red</span></li>
-<li><span class='color-green'>green</span></li>
-<li><span class='color-blue'>blue</span></li>
-<li><span class='color-orange'>orange</span></li>
-<li><span class='color-pink'>pink</span></li>
-<li><span class='color-purple'>purple</span></li>
-<li><span class='color-violet'>violet</span></li>
-<li><span class='color-lightgreen'>lightgreen</span></li>
-<li><span class='color-lightred'>lightred</span></li>  
-</ul>
 
 
-</body>
-</html>
+
+    <html>
+
+    <head>
+        <title>Color Samples using ERB</title>
+        <style>
+            /* You can even use erb to generate CSS */
+            
+             .color-red {
+                    color: red;
+                }
+                 .color-green {
+                    color: green;
+                }
+                 .color-blue {
+                    color: blue;
+                }
+                 .color-orange {
+                    color: orange;
+                }
+                 .color-pink {
+                    color: pink;
+                }
+                 .color-purple {
+                    color: purple;
+                }
+                 .color-violet {
+                    color: violet;
+                }
+                 .color-lightgreen {
+                    color: lightgreen;
+                }
+                 .color-fuchsia {
+                    color: fuchsia;
+                }
+                
+        </style>
+
+        <body>
+
+            <h1> List Colors (ERB)</h1>
+
+            This section simply lists the color names because the code is simpler.
+
+            <ul>
+                
+                    <li>
+                        red
+                    </li>
+                    
+                    <li>
+                        green
+                    </li>
+                    
+                    <li>
+                        blue
+                    </li>
+                    
+                    <li>
+                        orange
+                    </li>
+                    
+                    <li>
+                        pink
+                    </li>
+                    
+                    <li>
+                        purple
+                    </li>
+                    
+                    <li>
+                        violet
+                    </li>
+                    
+                    <li>
+                        lightgreen
+                    </li>
+                    
+                    <li>
+                        fuchsia
+                    </li>
+                    
+            </ul>
+
+            <h1> Show Colors </h1>
+            This section shows the colors. Same ideas as above, but the code is a little harder to read.
+
+            <ul>
+
+                
+                    <li><span class='color-red'> red</span></li>
+                    
+                    <li><span class='color-green'> green</span></li>
+                    
+                    <li><span class='color-blue'> blue</span></li>
+                    
+                    <li><span class='color-orange'> orange</span></li>
+                    
+                    <li><span class='color-pink'> pink</span></li>
+                    
+                    <li><span class='color-purple'> purple</span></li>
+                    
+                    <li><span class='color-violet'> violet</span></li>
+                    
+                    <li><span class='color-lightgreen'> lightgreen</span></li>
+                    
+                    <li><span class='color-fuchsia'> fuchsia</span></li>
+                    
+            </ul>
+
+
+            <h1> Show Colors (v2) </h1>
+            This section also shows the colors, but uses the <code>map</code> method. Some may find this code easier to follow.
+
+            <ul>
+                &lt;li&gt;&lt;span class=&#39;color-red&#39;&gt;red&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class=&#39;color-green&#39;&gt;green&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class=&#39;color-blue&#39;&gt;blue&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class=&#39;color-orange&#39;&gt;orange&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class=&#39;color-pink&#39;&gt;pink&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class=&#39;color-purple&#39;&gt;purple&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class=&#39;color-violet&#39;&gt;violet&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class=&#39;color-lightgreen&#39;&gt;lightgreen&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class=&#39;color-fuchsia&#39;&gt;fuchsia&lt;/span&gt;&lt;/li&gt;
+            </ul>
+
+
+        </body>
+
+    </html>

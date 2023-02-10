@@ -9,11 +9,14 @@ const express = require('express')
 const app = express()
 const port = 3000
 
-/* Sample route returning a simple, static message. */
-app.get('/', (req, res) => res.send('Hello World! (This is the root route)'))
+/* Sample route returning a simple, static message.
+   #send() simply sends the string to the client.  
+   (Yes, I "cheated" by not sending a complete HTML file.)
+*/
+app.get('/', (req, res) => res.send('<h1>Root</h1> Hello World!<br> (This is the root route)'))
 
 /* Another sample route returning a simple, static message. */
-app.get('/about', (req, res) => res.send('This is an absurdly simple express server with two routes.'))
+app.get('/about', (req, res) => res.send('<h1>About</h1> This is an absurdly simple express server with two routes.'))
 
 /* Launch the server */
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

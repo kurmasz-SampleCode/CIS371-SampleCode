@@ -19,11 +19,11 @@ app.get('/', (req, res) => {
 // Change this to the current day to get routes to work!
 const dayOpen = 'Wednesday'
 const businessHours = require('./openForBusiness')
-/*
+
 app.use(businessHours(dayOpen, (req, res) => {
     res.send(`Go away! We are only open on ${dayOpen}.`)
 }))
-*/
+
 // (Notice that this businessHours middleware only applies to routes below.
 //  It does not apply to the root route above.)
 
