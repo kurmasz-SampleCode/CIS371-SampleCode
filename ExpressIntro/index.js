@@ -29,7 +29,6 @@ app.get('/', (req, res) => res.send('Hello World!'))
    The response takes a value from the query string
 */
 app.get('/sayHi', (req, res) => {
-    // console.log(req);
     res.send(`Hello, ${req.query.name}`)
 })
 
@@ -40,12 +39,11 @@ app.get('/buzz2.jpeg', (req, res) => {
     res.send('<em>Not</em> the Picture 	&#128512;')
 })
 
-
 /* Sample route returning a rendered EJS view */
 app.get('/testView', (req, res) => {
     // By default, Express looks for views in the `views` directory.
+   
     res.render('firstView', { name: req.query.name })
-
 })
 
 /* Sample route returning a static HTML file. */
