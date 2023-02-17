@@ -42,8 +42,8 @@ app.get('/buzz2.jpeg', (req, res) => {
 /* Sample route returning a rendered EJS view */
 app.get('/testView', (req, res) => {
     // By default, Express looks for views in the `views` directory.
-   
-    res.render('firstView', { name: req.query.name })
+    // console.log(req.query)
+    res.render('firstView', { username: req.query.name })
 })
 
 /* Sample route returning a static HTML file. */
@@ -62,6 +62,8 @@ app.get('/multTable', (req, res) => {
 })
 
 app.post('/showTable', (req, res) => {
+    console.log('The body:')
+    console.log(req)
     res.render('multTable', req.body)
 })
 
