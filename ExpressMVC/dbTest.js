@@ -1,12 +1,6 @@
-let SqliteToyDB = require('./SqliteToyDB');
-
-
-
+let SqliteToyDB = require('./SqliteToyDB')
 let main = async() => {
-    let rows = await SqliteToyDB.all();
-
-    console.log(rows);
+    let rows = await SqliteToyDB.all()
+    console.log(rows)
 }
-
-
-main();
+main()
