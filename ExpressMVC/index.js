@@ -3,10 +3,10 @@
 /* Import the express npm module */
 const express = require('express')
 
-const ToyController = require('./ToyController')
+const ToyController = require('./controllers/ToyController')
 const toyController = new ToyController()
 
-const UserController = require('./UserController')
+const UserController = require('./controller/UserController')
 const userController = new UserController()
 
 /* Import the body-parser module.  (Used for parsing Post data) */

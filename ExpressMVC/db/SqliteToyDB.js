@@ -12,7 +12,7 @@ class SqliteToyDB {
     }
 
     static allToys() {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve, _reject) => {
             this.db.all('SELECT * from Toys', (err, response) => {
                 resolve(response.map((item) => new Toy(item)))
             })
@@ -35,11 +35,11 @@ class SqliteToyDB {
     static create(description) {
         let newToy = new Toy(description)
         if (newToy.isValid()) {
-            return new Promise((resolve, reject) => {
+            return new Promise((resolve, _reject) => {
                 // Note:  In order to have access to this.lastID, you have to use function instead of the new arrow syntax.
                 // See https://github.com/TryGhost/node-sqlite3/wiki/API
                 this.db.run(`INSERT INTO Toys (name, description, manufacturer, price) VALUES ("${newToy.name}", "${newToy.description}", "${newToy.manufacturer}", "${newToy.price}")`,
-                    function(err, data) {
+                    function(_err, _data) {
                         newToy.id = this.lastID
                         resolve(newToy)
                     })
@@ -54,8 +54,5 @@ class SqliteToyDB {
     }
 }
 
-
 SqliteToyDB.db = new sqlite3.Database('toys.sqlite')
-
-// eslint-disable-next-line no-undef
 module.exports = SqliteToyDB

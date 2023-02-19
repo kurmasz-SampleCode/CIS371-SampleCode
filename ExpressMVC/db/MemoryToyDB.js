@@ -20,7 +20,7 @@ class MemoryToyDB {
         return newToy
     }
 
-    static update(toy) {
+    static update(_toy) {
         // Actually, we already modified the toy object.  There isn't anything that needs to be done here.
         // This method only exists to be consistent with the "real" DB class.
     }
