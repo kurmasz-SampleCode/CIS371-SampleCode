@@ -1,58 +1,58 @@
-/*
- * Demonstrates DB access with callbacks (as opposed to promises)
- */
+// Express documentation: https://expressjs.com/en/api.html
 
-
+/* Import the express npm module and instantiate the server */
 const express = require('express')
-let ToyDB = require('./SqliteToyDBPromise');
-
-
-/* Since there is only one route, we'll just put the controller here */
-class ToyController {
-
-    // Because DB accesses are asynchronous, any access requires
-    // a callback.
-    index(req, res) {
-        ToyDB.all().then((rows) => {
-            res.render('toyIndex', { toys: rows });
-        });
-    }
-
-    show(req, res) {
-        ToyDB.find(req.params.id)
-            .then((toy) => res.render('toyShow', { toy: toy }))
-            .catch((errorMessage) => res.send("There was an error:  " + errorMessage));
-    }
-}
-let toyController = new ToyController();
-
-
-/* Import the body-parser module.  (Used for parsing Post data) */
-const bodyParser = require('body-parser');
-
-/* Instantiate a server object*/
 const app = express()
 const port = 3000
 
-
-/* Tell the server to use EJS by default */
-app.set('view engine', 'ejs');
-
+/* Import and instantiate the controller. */
+const ToyController = require('./controllers/ToyController')
+const toyController = new ToyController()
 
 /* Parse the request body if there is POST data */
-app.use(bodyParser.urlencoded({ extended: true }));
+const bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({ extended: true }))
 
+/* Tell the server to use EJS by default */
+app.set('view engine', 'ejs')
 
+//
+// Standard CRUD routes for Toy resource
+//
 
 /* Display all toys */
 app.get('/toys', (req, res) => {
-    toyController.index(req, res);
-});
+    toyController.index(req, res)
+})
 
+/* Display a form to create a new toy */
+app.get('/toys/new', (req, res) => {
+    console.log('Toys new index.js')
+    toyController.newToy(req, res)
+})
+
+/* Display details for one toy.  
+   :id represents a "route parameter" */
 app.get('/toys/:id', (req, res) => {
-    toyController.show(req, res);
-});
+    toyController.show(req, res)
+})
 
+/* Create a new toy */
+app.post('/toys', (req, res) => {
+    toyController.create(req, res)
+})
+
+/* Display form to edit a toy */
+app.get('/toys/:id/edit', (req, res) => {
+    toyController.edit(req, res)
+})
+
+/* Update a toy */
+app.post('/toys/:id', (req, res) => {
+    console.log('Update: ')
+    console.log(req.body)
+    toyController.update(req, res)
+})
 
 /* Launch the server */
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
