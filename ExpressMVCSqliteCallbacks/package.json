@@ -1,16 +1,24 @@
 {
-  "name": "expressmvcsqlitecallbacks",
+  "name": "express-mvc",
   "version": "1.0.0",
-  "description": "",
+  "description": "Demonstrating use of MVC with Express",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "directories": {
+    "test": "test"
   },
-  "author": "",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Zachary Kurmas",
   "license": "ISC",
   "dependencies": {
     "ejs": "^3.1.8",
     "express": "^4.18.1",
+    "express-validator": "^6.14.2",
+    "jest": "^29.0.3",
     "sqlite3": "^5.1.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.34.0"
   }
 }

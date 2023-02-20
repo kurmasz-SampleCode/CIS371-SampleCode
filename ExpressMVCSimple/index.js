@@ -25,15 +25,16 @@ app.get('/toys', (req, res) => {
     toyController.index(req, res)
 })
 
+/* Display a form to create a new toy */
+app.get('/toys/new', (req, res) => {
+    console.log('Toys new index.js')
+    toyController.newToy(req, res)
+})
+
 /* Display details for one toy.  
    :id represents a "route parameter" */
 app.get('/toys/:id', (req, res) => {
     toyController.show(req, res)
-})
-
-/* Display a form to create a new toy */
-app.get('/toys/new', (req, res) => {
-    toyController.newToy(req, res)
 })
 
 /* Create a new toy */

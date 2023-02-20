@@ -1,5 +1,5 @@
 let sqlite3 = require('sqlite3').verbose();
-let db = new sqlite3.Database('toys.sqlite');
+let db = new sqlite3.Database(__dirname + 'toys.sqlite');
 
 console.log("About to call all");
 let all1 = db.all('SELECT * from Toys');

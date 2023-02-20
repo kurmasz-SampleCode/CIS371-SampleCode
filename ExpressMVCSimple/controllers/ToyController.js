@@ -23,6 +23,7 @@ class ToyController {
     }
 
     newToy(req, res) {
+        console.log('Controller::newToy ')
         res.render('toyNew', { toy: new Toy() })
     }
 
