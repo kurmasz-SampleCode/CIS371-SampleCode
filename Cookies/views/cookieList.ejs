@@ -1,0 +1,18 @@
+<html>
+
+<body>
+    <h1>Cookie List</h1>
+    
+    <% if (Object.keys(cookieList).length == 0) { %>
+      <em>No cookies detected</em>
+    <% } else { %>
+    <ul>
+        <% for (const [key, value] of Object.entries(cookieList)) { %>
+            <li><%= key %>: <%= value %></li>
+        <% } %>
+    </ul>
+    <% } %>
+
+</body>
+    
+</html>

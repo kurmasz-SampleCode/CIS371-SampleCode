@@ -83,7 +83,7 @@ else {
     <li><code>value</code></li>
     <li><code>expire</code> (time at which cookie expires. Set to 0 for cookie to expire at end of session.)</li>
     <li><code>domain</code> (the subdomain for which this cookie is available (e.g., <code>www.cis.gvsu.edu</code>)</li>
-    <li><code>secure</code> (only sent when using <code>https</code></li>
+    <li><code>secure</code> (only sent when using <code>https</code>)</li>
     <li><code>httpOnly</code> (when set to <code>true</code>, Javascript can't access this cookie)</li>
 
 </ul>

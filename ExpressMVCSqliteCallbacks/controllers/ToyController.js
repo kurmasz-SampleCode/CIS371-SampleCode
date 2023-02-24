@@ -5,9 +5,12 @@ const ToyDB = require('../db/SqliteToyDB')
 class ToyController {
 
     index(req, res) {
-        ToyDB.allToys((arrayOfToys) => {
+
+        let cb = (arrayOfToys) => {
             res.render('toyIndex', { toys: arrayOfToys })
-        })
+        }
+
+        ToyDB.allToys(cb)
     }
 
     show(req, res) {
