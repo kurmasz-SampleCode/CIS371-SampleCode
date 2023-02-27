@@ -30,7 +30,6 @@ app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }))
 
 app.get('/listCookies', (req, res) => {
-
     let rawCookies = req.rawHeaders[req.rawHeaders.indexOf('Cookie')+1]
     console.log(`The "raw" cookies: ${rawCookies}`)
     console.log()
@@ -44,6 +43,7 @@ app.get('/listCookies', (req, res) => {
 
 app.get('/clearCookies', (req, res) => {
     Object.keys(req.cookies).forEach((key) => {
+        // to clear a cookie, set its max age to 0.
         res.cookie(key, `deleted cookie ${key}`, {maxAge: 0})
     })
     res.send('All cookies cleared')
@@ -53,9 +53,36 @@ app.get('/clearCookies', (req, res) => {
 app.get('/setCookies', (req, res) => {
     console.log(req.query)
     Object.keys(req.query).forEach((key) => {
-        res.cookie(key, req.query[key])
+        let props = {
+            // maxAge: 30000
+            // httpOnly: true // Client won't make cookie available in javascript.
+            secure: true  // Server shouldn't send cookie unless https connection (or localhost)
+            
+            // Other properties:
+            // * domain: which other subdomains should receive cookie
+            // * path: which paths should receive the cookie (See example below)
+        }
+       
+        res.cookie(key, req.query[key], props)
     })
     res.send('New cookies set')
+})
+
+/* Set cookies based on values in the query string. */
+app.get('/setCookiesWithPath', (req, res) => {
+    console.log(req.query)
+    Object.keys(req.query).forEach((key) => {
+        let props = {
+            path: '/sub1/sub2'
+        }
+       
+        res.cookie(key, req.query[key], props)
+    })
+    res.send('New cookies set')
+})
+
+app.get('/sub1/sub2/listCookiesWithPath', (req, res) => {
+    res.render('cookieList', {cookieList: req.cookies})
 })
 
 
