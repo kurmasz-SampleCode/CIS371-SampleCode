@@ -36,10 +36,7 @@
 </body>
 
 <a href="/toys/new">New</a>
-
-
-<p>
-(Hello, <%= user %>.  Click here to <a href='/logout'>logout</a>.)
-</p>
-
+<% if (showLogout) { %>
+    <a href="/logout">Logout</a>
+<% } %>
 </html>

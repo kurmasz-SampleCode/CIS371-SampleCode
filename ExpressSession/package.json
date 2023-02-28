@@ -1,7 +1,7 @@
 {
-  "name": "express-session",
+  "name": "express-mvc",
   "version": "1.0.0",
-  "description": "Demonstrating use sessions with Express",
+  "description": "Demonstrating use of MVC with Express",
   "main": "index.js",
   "directories": {
     "test": "test"
@@ -18,5 +18,8 @@
     "express-validator": "^6.14.2",
     "jest": "^29.0.3",
     "sqlite3": "^5.1.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.34.0"
   }
 }
