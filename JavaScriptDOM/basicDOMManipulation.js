@@ -6,28 +6,28 @@
 
 
 let colorNames = function(color) {
-    let names = document.getElementsByClassName('toyName');
+    let names = document.getElementsByClassName('toyName')
     // Note:  names is not an array, so you can't use names.forEach()
     for (let i = 0; i < names.length; ++i) {
-        names[i].style.color = color;
+        names[i].style.color = color
     }
-};
-colorNames('blue');
+}
+colorNames('blue')
 
 let blackNames = function() {
-    colorNames('black');
+    colorNames('black')
 }
 
 // Note: The function() syntax and the () => syntax are nearly identical.
 // The main difference is how each handles the 'this' parameter.
-document.getElementById('blackNames').addEventListener('click', blackNames);
+document.getElementById('blackNames').addEventListener('click', blackNames)
 document.getElementById('greenNames').addEventListener('click', function() {
-    colorNames('green');
-});
+    colorNames('green')
+})
 document.getElementById('purpleNames').addEventListener('click', () => {
     colorNames('purple')
-});
-document.getElementById('orangeNames').addEventListener('click', () => colorNames('orange'));
+})
+document.getElementById('orangeNames').addEventListener('click', () => colorNames('orange'))
 
 /////////////////////////////////////////////////////////////////////
 //
@@ -37,20 +37,20 @@ document.getElementById('orangeNames').addEventListener('click', () => colorName
 
 // Notice that each price element gets its own listener; however,
 // the callback then hides *all* prices.
-prices = document.getElementsByClassName('price');
+let prices = document.getElementsByClassName('price')
 
 // Note:  prices is an HTMLCollection, _not_ an array.
 // Consequently, you can't call Array methods like forEach and map.
-console.log("Prices:")
-console.log(prices);
+console.log('Prices:')
+console.log(prices)
 
 for (let i = 0; i < prices.length; ++i) {
-    prices[i].addEventListener('click', function(event) {
+    prices[i].addEventListener('click', function(_event) {
         // When anything in the column is clicked, hide *all* the prices
         for (let i = 0; i < prices.length; ++i) {
-            prices[i].style.display = 'none';
-        };
-    });
+            prices[i].style.display = 'none'
+        }
+    })
 }
 
 ///////////////////////////////////////////////////
@@ -60,25 +60,25 @@ for (let i = 0; i < prices.length; ++i) {
 //////////////////////////////////////////////////
 
 let colors = ['Aqua', 'Aquamarine', 'Blue Violet', 'Cadet Blue', 'Chartreuse', 'Deep Pink']
-let buttonPlace = document.getElementById('manColorList');
+let buttonPlace = document.getElementById('manColorList')
 colors.forEach((color) => {
-    let newButton = document.createElement("button");
-    newButton.innerHTML = color;
-    buttonPlace.appendChild(newButton);
+    let newButton = document.createElement('button')
+    newButton.innerHTML = color
+    buttonPlace.appendChild(newButton)
 
     newButton.addEventListener('click', () => {
-        let manufacturers_asHTMLCollection = document.getElementsByClassName('manufacturer');
+        let manufacturers_asHTMLCollection = document.getElementsByClassName('manufacturer')
 
         // As above, manufacturers is an HTMLCollection.
         // You can convert to a standard array using Array.from
-        let manufacturers = Array.from(manufacturers_asHTMLCollection);
+        let manufacturers = Array.from(manufacturers_asHTMLCollection)
 
         manufacturers.forEach((item) => {
-            let htmlColor = color.replace(/\s+/, '');
-            item.style.color = htmlColor;
-        });
-    });
-});
+            let htmlColor = color.replace(/\s+/, '')
+            item.style.color = htmlColor
+        })
+    })
+})
 
 
 ///////////////////////////////////////////////////
@@ -87,20 +87,22 @@ colors.forEach((color) => {
 //
 //////////////////////////////////////////////////
 
-let input = document.getElementsByName('threshold')[0];
-let errorMsg = document.getElementById('errorMessage');
-input.addEventListener("change", () => {
-    errorMsg.innerHTML = ''; // Clear the error
-    let prices = document.getElementsByClassName('price');
-    let thresholdPrice = parseFloat(input.value);
+let input = document.getElementsByName('threshold')[0]
+let errorMsg = document.getElementById('errorMessage')
+input.addEventListener('change', () => {
+    errorMsg.innerHTML = '' // Clear the error
+    let prices = document.getElementsByClassName('price')
+    let thresholdPrice = parseFloat(input.value)
     if (isNaN(thresholdPrice)) {
-        errorMsg.innerHTML = "Threshold must be a number";
+        errorMsg.innerHTML = 'Threshold must be a number'
     } else {
         for (let i = 0; i < prices.length; ++i) {
-            let displayPrice = parseFloat(prices[i].textContent);
+            let displayPrice = parseFloat(prices[i].textContent)
             if (!isNaN(displayPrice) && displayPrice > thresholdPrice) {
-                prices[i].style.color = 'red';
+                prices[i].style.color = 'red'
+            } else {
+                prices[i].style.color = 'black'
             }
         } // end for
     } // end else
-});
+})

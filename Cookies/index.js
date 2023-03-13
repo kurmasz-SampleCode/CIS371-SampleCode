@@ -54,8 +54,8 @@ app.get('/setCookies', (req, res) => {
     console.log(req.query)
     Object.keys(req.query).forEach((key) => {
         let props = {
-            // maxAge: 30000
-            // httpOnly: true // Client won't make cookie available in javascript.
+            maxAge: 130000,
+            httpOnly: true, // Client won't make cookie available in javascript.
             secure: true  // Server shouldn't send cookie unless https connection (or localhost)
             
             // Other properties:

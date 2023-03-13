@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
 
 
 // Change this to the current day to get routes to work!
-const dayOpen = 'Wednesday'
+const dayOpen = 'Friday'
 const businessHours = require('./openForBusiness')
 
 app.use(businessHours(dayOpen, (req, res) => {
