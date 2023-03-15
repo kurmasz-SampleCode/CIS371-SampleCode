@@ -14,12 +14,10 @@ class ToyController {
 
     show(req, res) {
         let id = req.params.id
-        ToyDB.find(id).then( (toy) => {
-            if (!toy) {
-                res.send('Could not find toy with id of ' + id)
-            } else {
-                res.render('toyShow', { toy: toy })
-            }
+        ToyDB.find(id).catch( (_error) => {
+            res.send('Could not find toy with id of ' + id)
+        }).then( (toy) => {
+            res.render('toyShow', { toy: toy })
         })
     }
 

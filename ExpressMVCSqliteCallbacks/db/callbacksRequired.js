@@ -39,5 +39,4 @@ db.all('SELECT * from Toyz', (err, rows) => {
     }
 })
 
-
 console.log('Notice that this line runs *before* the rows are ready.')
