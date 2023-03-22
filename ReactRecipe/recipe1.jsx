@@ -70,11 +70,7 @@ function IngredientListDemo(props) {
 function IngredientList(props) {
     return <ul className="ingredients" > {
         props.ingredients.map((item, index) => (
-            <Ingredient amount={item.amount}
-                measurement={item.measurement}
-                name={item.name}
-                key={index}
-            />
+            <Ingredient amount={item.amount} measurement={item.measurement} name={item.name} key={index} />
         ))}
     </ul>
 }
@@ -88,7 +84,7 @@ function Instructions(props) {
 
 function Recipe(props) {
     return <div>
-        <h2 > {props.name} </h2>
+        <h2 onClick={() => console.log(`You clicked on recipe ${props.name}`)}> {props.name} </h2>
         <IngredientList ingredients={props.ingredients} />
         <Instructions steps={props.steps} />
     </div>;
@@ -101,7 +97,7 @@ function Menu(props) {
             <Recipe key={index}
                 name={recipe.name}
                 ingredients={recipe.ingredients}
-                steps={recipe.steps}
+                steps={recipe.steps}                
             />
         ))}
         </div>

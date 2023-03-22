@@ -46,8 +46,14 @@ console.log(`Call without object:\t ${aFunction()}`)
 // (https://www.w3schools.com/js/js_function_call.asp)
 let adHocPerson = {fname: 'Barb', lname: 'Erickson'}
 
+adHocPerson.doIt = aFunction
+console.log(`Using aFunction: ${adHocPerson.doIt()}`)
+
+
 // The "call" function allows us to specify "this" directly.
 console.log(`Using "call":\t ${aFunction.call(adHocPerson)}`)
+
+// fred.fullName.call(adHocPerson)
 
 
 // We can also use "bind" to attach the object 

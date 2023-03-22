@@ -83,6 +83,38 @@ function Recipe(props) {
     </div>;
 }
 
+function Menu_broken(props) {
+    // NOTE:  This DOESN'T work.  It is just here as a stepping stone.
+   let currentIndex = Math.floor(props.recipes.length /2)
+    const recipe = props.recipes[currentIndex];
+    console.log("Hi there")
+    console.log(currentIndex)
+    console.log(recipe)
+    return <section>
+
+        <button id='prev' onClick={() => {
+            console.log("Previous")
+            --currentIndex
+        }}>Previous</button>
+        
+        <button id='next' onClick={() => {
+            console.log("Next")
+            ++currentIndex
+        }}>Next</button>
+
+        <h1> {props.title} </h1>
+        <div className='recipes' >
+            <Recipe
+                index={currentIndex + 1}
+                name={recipe.name}
+                ingredients={recipe.ingredients}
+                steps={recipe.steps}
+            />
+        </div>
+    </section>;
+}
+
+
 function Menu(props) {
     const [currentIndex, setIndex] = React.useState(0);
     const recipe = props.recipes[currentIndex];
