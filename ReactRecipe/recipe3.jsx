@@ -115,3 +115,7 @@ ReactDOM.render(
     <Menu recipes={data} title="Sample Recipe List (version 3)" />,
     document.getElementById("main")
 );
+
+
+// How useState works:  https://www.newline.co/@CarlMungazi/a-journey-through-the-usestate-hook--a4983397
+// https://the-guild.dev/blog/react-hooks-system

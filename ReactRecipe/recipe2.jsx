@@ -141,6 +141,6 @@ function Menu(props) {
 }
 
 ReactDOM.render(
-    <Menu recipes={data} title="Sample Recipe List  (version 2)" />,
+    <Menu_broken recipes={data} title="Sample Recipe List  (version 2)" />,
     document.getElementById("main")
 );

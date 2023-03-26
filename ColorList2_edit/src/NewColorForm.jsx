@@ -22,6 +22,7 @@ export default function AddColorForm({ editMode = false, colorToEdit, onUpdate =
                 type="color"
                 required
             />
+            {/* This button should submit the form */}
             <button>{editMode ? 'Update' : 'Add'}</button>
             
             {/* <button> by default will submit a form.  If you don't want this behavior, set the type to 'button'*/}
