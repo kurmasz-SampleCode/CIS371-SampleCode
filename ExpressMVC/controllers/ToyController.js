@@ -1,5 +1,5 @@
-const Toy = require('./Toy')
-const ToyDB = require('./MemoryToyDB')
+const Toy = require('../models/Toy')
+const ToyDB = require('../db/MemoryToyDB')
 //const ToyDB = require('./SqliteToyDB');
 
 /* Demonstrates a simple implementation of standard CRUD operations */
