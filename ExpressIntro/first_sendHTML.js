@@ -13,6 +13,8 @@ const port = 3000
 /* Notice that these next few lines of code don't have any immediate effect. 
   They are telling the server what function to call _when_ something "interesting"
   happens.
+
+  The calls to app.get just set up a map of paths to the code that should be run for that path.
 */
 
 function root_callback(_req, res) {
