@@ -2,6 +2,10 @@
 
 import mini_express
 
+#
+# Define action when route is requested
+#
+
 def root_route(params):
     return "Hello, Everybody. Welcome to my web site."
 
@@ -15,11 +19,18 @@ def calculator_route(params):
     sum = float(params['a']) + float(params['b'])
     return f"Thanks for using the calculator.\n{params['a']} + {params['b']} = {sum}"
 
-routes = {
-    '/': root_route,
-    '/about': about_route,
-    '/help': help_route,
-    '/calculator': calculator_route
-}
 
-mini_express.serve(routes, 8083)
+#
+# Configure and launch server
+#
+
+me = mini_express.MiniExpress()
+
+# me.add_route('/', root_route)
+# me.add_route('/about', about_route)
+# me.add_route('/help', help_route)
+# me.add_route('/calculator', calculator_route)
+
+me.make_routes()
+
+me.serve(8083)

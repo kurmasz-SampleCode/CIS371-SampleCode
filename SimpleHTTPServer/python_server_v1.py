@@ -32,6 +32,9 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             parts = first_line.split(' ')
             print(parts)
 
+            # This part gets replaced in Express.
+            # file_name is no longer a file name, but a key used to 
+            # identify the code that will generate the content
             file_name = parts[1][1:]
 
             with open(file_name, 'r') as file:
