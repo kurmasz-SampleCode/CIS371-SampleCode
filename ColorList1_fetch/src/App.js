@@ -7,19 +7,22 @@ const apiURL='http://localhost:3001'
 
 const hardCodedColorData = [
   {
-    "id": "0175d1f0-a8c6-41bf-8d02-df5734d829a4",
+    "id": 1,
+    "uuid": "0175d1f0-a8c6-41bf-8d02-df5734d829a4",
     "title": "ocean at dusk",
     "color": "#00c4e2",
     "rating": 5
   },
   {
-    "id": "83c7ba2f-7392-4d7d-9e23-35adbe186046",
+    "id": 2,
+    "uuid": "83c7ba2f-7392-4d7d-9e23-35adbe186046",
     "title": "lawn",
     "color": "#26ac56",
     "rating": 3
   },
   {
-    "id": "a11e3995-b0bd-4d58-8c48-5e49ae7f7f23",
+    "id": 3,
+    "uuid": "a11e3995-b0bd-4d58-8c48-5e49ae7f7f23",
     "title": "bright red",
     "color": "#ff0000",
     "rating": 0
@@ -38,16 +41,15 @@ function intToColor(value) {
   return `#${longHexValue}`
 }
 
-
-
 function App() {
 
-  const [colors, setColors] = useState([]);
+  const [colors, setColors] = useState(hardCodedColorData);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(undefined);
   const [reloadCount, setReload] = useState(0);
 
   let fetchColors = () => {
+    return;
     setLoading(true)
 
     // You can configure a delay on the API if you 
@@ -86,7 +88,8 @@ function App() {
     const newColors = [...colors]
     // add new color to the beginning of the list
     newColors.unshift({
-      id: uuidv4(),
+      id: colors.length,
+      uuid: uuidv4(),
       rating: 0,
       title,
       color

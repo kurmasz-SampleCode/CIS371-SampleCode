@@ -1,0 +1,1 @@
+npx babel --presets=@babel/preset-react jsx1.jsx

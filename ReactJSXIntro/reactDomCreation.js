@@ -1,12 +1,12 @@
 let states = ['Alabama', 'Alaska', 'Arizona', 'California', 'Colorado', 'Georgia',
     'Florida', 'Michigan', 'Minnesota', '...', '(you get the point :)'
 ];
-
+ 
 // When calling createElement, 
 //   * the first parameter is the element type,
 //   * the second parameter is a hash of properties (also called "props")
 //   * the remaining parameters are child elements (in this case, text)
-var items = states.map((item) => React.createElement("li", null, item));
+let items = states.map((item) => React.createElement("li", null, item));
 
 let div = React.createElement("div",
     null,

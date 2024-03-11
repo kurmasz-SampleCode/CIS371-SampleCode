@@ -6,7 +6,7 @@ const myStates = <div>
     <ul>
         <li>Alabama</li>
         <li>Alaska</li>
-        <li>Michigan</li>
+        <li class='specialState'>Michigan</li>
         <li>New York</li>
         <li>Tennessee</li>
     </ul>

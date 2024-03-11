@@ -108,3 +108,4 @@ ReactDOM.render(
     <Menu recipes={data} title="Sample Recipe List #1" />,
     document.getElementById("main")
 );
+ 
