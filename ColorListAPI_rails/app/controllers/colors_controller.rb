@@ -5,6 +5,7 @@ class ColorsController < ApplicationController
   def index
     @colors = Color.all
 
+    # response.headers["Access-Control-Allow-Origin"] = "http://localhost:3000"
     render json: @colors
   end
 
