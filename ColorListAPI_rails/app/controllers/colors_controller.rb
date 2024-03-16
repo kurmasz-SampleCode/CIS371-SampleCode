@@ -3,9 +3,16 @@ class ColorsController < ApplicationController
 
   # GET /colors
   def index
+    
+    if params.has_key?('delay')
+      delay = params[:delay].to_i / 1000.0
+      puts "Delaying #{delay} seconds"
+      sleep(delay)
+    end
+    
     @colors = Color.all
 
-    # response.headers["Access-Control-Allow-Origin"] = "http://localhost:3000"
+    response.headers["Access-Control-Allow-Origin"] = "http://localhost:3000"
     render json: @colors
   end
 

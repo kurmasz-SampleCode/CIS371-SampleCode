@@ -43,18 +43,18 @@ function intToColor(value) {
 
 function App() {
 
-  const [colors, setColors] = useState(hardCodedColorData);
+  const [colors, setColors] = useState([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(undefined);
   const [reloadCount, setReload] = useState(0);
 
   let fetchColors = () => {
-    return;
+    //return;
     setLoading(true)
 
     // You can configure a delay on the API if you 
     // want to see what happens if the server is slow.
-    fetch(`${apiURL}/colors?delay=1000`).then(response => {
+    fetch(`${apiURL}/colors?delay=3000`).then(response => {
       console.log("Look what I got: ");
       console.log(response);
       // Notice we aren't done yet.  

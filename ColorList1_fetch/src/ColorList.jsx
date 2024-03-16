@@ -14,7 +14,7 @@ export default function ColorList({ colors = [], loading = false, message, updat
   return (
     <div>
       {
-        colors.map(color => <Color key={color.id} {...color} onColorRatingUpdated={(newValue) => update(color.id, newValue)} />)
+        colors.map(color => <Color key={color.uuid} {...color} onColorRatingUpdated={(newValue) => update(color.id, newValue)} />)
       }
     </div>
   );
