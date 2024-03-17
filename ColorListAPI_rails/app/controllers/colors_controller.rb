@@ -34,6 +34,8 @@ class ColorsController < ApplicationController
 
   # PATCH/PUT /colors/1
   def update
+    # options
+    p color_params
     if @color.update(color_params)
       render json: @color
     else
@@ -46,6 +48,14 @@ class ColorsController < ApplicationController
     @color.destroy
   end
 
+  # quick and dirty attempt at doing CORS "by hand"
+  def options
+    response.headers["Access-Control-Allow-Origin"] = "http://localhost:3000"
+    # response.headers["Access-Control-Allow-Headers"] = "content-type"
+    # response.headers["Access-Control-Allow-Methods"] = "PUT"
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_color
@@ -54,6 +64,6 @@ class ColorsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def color_params
-      params.require(:color).permit(:title, :uuid, :color, :rating)
+      params.permit(:id, :title, :uuid, :color, :rating)
     end
 end

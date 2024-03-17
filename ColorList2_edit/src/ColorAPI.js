@@ -35,22 +35,32 @@ export default class ColorAPI {
 
     static modifyColor(color) {
 
-        if (!color.pk) {
+        console.log("About to modify")
+        console.log(color)
+        if (!color.id) {
             throw new Error("color must have a primary key to update")            
         }
 
+        // only send the data that may be updated
+        let colorUpdates = {
+            id: color.id,
+            color: color.color,
+            title: color.title,
+            rating: color.rating
+        }
+        
         const options = {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json;charset=UTF-8'
             },
-            body: JSON.stringify(color)
+            body: JSON.stringify(colorUpdates)
         }
         console.log('Attempting to post modification to color')
         console.log(color)
 
-        return fetch(`${apiURL}/colors/${color.pk}`, options).then(async response => {
+        return fetch(`${apiURL}/colors/${color.id}`, options).then(async response => {
             if (response.ok) {
                 console.log("Response was ok")
                 return response.json()

@@ -11,19 +11,19 @@ import ColorAPI from './ColorAPI'
 
 const hardCodedColorData = [
   {
-    "id": "0175d1f0-a8c6-41bf-8d02-df5734d829a4",
+    "uuid": "0175d1f0-a8c6-41bf-8d02-df5734d829a4",
     "title": "ocean at dusk",
     "color": "#00c4e2",
     "rating": 5
   },
   {
-    "id": "83c7ba2f-7392-4d7d-9e23-35adbe186046",
+    "uuid": "83c7ba2f-7392-4d7d-9e23-35adbe186046",
     "title": "lawn",
     "color": "#26ac56",
     "rating": 3
   },
   {
-    "id": "a11e3995-b0bd-4d58-8c48-5e49ae7f7f23",
+    "uuid": "a11e3995-b0bd-4d58-8c48-5e49ae7f7f23",
     "title": "bright red",
     "color": "#ff0000",
     "rating": 0
@@ -95,7 +95,7 @@ function App() {
       ColorAPI.modifyColor(colorToEdit).then(data => {
         console.log("Received from modify color post")
         console.log(data)
-        let newColors = colors.map( (item) => item.pk === colorToEdit.pk ? colorToEdit : item)
+        let newColors = colors.map( (item) => item.id === colorToEdit.id ? colorToEdit : item)
         finishSubmit(newColors)
       })   
     } else {
