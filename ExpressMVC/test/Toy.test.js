@@ -1,13 +1,13 @@
 // IMPORTANT:  This is not a complete set of tests for Toy.js!!
 
-const Toy = require('../Toy');
+const Toy = require('../models/Toy');
 
 // The "describe/it" style below is also used by Ruby's RSpec and Jasmine.
 // Jest also lets you just say "test".
 
-describe("Toy", () => {
+describe('Toy', () => {
 
-    describe(".constructor", () => {
+    describe('.constructor', () => {
         it('should set all Toy properties', () => {
             let toy = new Toy({ name: 'bob', price: 5, description: 'a Toy', manufacturer: 'Hasbro' });
             expect(toy.name).toBe('bob');
@@ -21,7 +21,7 @@ describe("Toy", () => {
         });
     });
 
-    describe("#isValid", () => {
+    describe('#isValid', () => {
         it('recognizes a valid toy', () => {
             let toy = new Toy({ name: 'bob', price: 5, description: 'a Toy', manufacturer: 'Hasbro' });
             expect(toy.isValid()).toBe(true);

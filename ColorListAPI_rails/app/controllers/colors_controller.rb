@@ -34,7 +34,7 @@ class ColorsController < ApplicationController
 
   # PATCH/PUT /colors/1
   def update
-    # options
+    options
     p color_params
     if @color.update(color_params)
       render json: @color
@@ -51,8 +51,8 @@ class ColorsController < ApplicationController
   # quick and dirty attempt at doing CORS "by hand"
   def options
     response.headers["Access-Control-Allow-Origin"] = "http://localhost:3000"
-    # response.headers["Access-Control-Allow-Headers"] = "content-type"
-    # response.headers["Access-Control-Allow-Methods"] = "PUT"
+    response.headers["Access-Control-Allow-Headers"] = "content-type"
+    response.headers["Access-Control-Allow-Methods"] = "PUT"
   end
 
 

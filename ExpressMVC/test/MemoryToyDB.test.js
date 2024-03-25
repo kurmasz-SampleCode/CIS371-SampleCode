@@ -1,4 +1,4 @@
-const MemoryToyDB = require('../MemoryToyDB');
+const MemoryToyDB = require('../db/MemoryToyDB');
 
 // Note: Technically the Toy object instantiated by .create should be mocked.
 

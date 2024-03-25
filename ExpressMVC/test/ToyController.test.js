@@ -1,10 +1,10 @@
-const ToyController = require('../ToyController');
+const ToyController = require('../controllers/ToyController');
 
-const Toy = require('../Toy');
-jest.mock('../Toy');
+const Toy = require('../models/Toy');
+jest.mock('../models/Toy');
 
-const ToyDB = require('../MemoryToyDB');
-jest.mock('../MemoryToyDB');
+const ToyDB = require('../db/MemoryToyDB');
+jest.mock('../db/MemoryToyDB');
 
 
 /*
@@ -31,6 +31,19 @@ beforeEach(() => {
 });
 
 describe("#index", () => {
+    
+    it("demonstrates what mocks do", async () => {
+        let renderCalled = 0
+        let renderParams = []
+        let fakeResponse = (name, data) => {
+            renderCalled += 1
+            renderParams = [name, data]
+        }
+        await c.index({}, {render: fakeResponse})
+        expect(renderCalled).toBe(1)
+        expect(renderParams[0]).toBe('toyIndex')
+    })
+    
     it("renders the index view", async() => {
         await c.index(req, res);
         expect(res.render).toHaveBeenCalledTimes(1);

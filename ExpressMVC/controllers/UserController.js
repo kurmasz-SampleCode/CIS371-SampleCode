@@ -1,4 +1,4 @@
-let User = require('./User')
+let User = require('../models/User')
 
 // The purpose of this "mini-controller" is to show how to use a dropdown select
 // There is 

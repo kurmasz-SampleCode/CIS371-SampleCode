@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   # add an OPTIONS route for "DIY" CORS
   # The better answer is to use the rack-cors ruby gem
-  # match '/colors(/:id)' => 'colors#options', via: [:options]
+  match '/colors(/:id)' => 'colors#options', via: [:options]
 
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

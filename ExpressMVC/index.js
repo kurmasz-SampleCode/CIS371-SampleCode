@@ -6,7 +6,7 @@ const express = require('express')
 const ToyController = require('./controllers/ToyController')
 const toyController = new ToyController()
 
-const UserController = require('./controller/UserController')
+const UserController = require('./controllers/UserController')
 const userController = new UserController()
 
 /* Import the body-parser module.  (Used for parsing Post data) */

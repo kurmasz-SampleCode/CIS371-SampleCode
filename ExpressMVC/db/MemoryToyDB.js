@@ -1,4 +1,4 @@
-let Toy = require('./Toy')
+let Toy = require('../models/Toy')
 
 class MemoryToyDB {
 
