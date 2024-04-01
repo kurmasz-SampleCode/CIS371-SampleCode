@@ -39,6 +39,7 @@
   },
   "devDependencies": {
     "@cucumber/cucumber": "^8.9.0",
+    "chromedriver": "^123.0.1",
     "eslint": "^8.28.0",
     "eslint-plugin-react": "^7.31.11",
     "react-scripts": "^5.0.1",

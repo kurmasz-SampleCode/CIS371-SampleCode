@@ -1,10 +1,10 @@
-const ToyController = require('../controllers/ToyController');
+const ToyController = require('../controllers/ToyController')
 
-const Toy = require('../models/Toy');
-jest.mock('../models/Toy');
+const Toy = require('../models/Toy')
+jest.mock('../models/Toy')
 
-const ToyDB = require('../db/MemoryToyDB');
-jest.mock('../db/MemoryToyDB');
+const ToyDB = require('../db/MemoryToyDB')
+jest.mock('../db/MemoryToyDB')
 
 
 /*
@@ -12,91 +12,91 @@ const ToyDB = require('../SqliteToyDB');
 jest.mock('../SqliteToyDB');
 */
 
-let c;
-let res;
-let req;
+let c
+let res
+let req
 
-let allToys = [new Toy({ name: "David", manufacturer: "Hasbro", description: "An action figure", price: "43.21" })];
+let allToys = [new Toy({ name: 'David', manufacturer: 'Hasbro', description: 'An action figure', price: '43.21' })]
 
 beforeEach(() => {
-    jest.resetAllMocks();
-    ToyDB.allToys = jest.fn(() => allToys);
+    jest.resetAllMocks()
+    ToyDB.allToys = jest.fn(() => allToys)
 
     c = new ToyController()
-    req = {};
+    req = {}
     res = {
         render: jest.fn(),
         send: jest.fn()
     }
-});
+})
 
-describe("#index", () => {
+describe('#index', () => {
     
-    it("demonstrates what mocks do", async () => {
+    it('demonstrates what mocks do', async () => {
         let renderCalled = 0
         let renderParams = []
-        let fakeResponse = (name, data) => {
+        let fakeRender = (name, data) => {
             renderCalled += 1
             renderParams = [name, data]
         }
-        await c.index({}, {render: fakeResponse})
+        await c.index({}, {render: fakeRender})
         expect(renderCalled).toBe(1)
         expect(renderParams[0]).toBe('toyIndex')
     })
     
-    it("renders the index view", async() => {
-        await c.index(req, res);
-        expect(res.render).toHaveBeenCalledTimes(1);
-        expect(res.render).toHaveBeenCalledWith('toyIndex', { toys: allToys });
-    });
-});
+    it('renders the index view', async() => {
+        await c.index(req, res)
+        expect(res.render).toHaveBeenCalledTimes(1)
+        expect(res.render).toHaveBeenCalledWith('toyIndex', { toys: allToys })
+    })
+})
 
-describe("#show", () => {
+describe('#show', () => {
 
-    let ken;  // notice that let is declared outside of beforeEach and the tests.
+    let ken  // notice that let is declared outside of beforeEach and the tests.
     beforeEach(() => {
         // a handy Toy to be used in each test.
-        ken = new Toy({ name: 'Ken', manufacturer: "Mattel", description: "Companion", price: "0.65" });
-    });
+        ken = new Toy({ name: 'Ken', manufacturer: 'Mattel', description: 'Companion', price: '0.65' })
+    })
 
-    it("renders the show view for the given id if id is valid", async() => {
+    it('renders the show view for the given id if id is valid', async() => {
         // mock ToyDB.find to return a known, local Toy when given the expected id.
-        ToyDB.find = jest.fn((id) => id == 22 ? ken : null);
+        ToyDB.find = jest.fn((id) => id == 22 ? ken : null)
 
         // set up the req object as if the id was set to 22 in the URL.
-        req.params = { id: 22 };
+        req.params = { id: 22 }
 
         // invoke the method to be tested.
-        await c.show(req, res);
+        await c.show(req, res)
 
         // verify that we respond to the request as expected.
-        expect(res.send).toHaveBeenCalledTimes(0);
-        expect(res.render).toHaveBeenCalledTimes(1);
-        expect(res.render).toHaveBeenCalledWith('toyShow', { toy: ken });
-    });
+        expect(res.send).toHaveBeenCalledTimes(0)
+        expect(res.render).toHaveBeenCalledTimes(1)
+        expect(res.render).toHaveBeenCalledWith('toyShow', { toy: ken })
+    })
 
-    it("renders an error message if given id is not valid", async() => {
-        Toy.find = jest.fn((id) => id == 17 ? ken : null);
-        req.params = { id: 31 };
-        await c.show(req, res);
-        expect(res.send).toHaveBeenCalledTimes(1);
-        expect(res.render).toHaveBeenCalledTimes(0);
-        expect(res.send).toHaveBeenCalledWith("Could not find toy with id of 31");
-    });
-});
+    it('renders an error message if given id is not valid', async() => {
+        Toy.find = jest.fn((id) => id == 17 ? ken : null)
+        req.params = { id: 31 }
+        await c.show(req, res)
+        expect(res.send).toHaveBeenCalledTimes(1)
+        expect(res.render).toHaveBeenCalledTimes(0)
+        expect(res.send).toHaveBeenCalledWith('Could not find toy with id of 31')
+    })
+})
 
-describe("#new", () => {
-    it("renders the new template with a new toy", () => {
-        c.newToy(req, res);
+describe('#new', () => {
+    it('renders the new template with a new toy', () => {
+        c.newToy(req, res)
 
         // Verify that the constructor was called exactly once with no parameters.
-        expect(Toy).toHaveBeenCalledTimes(1);
-        expect(Toy).toHaveBeenCalledWith();
+        expect(Toy).toHaveBeenCalledTimes(1)
+        expect(Toy).toHaveBeenCalledWith()
 
         // Grab the object that was returned by the constructor.
-        let newToy = Toy.mock.instances[0];
+        let newToy = Toy.mock.instances[0]
 
-        expect(res.render).toHaveBeenCalledTimes(1);
-        expect(res.render).toHaveBeenCalledWith('toyNew', { toy: newToy });
-    });
-});
+        expect(res.render).toHaveBeenCalledTimes(1)
+        expect(res.render).toHaveBeenCalledWith('toyNew', { toy: newToy })
+    })
+})
