@@ -1,7 +1,12 @@
 import unittest
-from simple_web_client import parse_url
+import subprocess
+from simple_web_client import parse_url, fetch
 
 class TestParseUrl(unittest.TestCase):
+
+#
+# parse_url
+#
 
     def test_valid_url_with_port_and_path(self):
         url = "http://example.com:8080/some/path"
@@ -104,5 +109,44 @@ class TestParseUrl(unittest.TestCase):
         expected = ("http", "example.com", None, '/')
         self.assertEqual(parse_url(url), expected)
 
-if __name__ == "__main__":
+#
+# fetch
+#
+
+    def test_fetch_http_content(self):
+        # Use `curl` to fetch the real data from example.com
+        curl_output = subprocess.check_output(['curl', '-s', 'http://example.com'])
+        curl_output_lines = curl_output.decode('utf-8').splitlines(keepends=True)
+        
+        # Call the `fetch` function
+        response, headers, content = fetch("http://example.com")
+
+        self.assertEqual(curl_output_lines, content)
+
+
+    def test_fetch_https_content(self):
+        # Use `curl` to fetch the real data from example.com
+        curl_output = subprocess.check_output(['curl', '-s', 'https://example.com'])
+        curl_output_lines = curl_output.decode('utf-8').splitlines(keepends=True)
+        
+        # Call the `fetch` function
+        response, headers, content = fetch("https://example.com")
+
+        self.assertEqual(curl_output_lines, content)     
+
+
+    def test_fetch_non_trivial_https_content(self):
+        url = 'https://kurmasgvsu.github.io'
+
+        # Use `curl` to fetch the real data from example.com
+        curl_output = subprocess.check_output(['curl', '-s', url])
+        curl_output_lines = curl_output.decode('utf-8').splitlines(keepends=True)
+        
+        # Call the `fetch` function
+        response, headers, content = fetch(url)
+
+        self.assertEqual(curl_output_lines, content) 
+
+
+if __name__ == "__main__":#
     unittest.main()
