@@ -1,8 +1,10 @@
+import io
+import sys
 import unittest
 import subprocess
 from simple_web_client import parse_url, fetch
 
-class TestParseUrl(unittest.TestCase):
+class TestSimpleWebClient(unittest.TestCase):
 
 #
 # parse_url
@@ -119,7 +121,7 @@ class TestParseUrl(unittest.TestCase):
         curl_output_lines = curl_output.decode('utf-8').splitlines(keepends=True)
         
         # Call the `fetch` function
-        response, headers, content = fetch("http://example.com")
+        _, _, content = fetch("http://example.com")
 
         self.assertEqual(curl_output_lines, content)
 
@@ -130,20 +132,20 @@ class TestParseUrl(unittest.TestCase):
         curl_output_lines = curl_output.decode('utf-8').splitlines(keepends=True)
         
         # Call the `fetch` function
-        response, headers, content = fetch("https://example.com")
+        _, _, content = fetch("https://example.com")
 
         self.assertEqual(curl_output_lines, content)     
 
 
     def test_fetch_non_trivial_https_content(self):
-        url = 'https://kurmasgvsu.github.io'
+        url = 'https://kurmasgvsu.github.io/Teaching/Courses/W23/CIS371/timeline.html'
 
         # Use `curl` to fetch the real data from example.com
         curl_output = subprocess.check_output(['curl', '-s', url])
         curl_output_lines = curl_output.decode('utf-8').splitlines(keepends=True)
         
         # Call the `fetch` function
-        response, headers, content = fetch(url)
+        _, _, content = fetch(url)
 
         self.assertEqual(curl_output_lines, content) 
 
