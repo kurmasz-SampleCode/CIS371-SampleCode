@@ -101,7 +101,7 @@ def http_init(url, verbose=False):
         # This version only supports http and https
         raise ValueError(f"Protocol must be http or https: {url}")
     
-    socket = http_socket.HTTPSocket(hostname, port, secure=secure, verbose=verbose)
+    socket = http_socket.HTTPSocket.connect(hostname, port, secure=secure, verbose=verbose)
 
 
     # Send the request
@@ -130,7 +130,7 @@ def main():
     parser = argparse.ArgumentParser(description="Fetch data using HTTP or HTTPS")
     parser.add_argument("url", help="The URL to fetch")
     parser.add_argument("--output", "-o", help="Optional output file to save results.", required=False)
-    parser.add_argument("--verbose", "-v", help="Enable verbose output", required="False")
+    parser.add_argument("--verbose", "-v", help="Enable verbose output", required=False)
     
     # Parse the command-line arguments
     args = parser.parse_args()

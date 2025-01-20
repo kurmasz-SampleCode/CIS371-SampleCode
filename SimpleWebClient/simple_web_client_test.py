@@ -2,7 +2,7 @@ import io
 import sys
 import unittest
 import subprocess
-from simple_web_client3 import parse_url, http_init
+from simple_web_client import parse_url, http_init
 
 class TestSimpleWebClient(unittest.TestCase):
 

@@ -20,7 +20,13 @@ CR_LF = b'\r\n'
 
 class HTTPSocket: 
 
-    def __init__(self, hostname, port, secure=True, verbose=False):
+    def __init__(self, skt,  verbose=False):
+        self.socket = skt
+        self.leftover = b''
+        self.verbose = verbose 
+
+    @classmethod
+    def connect(cls, hostname, port, secure=True, verbose=False):
         """
         Open a socket connection to the specified host and port.
         * secure: Use SSL
@@ -30,13 +36,11 @@ class HTTPSocket:
         
         if secure:
             context = ssl.create_default_context()  # Create a default SSL context
-            self.socket = context.wrap_socket(raw_socket, server_hostname=hostname)
+            skt = context.wrap_socket(raw_socket, server_hostname=hostname)
         else:
-            self.socket = raw_socket
-        
-        self.socket.connect((hostname, port))
-        self.leftover = b''
-        self.verbose = verbose 
+            skt = raw_socket
+        skt.connect((hostname, port))
+        return cls(skt, verbose=verbose)
 
     def receive_text_line(self):
         """
@@ -101,3 +105,7 @@ class HTTPSocket:
 
     def close(self):
         self.socket.close()
+
+
+    def __del__(self):
+        self.close()
