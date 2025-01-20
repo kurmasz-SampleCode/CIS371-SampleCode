@@ -2,7 +2,7 @@ import io
 import sys
 import unittest
 import subprocess
-from simple_web_client import parse_url, fetch
+from simple_web_client3 import parse_url, http_init
 
 class TestSimpleWebClient(unittest.TestCase):
 
@@ -112,29 +112,34 @@ class TestSimpleWebClient(unittest.TestCase):
         self.assertEqual(parse_url(url), expected)
 
 #
-# fetch
+# http_init
 #
+
+    def http_init_fetch(self, url):
+        _, headers , socket = http_init(url)
+        byte_stream = io.BytesIO()
+        socket.transfer_data(byte_stream, int(headers['Content-Length']))
+        socket.close()
+        return byte_stream.getvalue()
 
     def test_fetch_http_content(self):
         # Use `curl` to fetch the real data from example.com
         curl_output = subprocess.check_output(['curl', '-s', 'http://example.com'])
-        curl_output_lines = curl_output.decode('utf-8').splitlines(keepends=True)
+        curl_output_lines = curl_output.decode('utf-8')
         
-        # Call the `fetch` function
-        _, _, content = fetch("http://example.com")
+        observed = self.http_init_fetch('http://www.example.com').decode('utf-8')
 
-        self.assertEqual(curl_output_lines, content)
+        self.assertEqual(curl_output_lines, observed)
 
 
     def test_fetch_https_content(self):
         # Use `curl` to fetch the real data from example.com
         curl_output = subprocess.check_output(['curl', '-s', 'https://example.com'])
-        curl_output_lines = curl_output.decode('utf-8').splitlines(keepends=True)
-        
-        # Call the `fetch` function
-        _, _, content = fetch("https://example.com")
+        curl_output_lines = curl_output.decode('utf-8')
 
-        self.assertEqual(curl_output_lines, content)     
+        observed = self.http_init_fetch("https://example.com").decode('utf-8')   
+
+        self.assertEqual(curl_output_lines, observed)  
 
 
     def test_fetch_non_trivial_https_content(self):
@@ -142,12 +147,22 @@ class TestSimpleWebClient(unittest.TestCase):
 
         # Use `curl` to fetch the real data from example.com
         curl_output = subprocess.check_output(['curl', '-s', url])
-        curl_output_lines = curl_output.decode('utf-8').splitlines(keepends=True)
+        curl_output_lines = curl_output.decode('utf-8')
         
-        # Call the `fetch` function
-        _, _, content = fetch(url)
+        observed = self.http_init_fetch(url).decode('utf-8')
 
-        self.assertEqual(curl_output_lines, content) 
+        self.assertEqual(curl_output_lines, observed) 
+
+    def test_fetch_image(self):
+        url = 'https://kurmasgvsu.github.io/Teaching/Courses/W25/CIS371/LectureNotes/Images/partsOfURL2.png'
+
+        # Use `curl` to fetch the real data from example.com
+        curl_output = subprocess.check_output(['curl', '-s', url])        
+        
+        observed = self.http_init_fetch(url)
+
+        self.assertEqual(curl_output, observed) 
+
 
 
 if __name__ == "__main__":#

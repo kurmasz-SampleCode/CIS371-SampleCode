@@ -60,6 +60,10 @@ for key, value in headers.items():
 
 # Send the request body (the binary data containing the image)
 # to a file.
+# IMPORTANT: Notice that this block switches from using the 
+# stream (which is text based) to using the socket (which 
+# is byte based). Because of buffering, switching between 
+# streams and bytes can be error-prone and is not recommended).
 with open(image_name, "wb") as file:
     while True:
         # Read raw bytes from the socket

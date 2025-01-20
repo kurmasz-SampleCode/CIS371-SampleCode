@@ -5,22 +5,20 @@ This script mimics the fundamental behavior of curl (https://curl.se/).
 It: 
   * takes a URL as a parameter, 
   * makes a GET request to that URL, and 
-  * writes the resulting output to the standard output.
-
-IMPORTANT: For simplicity, this script can only handle text documents.  
+  * writes the resulting output to either the standard output
+    or a specified file.
 
 See hard_coded_https_request.py for a simpler example.  
 
-GVSU CIS 371
+GVSU CIS 371 2025
 """
 
 import argparse
-import socket
-import ssl
+import http_socket
 import re
 import sys
 
-def parse_url(url):
+def parse_url(url, verbose=False):
     """
     Split a url into protocol, hostname, port, and path.
     * The protocol is always returned in lower case
@@ -71,100 +69,97 @@ def parse_url(url):
     if path == None or len(path) == 0:
         path = '/'
 
+    if verbose:
+        sys.stderr.write(f"Protocol:\t{protocol}\n")
+        sys.stderr.write(f"Host:\t{protocol}\n")
+        sys.stderr.write(f"Port:\t{protocol}\n")
+        sys.stderr.write(f"Path:\t{protocol}\n")
+        sys.stderr.flush()
+
     return (protocol, hostname, port, path)
 
 
-def open_raw(hostname, port):
+def http_init(url, verbose=False):
     """
-    Open a plain, raw, unencrypted socket
-    """
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect((hostname, port))
-    return s
-
-def open_secure(hostname, port):
-    """
-    Open a socket and wrap with SSL
-    """
-    raw_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    context = ssl.create_default_context()  # Create a default SSL context
-    ssl_socket = context.wrap_socket(raw_socket, server_hostname=hostname)
-    ssl_socket.connect((hostname, port))
-    return ssl_socket
-
-def fetch(url):
-    """
-    Fetch web content 
+    Initializes an HTTP connection and reads the response and headers.
+    This function returns the socket so that the calling function can
+    process the payload as desired.
     """
     
     # Split URL into components
-    protocol, hostname, port, path = parse_url(url)
+    protocol, hostname, port, path = parse_url(url, verbose)
 
     # Assign default port numbers (if not otherwise specified by url)
     # then open a socket
     if protocol == 'http':
         port = 80 if port == None else port
-        socket = open_raw(hostname, port)
+        secure = False
     elif protocol == 'https':
         port = 443 if port == None else port
-        socket = open_secure(hostname, port)
+        secure = True        
     else:
         # This version only supports http and https
         raise ValueError(f"Protocol must be http or https: {url}")
+    
+    socket = http_socket.HTTPSocket(hostname, port, secure=secure, verbose=verbose)
 
-    stream = socket.makefile('rw')
 
     # Send the request
-    stream.write(f"GET {path} HTTP/1.1\r\n")
-    stream.write(f"Host: {hostname}\r\n")
-    stream.write("User-Agent: GVBrowser/1.0\r\n")
-    stream.write("Connection: close\r\n")
-    stream.write("\r\n")
-    stream.flush()   # Flush the buffer so the entire message is sent
+    socket.send_text_line(f"GET {path} HTTP/1.0")
+    socket.send_text_line(f"Host: {hostname}")
+    socket.send_text_line("User-Agent: GVBrowser/1.0")
+    socket.send_text_line("Connection: close")
+    socket.send_text_line("")
 
     # read the response
-    response = next(stream)
+    response = socket.receive_text_line()
 
-    # Collect headers
+    # read (and save) the response headers
     headers = {}
-    for line in stream:
-        stripped_line = line.strip()
-        if len(stripped_line) == 0:
+    while True:
+        line = socket.receive_text_line().strip()
+        if len(line) == 0:
             break
-        key, value = stripped_line.split(":", 1)
+        key, value = line.split(":", 1)
         headers[key] = value
 
-    content = stream.readlines()
-    return (response, headers, content)
+    return (response, headers, socket)
 
 def main():
     # Set up the argument parser
     parser = argparse.ArgumentParser(description="Fetch data using HTTP or HTTPS")
     parser.add_argument("url", help="The URL to fetch")
     parser.add_argument("--output", "-o", help="Optional output file to save results.", required=False)
+    parser.add_argument("--verbose", "-v", help="Enable verbose output", required="False")
     
     # Parse the command-line arguments
     args = parser.parse_args()
     
     # Process the URL and optional output
-    sys.stderr.write(f"Fetching {args.url}\n")
+    sys.stderr.write(f"Fetching {args.url}\n") 
     if args.output:
-        sys.stderr.write(f"Data will be written to: {args.output}")
-        output = open(args.output, "w")
+        sys.stderr.write(f"Data will be written to: {args.output}") 
+        output = open(args.output, "wb")
     else:
         sys.stderr.write("Data will be written to stdout.\n")
-        output = sys.stdout
+        # sys.stdout.buffer is the byte buffer that underlies the standard
+        # output
+        output = sys.stdout.buffer
 
-    response, headers, content = fetch(args.url)
+    response, headers, socket = http_init(args.url, verbose=args.verbose)
 
     sys.stderr.write(f"\nResponse: {response.strip()}\n")
     sys.stderr.write("Headers:\n")
     for key, value in headers.items():
         key_colon = f"{key}:"
         sys.stderr.write(f"   {key_colon:15} {value}\n")
-    
-    output.write("".join(content))
+    sys.stderr.flush()
+
+    # Send the payload to the output
+    socket.transfer_data(output, int(headers['Content-Length']))    
     output.close()
+    socket.close()
+
 
 if __name__ == "__main__":
     main()
