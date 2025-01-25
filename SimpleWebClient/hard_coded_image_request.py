@@ -5,6 +5,10 @@ in this case).
 For simplicity, 
     (1) the URL (and it's components) are hard-coded, and
     (2) the script is not organized into functions.
+    (3) the code reads raw binary data from the socket after
+        having also used a text IO wrapper (i.e., makefile()) 
+        !!! In general, switching like this won't work !!!    
+    
 
 See simple_web_client.py for a more complete example.
 
