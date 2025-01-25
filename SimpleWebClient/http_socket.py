@@ -61,9 +61,7 @@ class HTTPSocket:
         if CR_LF in self.leftover:
             chunk = self.leftover
         else:
-            print("**IN**")
             chunk = self.leftover + self.socket.recv(BLOCK_SIZE)
-            print("**OUT**")
 
         # Split the bytes at the first CR/LF combination.
         # The first part is decoded and returned as text.
