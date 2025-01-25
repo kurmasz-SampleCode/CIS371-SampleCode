@@ -6,4 +6,5 @@ build
 npm-debug.log
 .env
 **/__pycache__
+**/venv
 

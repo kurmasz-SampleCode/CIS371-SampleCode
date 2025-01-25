@@ -10,10 +10,9 @@ import os
 import io
 import socket
 import http_socket
+import fetch_temp_data
 import argparse
 import datetime
-import urllib.request
-import json
 import re
 
 HOST = "127.0.0.1"  # Standard loopback interface address (localhost)
@@ -21,11 +20,9 @@ PORT = 8081  # Port to listen on (non-privileged ports are > 1023)
 
 ##############################################################
 #
-# New Code for sending dynamically-generated HTML
+# New function for sending dynamically-generated HTML
 #
 ################################################################
-
-
 def send_html(socket, content_lines):
     """ 
     Send the given content as HTML
@@ -45,35 +42,6 @@ def send_html(socket, content_lines):
     socket.send_text_line(f"Connection: close")
     socket.send_text_line("")
     socket.send_text_line(body)
-
-
-##############################################################
-#
-# New Code for getting current temperature at given location
-#
-################################################################
-def temp_for_location(latitude, longitude):
-    url = f'https://api.open-meteo.com/v1/forecast?latitude={latitude}5&longitude={longitude}&current=temperature_2m&temperature_unit=fahrenheit'
-
-    # Open a URL
-    with urllib.request.urlopen(url) as response:
-        content = response.read()
-    
-    data = json.loads(content.decode())
-    return data['current']['temperature_2m']
-
-##############################################################
-#
-# New Code for getting information about a zip code
-#
-################################################################
-def info_for_zip(zip_code):
-    zip_url = f"https://api.zippopotam.us/us/{zip_code}"
-    print(zip_url)
-    with urllib.request.urlopen(zip_url) as response:
-        content = response.read()
-        zip_data = json.loads(content.decode())
-    return zip_data['places'][0]
 
 
 def handle_connection(connection):
@@ -140,7 +108,7 @@ def handle_connection(connection):
     # Current temperature in Allendale, MI
     #
     if path == 'current_allendale_temperature':
-        temperature = temp_for_location('42.9675','-85.9509')
+        temperature = fetch_temp_data.temp_for_location('42.9675','-85.9509')
         
         html_lines = []
         html_lines.append('<h1>Current Temperature</h1>')
@@ -166,10 +134,8 @@ def handle_connection(connection):
         if not 'zip' in parameters:
             html_lines.append('Unable to display temperature: No zip provided')
         else:
-            place=info_for_zip(parameters['zip'])
-            temperature = temp_for_location(place['latitude'], place['longitude'])
-            
-            html_lines.append('<h1>Current Temperature</h1>')
+            place=fetch_temp_data.info_for_zip(parameters['zip'])
+            temperature = fetch_temp_data.temp_for_location(place['latitude'], place['longitude'])
             html_lines.append(f"Currently, it is {temperature}&deg;F in {place['place name']}, {place['state abbreviation']}")
 
       
@@ -189,8 +155,8 @@ def handle_connection(connection):
     #
     if path.startswith('current_temperature_route/'):
         _, zip_code = path.split('/', 1)
-        place=info_for_zip(zip_code)
-        temperature = temp_for_location(place['latitude'], place['longitude'])
+        place=fetch_temp_data.info_for_zip(zip_code)
+        temperature = fetch_temp_data.temp_for_location(place['latitude'], place['longitude'])
             
         html_lines = []
         html_lines.append('<h1>Current Temperature</h1>')
@@ -207,8 +173,8 @@ def handle_connection(connection):
     match = re.fullmatch(r'current_temperature/(\d{5})', path)
     if match:
         zip_code = match[1]
-        place=info_for_zip(zip_code)
-        temperature = temp_for_location(place['latitude'], place['longitude'])
+        place=fetch_temp_data.info_for_zip(zip_code)
+        temperature = fetch_temp_data.temp_for_location(place['latitude'], place['longitude'])
             
         html_lines = []
         html_lines.append('<h1>Current Temperature</h1>')
