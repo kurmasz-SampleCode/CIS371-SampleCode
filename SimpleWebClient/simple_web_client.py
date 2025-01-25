@@ -156,7 +156,7 @@ def main():
     sys.stderr.flush()
 
     # Send the payload to the output
-    socket.transfer_data(output, int(headers['Content-Length']))    
+    socket.transfer_incoming_binary_data(output, int(headers['Content-Length']))    
     output.close()
     socket.close()
 

@@ -4,6 +4,8 @@ import unittest
 import subprocess
 from simple_web_client import parse_url, http_init
 
+IMAGE_URL1 = 'https://kurmasgvsu.github.io/Teaching/Courses/W25/CIS371/LectureNotes/Images/partsOfURL2.png'
+
 class TestSimpleWebClient(unittest.TestCase):
 
 #
@@ -118,7 +120,7 @@ class TestSimpleWebClient(unittest.TestCase):
     def http_init_fetch(self, url):
         _, headers , socket = http_init(url)
         byte_stream = io.BytesIO()
-        socket.transfer_data(byte_stream, int(headers['Content-Length']))
+        socket.transfer_incoming_binary_data(byte_stream, int(headers['Content-Length']))
         socket.close()
         return byte_stream.getvalue()
 
@@ -154,7 +156,7 @@ class TestSimpleWebClient(unittest.TestCase):
         self.assertEqual(curl_output_lines, observed) 
 
     def test_fetch_image(self):
-        url = 'https://kurmasgvsu.github.io/Teaching/Courses/W25/CIS371/LectureNotes/Images/partsOfURL2.png'
+        url = IMAGE_URL1
 
         # Use `curl` to fetch the real data from example.com
         curl_output = subprocess.check_output(['curl', '-s', url])        
@@ -163,7 +165,21 @@ class TestSimpleWebClient(unittest.TestCase):
 
         self.assertEqual(curl_output, observed) 
 
+    #
+    # System test   
+    #
+
+    def test_system_fetch_image(self):
+        # Use `curl` to fetch the real data from example.com
+        curl_output = subprocess.check_output(['curl', '-s', IMAGE_URL1])
+
+        # Run simple_web_client as a separate process
+        observed = subprocess.run([sys.executable, 'simple_web_client.py', IMAGE_URL1], capture_output=True)          
+        # print(observed.stderr)
+
+        self.assertEqual(0, observed.returncode)
+        self.assertEqual(curl_output, observed.stdout)
 
 
-if __name__ == "__main__":#
+if __name__ == "__main__":
     unittest.main()

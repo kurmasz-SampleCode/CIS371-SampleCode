@@ -61,7 +61,9 @@ class HTTPSocket:
         if CR_LF in self.leftover:
             chunk = self.leftover
         else:
+            print("**IN**")
             chunk = self.leftover + self.socket.recv(BLOCK_SIZE)
+            print("**OUT**")
 
         # Split the bytes at the first CR/LF combination.
         # The first part is decoded and returned as text.
@@ -70,7 +72,17 @@ class HTTPSocket:
         line, self.leftover = chunk.split(CR_LF, 1)
         return line.decode()
 
-    def transfer_data(self, target, content_length):
+    def send_text_line(self, message):
+        """
+        Send one line of text followed by CR_LF
+        """
+        if (self.verbose):
+            sys.stderr.write(f"Sending =>{message}<=\n")
+            sys.stderr.flush()
+        self.socket.sendall(message.encode('utf-8') + CR_LF)
+
+
+    def transfer_incoming_binary_data(self, target, content_length):
         """
         Transfer content_length bytes from the socket to the target stream.
         (Or simply transfer any remaining bytes if the socket closes before
@@ -94,14 +106,15 @@ class HTTPSocket:
                 target.write(chunk)
                 bytes_received += len(chunk)
 
-    def send_text_line(self, message):
+    def send_binary_data_from_file(self, source, content_length):
         """
-        Send one line of text followed by CR_LF
+        Send content_length bytes from the source file.
         """
-        if (self.verbose):
-            sys.stderr.write(f"Sending =>{message}<=\n")
-            sys.stderr.flush()
-        self.socket.sendall(message.encode('utf-8') + CR_LF)
+        bytes_sent = 0
+        while bytes_sent < content_length:
+            chunk = source.read(min(content_length, BLOCK_SIZE))
+            self.socket.sendall(chunk)
+            bytes_sent += len(chunk) 
 
     def close(self):
         self.socket.close()
