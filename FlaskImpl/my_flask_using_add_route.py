@@ -21,6 +21,31 @@ def current_allendale_temperature():
     return("\n".join(html_lines))
 app.add_route('/current_allendale_temperature', current_allendale_temperature)
 
+def current_temperature_query():
+    parameters = my_flask.request.args
+
+    html_lines = []
+    html_lines.append('<h1>Current Temperature</h1>')
+
+    if not 'zip' in parameters:
+        html_lines.append('Unable to display temperature: No zip provided')
+    else:
+        place=fetch_temp_data.info_for_zip(parameters['zip'])
+        temperature = fetch_temp_data.temp_for_location(place['latitude'], place['longitude'])
+        html_lines.append(f"Currently, it is {temperature}&deg;F in {place['place name']}, {place['state abbreviation']}")
+
+    html_lines.append('<hr>')
+    html_lines.append('<h1>Query Parameters</h1>')
+    html_lines.append('<ul>')
+    for key, value in parameters.items():
+        html_lines.append(f"<li>{key}: {value}")
+    html_lines.append('</ul>')
+
+    return "\n".join(html_lines)
+app.add_route('/current_temperature_query', current_temperature_query)
+
+
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Run a Flask server to serve files from the public directory.')

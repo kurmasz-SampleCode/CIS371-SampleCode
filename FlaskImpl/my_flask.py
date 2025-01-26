@@ -7,11 +7,23 @@ my_flask.py
   GVSU CIS 371 W25
 """
 
+import io
 import socket
 import http_socket
   
 HOST = "127.0.0.1"   # Standard loopback interface address (localhost)
 DEFAULT_PORT = 5050  # Port to listen on (non-privileged ports are > 1023)
+
+# "global" variable holding the request data.
+# This is a bad idea. Flask doesn't actually use a global variable, 
+# instead it uses a context-local object managed by Werkzeug's LocalProxy.
+request = None  
+
+class Request:
+    """
+    Just a container for information related to a request
+    """
+    pass
 
 class MyFlask:
 
@@ -49,30 +61,41 @@ class MyFlask:
         Handle the "conversation" with a single client connection
         """
         socket = http_socket.HTTPSocket(connection)
+
+        # reset the request object.
+        global request 
+        request = Request()
         
         # Read and print the request (e.g. "GET / HTTP/1.0")
-        request = socket.receive_text_line()
+        request_str = socket.receive_text_line()
         print(f"Request: {request}")
         
         # Read and print the request headers
         print("Headers:")
-        headers = {}
+        request.headers = {}
         while True:
             data = socket.receive_text_line().strip()
             if (not data) or (len(data) == 0):
                 break
             print(f"   {data}")
             key, value = data.split(':', 1)
-            headers[key] = value
+            request.headers[key] = value
         print('----------------------')
         
         # Extract the path from the request.
-        parts = request.split()
+        parts = request_str.split()
         verb = parts[0].upper()
-        path = parts[1]
+        path, _, query_string = parts[1].partition('?')
+        request.args = {}
+
+        if query_string:
+            key_value_pairs = query_string.split('&')
+            for kv_pair in key_value_pairs:
+                key, value = kv_pair.split('=', 1)
+                request.args[key] = value
                 
         # Read and print the request body, if present
-        content_length = int(headers.get('Content-Length', 0))
+        content_length = int(request.headers.get('Content-Length', 0))
         if content_length > 0:
             print("Request Body")
         
