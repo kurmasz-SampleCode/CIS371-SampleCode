@@ -68,7 +68,7 @@ def handle_connection(connection):
 
     # Extract the path from the request.
     parts = request.split()
-    path = parts[1][1:]  # remove the first character of the path
+    path = parts[1]
 
     ##############################################################
     #
@@ -93,7 +93,7 @@ def handle_connection(connection):
     #
     # Current date and time at the server
     #
-    if path == 'timedate' or path == 'datetime':
+    if path == '/timedate' or path == '/datetime':
         now = datetime.datetime.now()
         formatted_date = now.strftime("%A %d %B %Y")
         formatted_time = now.strftime("%I:%M:%S %p")
@@ -107,7 +107,7 @@ def handle_connection(connection):
     #
     # Current temperature in Allendale, MI
     #
-    if path == 'current_allendale_temperature':
+    if path == '/current_allendale_temperature':
         temperature = fetch_temp_data.temp_for_location('42.9675','-85.9509')
         
         html_lines = []
@@ -119,7 +119,7 @@ def handle_connection(connection):
     #
     # Current temperature in city specified by zip code in query string
     #
-    if path.startswith('current_temperature_query?'):
+    if path.startswith('/current_temperature_query?'):
         _, query_string = path.split('?', 1)
         key_value_pairs = query_string.split('&')
 
@@ -153,8 +153,8 @@ def handle_connection(connection):
     # Current temperature in city specified by zip code in the path
     # (Notice that the server will crash if the 2nd part of the path isn't a zip code )
     #
-    if path.startswith('current_temperature_route/'):
-        _, zip_code = path.split('/', 1)
+    if path.startswith('/current_temperature_route/'):
+        _, _, zip_code = path.split('/', 2)
         place=fetch_temp_data.info_for_zip(zip_code)
         temperature = fetch_temp_data.temp_for_location(place['latitude'], place['longitude'])
             
@@ -170,7 +170,7 @@ def handle_connection(connection):
     # the pattern more specifically. Patterns that don't match 
     # are just passed on to other checks
     #
-    match = re.fullmatch(r'current_temperature/(\d{5})', path)
+    match = re.fullmatch(r'\/current_temperature/(\d{5})', path)
     if match:
         zip_code = match[1]
         place=fetch_temp_data.info_for_zip(zip_code)
@@ -187,7 +187,7 @@ def handle_connection(connection):
     # Simply show the request body.
     # (Fully handling the POST would add complexity I'd like to avoid for this example.)
     #
-    if path == 'current_temperature_post':
+    if path == '/current_temperature_post':
         html_lines = []
         html_lines.append('<h1>Post Request</h1>')
         html_lines.append(f"<p>A request was made with the following parameters: <code>{request_body}</code></p>")
@@ -197,8 +197,10 @@ def handle_connection(connection):
     #
     # Root route
     #
-    if path == '':
+    if path == '/':
         path = 'all_routes.html'
+    else:
+        path = path[1:] # remove the leading /
 
     #
     # End of new code
@@ -208,23 +210,19 @@ def handle_connection(connection):
     # If the file name exists, we will send it as a response.
     # Otherwise, send a 404.
     if os.path.exists(path):
-
+        # This only works for text files. (Handling arbitrary files is 
+        # part of an assignment.)
         type = 'text/html' if path.endswith('.html') else 'text/plain'
-
-        # We need to know the file size so we can send
-        # the Content-Length header.
-        file_size = os.path.getsize(path)
         with open(path, 'r') as file:
+            # Don't do this for large files!
+            content = ''.join(file.readlines())
+
             socket.send_text_line("HTTP/1.0 200 OK")
             socket.send_text_line(f"Content-Type: {type}")
-            socket.send_text_line(f"Content-Length: {file_size}")
+            socket.send_text_line(f"Content-Length: {len(content)+2}")
             socket.send_text_line(f"Connection: close")
             socket.send_text_line("")
-
-            # Read and send one line at a time.
-            # (This works because this server only handles text.)
-            while line := file.readline():
-                socket.send_text_line(line)
+            socket.send_text_line(content)
     else:
         message = f"File '{path}' not found."
 
