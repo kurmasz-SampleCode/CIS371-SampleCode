@@ -12,7 +12,8 @@ def temp_for_location(latitude, longitude):
     """
     Use the open-meteo API to fetch the current temperature at a given location
     """
-    url = f'https://api.open-meteo.com/v1/forecast?latitude={latitude}5&longitude={longitude}&current=temperature_2m&temperature_unit=fahrenheit'
+    url = f'https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&current=temperature_2m&temperature_unit=fahrenheit'
+    print(url)
 
     # Open a URL
     with urllib.request.urlopen(url) as response:

@@ -68,7 +68,7 @@ def handle_connection(connection):
 
     # Extract the path from the request.
     parts = request.split()
-    path = parts[1]
+    path = parts[1]  # We are no longer removing the leading /
 
     ##############################################################
     #
