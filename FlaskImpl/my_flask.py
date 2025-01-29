@@ -132,4 +132,7 @@ class MyFlask:
 
         socket.close()
 
-
+    def route(self, route, method='GET'):
+        def wrapper(func):
+            self.add_route(route, func, method)
+        return wrapper

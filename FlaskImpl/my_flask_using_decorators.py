@@ -1,7 +1,7 @@
 """
-my_flask_using_add_route.rb
+my_flask_using_decorators.rb
 
-Demonstrates the use of MyFlask by calling the add_route method explicitly
+Demonstrates the use of MyFlask by using the route decorator
 
 GVSU CIS 371 W25
 """
@@ -12,6 +12,7 @@ import argparse
 
 app = my_flask.MyFlask()
 
+@app.route('/current_allendale_temperature')
 def current_allendale_temperature():
     temperature = fetch_temp_data.temp_for_location('42.9675','-85.9509')
         
@@ -19,9 +20,8 @@ def current_allendale_temperature():
     html_lines.append('<h1>Current Temperature</h1>')
     html_lines.append(f"Currently, it is {temperature}&deg;F in Allendale, MI.")
     return("\n".join(html_lines))
-app.add_route('/current_allendale_temperature', current_allendale_temperature)
 
-
+@app.route('/current_temperature_query')
 def current_temperature_query():
     parameters = my_flask.request.args
 
@@ -43,9 +43,6 @@ def current_temperature_query():
     html_lines.append('</ul>')
 
     return "\n".join(html_lines)
-app.add_route('/current_temperature_query', current_temperature_query)
-
-
 
 
 if __name__ == '__main__':
