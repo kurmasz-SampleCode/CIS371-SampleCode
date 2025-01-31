@@ -22,6 +22,8 @@ def current_allendale_temperature():
 app.add_route('/current_allendale_temperature', current_allendale_temperature)
 
 
+# This decorator is just a short-cut for calling app.add_route
+@app.route('/current_temperature_query')
 def current_temperature_query():
     parameters = my_flask.request.args
 
@@ -43,9 +45,17 @@ def current_temperature_query():
     html_lines.append('</ul>')
 
     return "\n".join(html_lines)
-app.add_route('/current_temperature_query', current_temperature_query)
 
+@app.route(r'/current_temperature_route/(\d{5})')
+def current_temperature_path(zip_code):
+    place=fetch_temp_data.info_for_zip(zip_code)
+    temperature = fetch_temp_data.temp_for_location(place['latitude'], place['longitude'])
+            
+    html_lines = []
+    html_lines.append('<h1>Current Temperature</h1>')
+    html_lines.append(f"Currently, it is {temperature}&deg;F in {place['place name']}, {place['state abbreviation']}.")
 
+    return "\n".join(html_lines)
 
 
 if __name__ == '__main__':

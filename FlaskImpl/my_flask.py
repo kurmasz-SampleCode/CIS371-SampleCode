@@ -8,22 +8,25 @@ my_flask.py
 """
 
 import io
+import re
 import socket
 import http_socket
-  
+
 HOST = "127.0.0.1"   # Standard loopback interface address (localhost)
 DEFAULT_PORT = 5050  # Port to listen on (non-privileged ports are > 1023)
 
 # "global" variable holding the request data.
-# This is a bad idea. Flask doesn't actually use a global variable, 
+# This is a bad idea. Flask doesn't actually use a global variable,
 # instead it uses a context-local object managed by Werkzeug's LocalProxy.
-request = None  
+request = None
+
 
 class Request:
     """
     Just a container for information related to a request
     """
     pass
+
 
 class MyFlask:
 
@@ -38,7 +41,6 @@ class MyFlask:
         python function to call when that route is requested.
         """
         self.routes[method][path] = callback
-
 
     def run(self, port=DEFAULT_PORT):
         """
@@ -55,7 +57,6 @@ class MyFlask:
                     print(f"Connected by {addr}")
                     self.handle_connection(connection)
 
-
     def handle_connection(self, connection):
         """
         Handle the "conversation" with a single client connection
@@ -63,13 +64,13 @@ class MyFlask:
         socket = http_socket.HTTPSocket(connection)
 
         # reset the request object.
-        global request 
+        global request
         request = Request()
-        
+
         # Read and print the request (e.g. "GET / HTTP/1.0")
         request_str = socket.receive_text_line()
-        print(f"Request: {request}")
-        
+        print(f"Request: {request_str}")
+
         # Read and print the request headers
         print("Headers:")
         request.headers = {}
@@ -81,7 +82,7 @@ class MyFlask:
             key, value = data.split(':', 1)
             request.headers[key] = value
         print('----------------------')
-        
+
         # Extract the path from the request.
         parts = request_str.split()
         verb = parts[0].upper()
@@ -93,12 +94,12 @@ class MyFlask:
             for kv_pair in key_value_pairs:
                 key, value = kv_pair.split('=', 1)
                 request.args[key] = value
-                
+
         # Read and print the request body, if present
         content_length = int(request.headers.get('Content-Length', 0))
         if content_length > 0:
             print("Request Body")
-        
+
             # Because the client is likely using HTTP/1.1 and Connection: keep-alive
             # We need to read the exact number of bytes so that we don't cause the
             # socket read to block
@@ -107,12 +108,19 @@ class MyFlask:
             request_body = byte_stream.getvalue().decode()
             print(request_body)
         print("====================")
-        
+
         # Find the callback for the given route
-        callback = self.routes.get(verb, {}).get(path, None)
+        callback = None
+        match = None
+        for regex, route in self.routes.get(verb, {}).items():
+            match = re.fullmatch(regex, path)
+            if match:
+                callback = route
+                break
 
         if callback:
-            content = callback() 
+            print(f"The matches:  {match.groups()}")
+            content = callback(*match.groups())
             socket.send_text_line("HTTP/1.0 200 OK")
             socket.send_text_line(f"Content-Type: text/html")
             socket.send_text_line(f"Content-Length: {len(content) + 2}")
@@ -133,6 +141,11 @@ class MyFlask:
         socket.close()
 
     def route(self, route, method='GET'):
+        """ 
+        This defines the route decorator.  
+        In python a decorator is simply a wrapper around a function
+        """
         def wrapper(func):
             self.add_route(route, func, method)
+            return func
         return wrapper
