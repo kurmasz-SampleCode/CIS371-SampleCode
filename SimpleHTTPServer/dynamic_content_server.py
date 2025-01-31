@@ -118,7 +118,7 @@ def handle_connection(connection):
 
     #
     # Current temperature in city specified by zip code in query string
-    #
+    # e.g., http://my.weather.com/current_temperature_query?zip=49401
     if path.startswith('/current_temperature_query?'):
         _, query_string = path.split('?', 1)
         key_value_pairs = query_string.split('&')
@@ -152,7 +152,7 @@ def handle_connection(connection):
     #
     # Current temperature in city specified by zip code in the path
     # (Notice that the server will crash if the 2nd part of the path isn't a zip code )
-    #
+    # e.g., http://my.weather.com/current_temperature_route/49401
     if path.startswith('/current_temperature_route/'):
         _, _, zip_code = path.split('/', 2)
         place=fetch_temp_data.info_for_zip(zip_code)
