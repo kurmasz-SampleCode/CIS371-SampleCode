@@ -89,6 +89,7 @@ class MyFlask:
         path, _, query_string = parts[1].partition('?')
         request.args = {}
 
+        # Parse the query string
         if query_string:
             key_value_pairs = query_string.split('&')
             for kv_pair in key_value_pairs:
@@ -109,14 +110,21 @@ class MyFlask:
             print(request_body)
         print("====================")
 
+        #
         # Find the callback for the given route
+        #
+        
+        # If we aren't using patterns, we can do this:
+        # callback = self.routes.get(verb, {}).get(path, None)
+        
+        # If we are using patterns, it looks more like this:
         callback = None
         match = None
         for regex, route in self.routes.get(verb, {}).items():
-            match = re.fullmatch(regex, path)
-            if match:
-                callback = route
-                break
+           match = re.fullmatch(regex, path)
+           if match:
+               callback = route
+               break
 
         if callback:
             print(f"The matches:  {match.groups()}")

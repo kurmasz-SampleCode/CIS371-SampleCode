@@ -14,6 +14,7 @@ def greet():
 # The @surprise decorator replaced greet
 # with new_function.
 greet()
+exit()
 print("-------")
 
 #

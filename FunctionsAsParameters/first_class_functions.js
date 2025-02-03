@@ -1,3 +1,12 @@
+/*
+first_class_functions.js
+
+Demonstrates the use of functions as parameters to other functions in Python.
+(Also demonstrates lambdas and closures.)
+
+GVSU 2025
+*/
+
 const students = [
     { firstName: "Ella", lastName: "Smith", gpa: 3.6, creditHours: 103 },
     { firstName: "Liam", lastName: "Johnson", gpa: 2.9, creditHours: 60 },
@@ -11,93 +20,88 @@ const students = [
     { firstName: "Amelia", lastName: "Hernandez", gpa: 3.9, creditHours: 105 }
 ];
 
-
 //
 // Notice that the two functions below are nearly identical. 
 // The only difference is the "if" condition.
 //
 function filterForProbation(students, threshold) {
-    const answer = [];
+    const answer = []
     for (const student of students) {
         if (student.gpa < threshold) {
-            answer.push(student);
+            answer.push(student)
         }
     }
-    return answer;
+    return answer
 }
 
 function filterByCreditHours(students, low, high) {
-    const answer = [];
+    const answer = []
     for (const student of students) {
-        if (student.creditHours >= low && student.creditHours <= high) {
-            answer.push(student);
+        if (student.low >= low && student.high < high) {
+            answer.push(student)
         }
     }
-    return answer;
+    return answer
 }
-
 
 //
 // If we can pass code as a parameter, we can abstract the 
 // two functions above:
 //
-function filter(theList, theFilter) {
-    const answer = [];
-    for (const item of theList) {
-        if (theFilter(item)) {
-            answer.push(item);
+function filter(students, filterCondition) {
+    const answer = []
+    for (const student of students) {
+        if (filterCondition(student)) {
+            answer.push(student)
         }
     }
-    return answer;
-}
-
-function isSenior(student) {
-    return student.creditHours >= 90;
+    return answer
 }
 
 function onProbation(student) {
-    return student.gpa < 2.0;
+    return student.gpa < 2.0
 }
 
-const seniors = filter(students, isSenior);
-console.log(`Seniors:`, seniors);
+function isSenior(student) {
+    return student.creditHours >= 90
+}
 
-const toWarn = filter(students, onProbation);
-console.log(`On probation:`, toWarn);
+const seniors = filter(students, isSenior)
+const toWarn = filter(students, onProbation)
 
+console.log("Seniors: ", seniors)
+console.log("On Probation", toWarn)
 
 //
 // So far, so good.  But, notice that we are writing an entire function that 
 // is only used once: as a parameter to another function. 
 //
-// Python allows you to create anonymous functions. These are called "lambdas"
+// JavaScript allows you to create anonymous functions. These are called "lambdas"
+//
 
-seniors2 = filter(students, (s) => s.creditHours >= 90)
-console.log(`Seniors 2:`, seniors2);
+const seniors_lambda = filter(students, (student) => student.creditHours >= 90)
+const toWarn_lambda = filter(students, (student) => {return student.gpa < 2.0})
 
-toWarn2 = filter(students, (s) => s.gpa < 2.0)
-console.log(`On probation:`, toWarn2);
+console.log("Seniors: ", seniors_lambda)
+console.log("On Probation", toWarn_lambda)
 
 //
 // JavaScript lambdas are *not* limited to a single expression.
 //
 
-gradedProbation = filter(students, (s) => {
-    
-    // You can't be on probation until 
-    // you have completed 30 hours.
-    if (s.creditHours < 30) {
+
+const gradedProbation = filter(students, (student) => {
+    if (student.creditHours < 30) {
         return false;
     }
-    if (s.creditHours < 60) {
-        return s.gpa < 2.0;
+    if (student.creditHours < 60) {
+        return student.gpa < 2.0
     }
-    if (s.creditHours < 90) {
-        return s.gpa < 2.25;
+    if (student.creditHours < 90) {
+        return student.gpa < 2.25
     }
-    return s.gpa < 2.5
+    return student.gpa < 2.5
 })
-console.log(`On probation: ${gradedProbation}`);
 
 //
 // Closures
@@ -105,12 +109,7 @@ console.log(`On probation: ${gradedProbation}`);
 // You can use the idea of a closure to build more complex filters.
 //
 
-function makeGPAfilter(threshold) {
-    return  (s) => s['gpa'] >= threshold;
+function makeCreditHourFilter(low, high) {
+    return (student) => student.creditHours >= low && student.creditHours < high
 }
 
-const deansList = filter(students, (makeGPAfilter(3.0)))
-console.log(`Students with 3.0 or better: `, deansList)
-
-above_35 = filter(students, makeGPAfilter(3.5))
-console.log(`Students with 3.5 or better:`, above_35)
