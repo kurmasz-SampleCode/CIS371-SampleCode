@@ -64,7 +64,8 @@ def static_json():
     return flask.Response(json.dumps(data), mimetype='application/json')
 
 #
-# Dynamic HTML response
+# Dynamic HTML response 
+# (Response generated "by hand")
 #
 @app.route('/current_allendale_temperature')
 def current_allendale_temperature():
@@ -77,43 +78,43 @@ def current_allendale_temperature():
 
 #
 # Dynamic HTML response using query string
+# (Response generated "by hand")
 #
 @app.route('/current_temperature_query')
 def current_temperature_query():
     parameters = flask.request.args
-
-    html_lines = []
-    html_lines.append('<h1>Current Temperature</h1>')
-
     if not 'zip' in parameters:
-        html_lines.append('Unable to display temperature: No zip provided')
+        return ('Unable to display temperature: No zip provided')
     else:
         place=fetch_temp_data.info_for_zip(parameters['zip'])
         temperature = fetch_temp_data.temp_for_location(place['latitude'], place['longitude'])
-        html_lines.append(f"Currently, it is {temperature}&deg;F in {place['place name']}, {place['state abbreviation']}")
-
-    html_lines.append('<hr>')
-    html_lines.append('<h1>Query Parameters</h1>')
-    html_lines.append('<ul>')
-    for key, value in parameters.items():
-        html_lines.append(f"<li>{key}: {value}")
-    html_lines.append('</ul>')
-
-    return "\n".join(html_lines)
+       
+        # IMPORTANT: Don't use this pattern in your own code! 
+        # This example is only here to demonstrate how flask interacts with jinja.
+        # When writing your own code, use the pattern in thet next route that calls 
+        # render_template
+        with open(f"templates/temperature_and_query.j2") as file: 
+            import jinja2
+            input = file.read()
+            template = jinja2.Template(input)
+            return template.render(temperature=temperature, 
+                                place_name=place['place name'], 
+                                place_state=place['state abbreviation'],
+                                name=parameters.get('name', None),
+                                query_dict = parameters)
 
 #
 # Route using part of the path as a parameter
+# (Response generated using jinja)
 #
 @app.route('/current_temperature_route/<int:zip_code>')
 def current_temperature_route(zip_code):
     place=fetch_temp_data.info_for_zip(zip_code)
     temperature = fetch_temp_data.temp_for_location(place['latitude'], place['longitude'])
             
-    html_lines = []
-    html_lines.append('<h1>Current Temperature</h1>')
-    html_lines.append(f"Currently, it is {temperature}&deg;F in {place['place name']}, {place['state abbreviation']}.")
-
-    return "\n".join(html_lines)
+    return flask.render_template("temperature.j2", temperature=temperature, 
+                                place_name=place['place name'], 
+                                place_state=place['state abbreviation'])
 
 #
 # Handle a POST request

@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <title>Current Temperature</title>
+    </head>
+    <body>
+        <h1>Current Temperature</h1>
+
+
+        <p>
+        {% if name %}
+        Hello, {{name}}. 
+        {% endif %}
+        Currently, it is {{temperature}}&deg;F in {{place_name}}, {{place_state}}.</p>
+
+      <hr>
+      <h1> Query Parameters </h1>
+      <ul>
+      {% for key, value in query_dict.items() %}
+        <li>{{key}}: {{value}}</li>
+      {% endfor %}
+      </ul>
+    </body>
+</html>
