@@ -4,6 +4,14 @@ const ToyDB = require('../db/SqliteToyDB')
 /* Demonstrates a simple implementation of standard CRUD operations */
 class ToyController {
 
+    fake_index(req, res) {
+        sqliteDB.all('SELECT * from Toys', (err, rows) => {
+            let toyArray = rows.map((row) => new Toy(row))
+            res.render('toyIndex', { toys: toyArray })
+        })
+    }
+
+
     index(req, res) {
 
         let cb = (arrayOfToys) => {

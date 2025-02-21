@@ -90,6 +90,7 @@
             // buttons3[i] refers to the correct button because the scope of variable i
             // is limited to the body of the loop.  Thus, the current value of i is captured
             // by the closure of this lambda.
+            console.log(`i is now ${i}`);
             place.innerText = buttons3[i].innerText;
         });
     } // end for
