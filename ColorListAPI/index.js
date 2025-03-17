@@ -6,12 +6,6 @@ const app = express()
 const port = 3001  // so we don't conflict with React on 3000
 
 
-const myArgs = process.argv.slice(2)
-if (myArgs[0] === '--test') {
-    ColorDB.reset()
-}
-
-
 // Tell Express to parse the body as JSON.
 // (This is a different format than data sent by an HTML form.)
 app.use(express.json());
@@ -21,7 +15,7 @@ app.use(express.json());
 // !!!!! Don't ever use "*" in production!!!
 app.use(function (req, res, next) {
     res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000")
-    res.setHeader("Access-Control-Allow-Headers", "content-type")
+    // res.setHeader("Access-Control-Allow-Headers", "content-type")
     next();
 });
 
@@ -37,6 +31,10 @@ app.options('/colors', (req, res) => {
     res.send()
 })
 
+//
+// Easy way to reset the DB each semester
+//
+const myArgs = process.argv.slice(2)
 if (myArgs[0] === '--test') {
     app.get('/reset', (req, res) => {
         ColorDB.reset();
@@ -45,6 +43,10 @@ if (myArgs[0] === '--test') {
 }
 
 app.get('/colors', async (req, res) => {
+    res.json(await ColorDB.allColors()) 
+})
+
+app.get('/colors_with_delay', async (req, res) => {
     // Introduce an artificial delay so user can see the effects of loading.    
     let delay = 500;  // default is 500. Can be overridden by query string.
     if (req.query.hasOwnProperty('delay')) {
