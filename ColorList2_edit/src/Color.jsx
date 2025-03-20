@@ -6,7 +6,7 @@ export default function Color({ title, color, rating, onEditClicked = f => f, on
         <h1>{title}</h1>
         <div>
             <div className='colorBox' style={{ backgroundColor: color }}/> 
-            <button onClick={() => onEditClicked(color)}>Edit</button>
+            <button onClick={onEditClicked}>Edit</button>
         </div>
         <StarRating selectedStars={rating} onRatingUpdated={(newValue) => onColorRatingUpdated(newValue)}  />
       </section>

@@ -54,7 +54,7 @@ function App() {
 
     // You can configure a delay on the API if you 
     // want to see what happens if the server is slow.
-    fetch(`${apiURL}/colors?delay=3000`).then(response => {
+    fetch(`${apiURL}/colors_with_delay?delay=3000`).then(response => {
       console.log("Look what I got: ");
       console.log(response);
       // Notice we aren't done yet.  
@@ -80,7 +80,7 @@ function App() {
 
   // The [] below is important, otherwise, 
   // we end up making an API call on every update.
-  useEffect(fetchColors, [reloadCount])
+ useEffect(fetchColors, [reloadCount])
 
   const addNewColor = (title, color) => {
     
@@ -98,6 +98,7 @@ function App() {
     setColors(newColors)
   }
 
+  /* Notice that simply modifying the array won't work! */
   const updateRatingBROKEN = (id, newValue) => {
 
     let indexOf = colors.findIndex((c) => c.id === id)

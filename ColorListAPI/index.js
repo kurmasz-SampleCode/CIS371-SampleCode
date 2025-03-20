@@ -15,21 +15,19 @@ app.use(express.json());
 // !!!!! Don't ever use "*" in production!!!
 app.use(function (req, res, next) {
     res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000")
-    // res.setHeader("Access-Control-Allow-Headers", "content-type")
+    res.setHeader("Access-Control-Allow-Headers", "content-type")
+    // res.setHeader("Access-Control-Allow-Methods", "PUT")
     next();
 });
 
 // Respond to preflight
-//
-// (This code isn't necessary. The "use" block above 
-// actually produces all the necessary CORS responses.
-// I include this block here simply to demonstrate 
-// the preflight.
+/*
 app.options('/colors', (req, res) => {
     console.log('Received options from preflight')
     console.log(req.headers)
     res.send()
 })
+    */
 
 //
 // Easy way to reset the DB each semester

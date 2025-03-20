@@ -11,26 +11,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-#updateForm {
-  border: 1px solid black;
-  padding: 7px;
-  display: inline-block;
-}
-
-.colorBox {
-  height: 50px;
-  width: 100px;
-  margin-right: 15px;
-  display: inline-block;
-}
-
-#navBar a {
-  margin: 15px;
-}
-
-#navBar {
-  margin-bottom: 25px;
-  padding: 5px;
-  background-color:rgb(235, 235, 235)
-}
