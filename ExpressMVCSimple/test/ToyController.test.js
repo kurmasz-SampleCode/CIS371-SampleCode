@@ -6,7 +6,6 @@ jest.mock('../models/Toy')
 const ToyDB = require('../db/SqliteToyDB')
 jest.mock('../db/SqliteToyDB')
 
-
 let c
 let res
 let req

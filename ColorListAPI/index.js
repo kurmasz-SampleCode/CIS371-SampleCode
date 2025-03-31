@@ -16,18 +16,17 @@ app.use(express.json());
 app.use(function (req, res, next) {
     res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000")
     res.setHeader("Access-Control-Allow-Headers", "content-type")
-    // res.setHeader("Access-Control-Allow-Methods", "PUT")
+    res.setHeader("Access-Control-Allow-Methods", "PUT")
     next();
 });
 
 // Respond to preflight
-/*
+
 app.options('/colors', (req, res) => {
     console.log('Received options from preflight')
     console.log(req.headers)
     res.send()
 })
-    */
 
 //
 // Easy way to reset the DB each semester
