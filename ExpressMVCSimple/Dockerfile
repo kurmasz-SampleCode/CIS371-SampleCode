@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:1
 
 # Adjust NODE_VERSION as desired
-ARG NODE_VERSION=22.13.0
+ANODE_VERSION=22.13.0RG 
 FROM node:${NODE_VERSION}-slim AS base
 
 LABEL fly_launch_runtime="Node.js"
@@ -20,16 +20,13 @@ FROM base AS build
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential node-gyp pkg-config python-is-python3
 
-# Install node modules (copy files from host into image)
+# Install node modules
 COPY package-lock.json package.json ./
-
-# A special "build install" that does things like
-# 1. Remove node_modules when done
-# 2. Install dependencies exactly as listed in package-lock.json 
 RUN npm ci
 
 # Copy application code
 COPY . .
+
 
 # Final stage for app image
 FROM base
@@ -37,6 +34,11 @@ FROM base
 # Copy built application
 COPY --from=build /app /app
 
+# Setup sqlite3 on a separate volume
+RUN mkdir -p /data
+VOLUME /data
+
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
+ENV DATABASE_URL="file:///data/sqlite.db"
 CMD [ "node", "index.js" ]

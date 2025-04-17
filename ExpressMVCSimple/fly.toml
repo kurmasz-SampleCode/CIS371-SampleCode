@@ -1,12 +1,19 @@
-# fly.toml app configuration file generated for zk-express-intro1 on 2025-04-08T15:09:34-04:00
+# fly.toml app configuration file generated for zk-express-mvc-simple on 2025-04-08T15:43:23-04:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'zk-express-intro1'
+app = 'zk-express-mvc-simple'
 primary_region = 'ord'
 
 [build]
+
+[[mounts]]
+  source = 'data'
+  destination = '/data'
+  auto_extend_size_threshold = 80
+  auto_extend_size_increment = '1GB'
+  auto_extend_size_limit = '10GB'
 
 [http_service]
   internal_port = 3000

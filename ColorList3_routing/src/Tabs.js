@@ -64,6 +64,7 @@ export function NavBar() {
   return (
     <nav id='navBar'>
             Contents: 
+      <Link to="">Home</Link>
       <Link to="about">About</Link>
       <Link to="events">Events</Link>
       <Link to="products">Products</Link>
