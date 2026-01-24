@@ -128,10 +128,10 @@ function App() {
 
   return (
     <div style={{ margin: 50 }}>
+      <NavBar />
       <Routes>
         <Route path="/" element={
-          <>
-            <NavBar />
+          <>    
             <NewColorForm editMode={editMode} colorToEdit={colorToEdit} onUpdate={updateFormData} onSubmit={submit} onCancelEdit={cancelEdit} />
             <ColorList colors={colors} loading={loading} message={message} onEditColor={editColor} update={updateRating} />
           </>}

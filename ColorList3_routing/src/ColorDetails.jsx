@@ -7,8 +7,8 @@ export default function ColorDetails({ colors }) {
   let params = useParams()
   console.log(params)
   let id = params.id
-
-  let color = colors.find((item) => item.id === id)
+  console.log(colors)
+  let color = colors.find((item) => item.id === id || item.pk == id)
 
   const body = color ?  <Color {...color} /> : <span>Color {id} not found.</span>
   return (

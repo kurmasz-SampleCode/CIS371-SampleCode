@@ -6,6 +6,8 @@ console.log("Notice that Javascript runs asynchronously:")
 setTimeout(() => console.log('Callback after 3 seconds'), 3000)
 setTimeout(() => console.log('Callback after 2 seconds'), 2000)
 setTimeout(() => console.log('Callback after 1 seconds'), 1000)
+console.log("First three timers set.")
+
 
 callback2 = function(delay) { console.log(`Callback v2 after ${delay} seconds`) }
 
@@ -43,4 +45,4 @@ demonstrateCorrectClosures = function() {
     setTimeout(makeCallback(2.5), 2500)
 };
 
-setTimeout(() => demonstrateCorrectClosures(), 9000)
+setTimeout(demonstrateCorrectClosures, 9000)

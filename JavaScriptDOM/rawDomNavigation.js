@@ -48,6 +48,7 @@ function printAttributes(node) {
     console.log(attributes)
     for (var i = 0; i < attributes.length; i++) {
         var attribute = attributes[i]
+        console.log(attribute)
         console.log(`${attribute.nodeName} ==> ${attribute.nodeValue}`)
     }
 }

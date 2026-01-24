@@ -9,6 +9,7 @@ const http = require('http')
 // Note:  This is asynchronous.  driver is a promise.
 let driver = new Builder().forBrowser('chrome').build()
 
+// Resets the DB to a known state before each test.
 Before(() => {
   driver.get('http://localhost:3001/reset')
 })
@@ -27,7 +28,7 @@ When('I visit the root page', () => {
 })
 
 Then('I should see {int} colors', async function (numColors) {
-  const colors = await driver.findElements(By.xpath('//section'))
+  const colors = await driver.findElements(By.css('section'))
   expect(colors.length).toBe(numColors)
 })
 

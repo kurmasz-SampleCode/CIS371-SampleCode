@@ -59,5 +59,13 @@ class SqliteToyDB {
 
 /* Parameter will be interpreted with respect to cwd.  Using __dirname will 
    make code run regardless of current working directory. */
-SqliteToyDB.db = new sqlite3.Database(__dirname + '/toys.sqlite')
+let db_file = __dirname + '/toys.sqlite'
+
+/* If we are running inside of a fly.io VM, then 
+   the db file is on a volume. */
+if (process.env.FLY_APP_NAME) {
+    db_file = '/data/toys.sqlite'
+}
+console.log('Loading DB: ', db_file)
+SqliteToyDB.db = new sqlite3.Database(db_file)
 module.exports = SqliteToyDB
