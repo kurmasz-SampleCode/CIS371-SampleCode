@@ -10,9 +10,9 @@
 %html
   %head
     %title Color Samples using HAML
-  %style 
-    - colors.each do |color|
-      \.color-#{color}  {color: #{color};}
+    %style 
+      - colors.each do |color|
+        \.color-#{color}  {color: #{color};}
 
   %body
     %h1 List Colors (ERB)

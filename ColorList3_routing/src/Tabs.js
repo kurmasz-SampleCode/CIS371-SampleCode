@@ -5,7 +5,9 @@ import { useLocation, Link } from 'react-router-dom'
 export function Home() {
   return (
     <div>
-      <h1>[Company Website]</h1>
+      <h1>Colors &#x42F; Us</h1>
+
+      Let us help you with all your color listing needs. 
     </div>
   )
 }
@@ -23,7 +25,12 @@ export function About() {
 export function Events() {
   return (
     <div>
-      <h1>[Events]</h1>
+      <h1>Events</h1>
+      <ul>
+        <li>Party</li>
+        <li>Book signing</li>
+        <li>Zoo opens</li>
+      </ul>
     </div>
   )
 }
@@ -39,7 +46,7 @@ export function Products() {
 export function Contact() {
   return (
     <div>
-      <h1>[Contact]</h1>
+      <h1>Colors &apos;&#x42F;&apos; Us</h1>
     </div>
   )
 }
@@ -57,6 +64,7 @@ export function NavBar() {
   return (
     <nav id='navBar'>
             Contents: 
+      <Link to="">Home</Link>
       <Link to="about">About</Link>
       <Link to="events">Events</Link>
       <Link to="products">Products</Link>

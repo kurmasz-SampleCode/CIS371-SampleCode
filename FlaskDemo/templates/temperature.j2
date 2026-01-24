@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title>Current Temperature</title>
+    </head>
+    <body>
+        <h1>Current Temperature</h1>
+
+        <p>Currently, it is {{temperature}}&deg;F in {{place_name}}, {{place_state}}.</p>
+
+        {% if temperature > 65 and temperature < 80 %}
+          That seems like a nice temperature.
+        {% endif %}
+        
+        {% if temperature < 40 %}
+          That's a bit cold for me.
+        {% endif %}
+
+    </body>
+</html>
