@@ -89,7 +89,7 @@ app.get('/sub1/sub2/listCookiesWithPath', (req, res) => {
 app.get('/cookieDemo', (req, res) => {
     
     if (req.cookies.name === undefined) {
-        const nameList = ['spots', 'lefty', 'mac', 'Neon', 'bub']
+        const nameList = ['Spots', 'Lefty', 'Mac', 'Neon', 'Nub']
         const randName = nameList[Math.floor(Math.random() * nameList.length)]
         const randInt = Math.floor(Math.random() * 100)
         const newName  = `${randName}${randInt}`
@@ -109,12 +109,7 @@ app.get('/cookieDemo', (req, res) => {
         res.cookie('visit', visitNum)
         res.render('repeatVisit', {name, visitNum})
     }
-
-
 })
-
-
-
 
 
 app.get('/', (req, res) => res.send('This is the express cookie demo.'))

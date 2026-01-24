@@ -9,7 +9,8 @@ console.log(all1)
 console.log('The only way to access the data is from a callback.')
 
 
-// Misspell "SELECT" to see an example of an error.
+console.log('******************************************************')
+
 db.all('SELECT * from Toys', (err, rows) => {
     console.log('-----------------------')
     console.log('Now, the rows are ready')
@@ -22,7 +23,7 @@ db.all('SELECT * from Toys', (err, rows) => {
 // Example error (SELECT misspelled).
 db.all('SELEKT * from Toys', (err, rows) => {
     console.log('--------------------------------------')
-    console.log('There should be an error and now rows:')
+    console.log('There should be an error and no rows:')
     console.log(rows)
     if (err) {
         console.log(`There was an error "${err}"`)
@@ -32,7 +33,7 @@ db.all('SELEKT * from Toys', (err, rows) => {
 // Example error (Toys misspelled).
 db.all('SELECT * from Toyz', (err, rows) => {
     console.log('--------------------------------------')
-    console.log('There should be an error and now rows:')
+    console.log('There should be an error and no rows:')
     console.log(rows)
     if (err) {
         console.log(`There was an error "${err}"`)

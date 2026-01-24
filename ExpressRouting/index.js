@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
 
 
 // Change this to the current day to get routes to work!
-const dayOpen = 'Monday'
+const dayOpen = 'Tuesday'
 const businessHours = require('./openForBusiness')
 
 app.use(businessHours(dayOpen, (req, res) => {
@@ -116,11 +116,14 @@ app.get('/authors/:id', (req, res) => {
 
 app.get('/cars/:id',
     (req, res, next) => {
+        console.log('------------')
+        console.log('Enter /cars/:id route')
         const id = parseInt(req.params.id)
         if (id < 100) {
             res.send(`Displaying the "cars/:id" route for ids < 100 (${req.params.id})`)
         } else {
             // Move to the handler below (the next parameter to this call to app.get)
+            console.log('Calling next from cars id < 100')
             next()
         }
     },
@@ -129,6 +132,7 @@ app.get('/cars/:id',
         if (id < 200) {
             res.send(`Displaying the _second_ "cars/:id" handler (the one for ids between 100 and 200). Id is ${req.params.id}`)
         } else {
+            console.log('Calling next from cars id < 200')
             next()
         }
     },
@@ -139,6 +143,7 @@ app.get('/cars/:id',
         } else {
             // since this is the last handler given to this call to app.get, jump down to the 
             // next *matching* route.
+            console.log('Calling next from cars id < 300')
             next()
         }
     })
