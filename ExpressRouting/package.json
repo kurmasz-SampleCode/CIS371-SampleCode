@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.22.1"
+    "express": "^4.22.2"
   },
   "devDependencies": {
     "eslint": "^8.28.0"
